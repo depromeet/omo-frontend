@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
-import Display from "src/components/Display";
-import Input from "src/components/Input";
 import styled from "styled-components";
+
+import Display from "@components/Display";
+import Input from "@components/Input";
 
 const Title = styled.h1`
   font-size: 50px;
