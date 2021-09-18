@@ -5,7 +5,8 @@ import { nameState } from "./states";
 const Input = () => {
   const [name, setName] = useRecoilState(nameState);
 
-  const onNameChange = (e) => setName(e.target.value);
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setName(e.target.value);
 
   return (
     <div>
