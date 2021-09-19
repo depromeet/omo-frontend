@@ -1,17 +1,9 @@
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+import { ThemeProvider } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
-  ${reset}
-`;
-
-const theme = {
-  colors: {
-    primary: '#0070f3',
-  },
-};
+import GlobalStyle from '@styles/globalStyles';
+import theme from '@styles/theme';
 
 function App({ Component, pageProps }: AppProps) {
   return (
