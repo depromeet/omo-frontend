@@ -1,7 +1,7 @@
-import type { AppProps } from "next/app";
-import { RecoilRoot } from "recoil";
-import { ThemeProvider, createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import type { AppProps } from 'next/app';
+import { RecoilRoot } from 'recoil';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
 const theme = {
   colors: {
-    primary: "#0070f3",
+    primary: '#0070f3',
   },
 };
 

@@ -1,6 +1,6 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState } from 'recoil';
 
-import { nameState } from "./states";
+import { nameState } from './states';
 
 const Input = () => {
   const [name, setName] = useRecoilState(nameState);
