@@ -1,6 +1,6 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { charState, nameState } from "./states";
+import { charState, nameState } from './states';
 
 const Display = () => {
   const charName = useRecoilValue(charState);
