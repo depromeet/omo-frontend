@@ -1,18 +1,34 @@
 // 기본 찾기 페이지
 
+import styled from 'styled-components';
+
 import Layout from '@components/Layout';
 import StoreDisplay from '@components/StoreDisplay';
 import { StoreDisplayProps } from '@components/StoreDisplay/StoreDisplay';
 
-import * as S from './styles';
+const SearchPage = styled.section``;
+
+const SearchBar = styled.div`
+  display: flex;
+  border-radius: 24px;
+  border: 1px solid #e5e5e5;
+  padding: 10px 24px;
+  margin-bottom: 1rem;
+
+  input {
+    ${({ theme }) => theme.fonts.regular}
+    border: none;
+    outline: none;
+  }
+`;
 
 const index = () => {
   return (
     <Layout title="오마카세 찾기">
-      <S.SearchPage className="container">
-        <S.SearchBar>
+      <SearchPage className="container">
+        <SearchBar>
           <input type="text" placeholder="위치 / 가게명을 검색해보세요." />
-        </S.SearchBar>
+        </SearchBar>
 
         {dummys.map((dummy) => (
           <StoreDisplay
@@ -24,7 +40,7 @@ const index = () => {
             desc={dummy.desc}
           />
         ))}
-      </S.SearchPage>
+      </SearchPage>
     </Layout>
   );
 };
