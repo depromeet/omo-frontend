@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 import Display from '@components/Display';
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
       <Title>OMO FRONT END</Title>
       <Input />
       <Display />
+      <Link href="/home">GO TO APP</Link>
     </div>
   );
 };
