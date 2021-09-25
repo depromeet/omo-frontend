@@ -1,4 +1,4 @@
-import React from 'react';
+// 메인 관련
 
 const home = () => {
   return <div></div>;

@@ -1,4 +1,4 @@
-import React from 'react';
+// 사진 수정 페이지
 
 const changePhoto = () => {
   return <div></div>;
