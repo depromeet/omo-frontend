@@ -19,6 +19,7 @@ const SearchBar = styled.div`
     ${({ theme }) => theme.fonts.regular}
     border: none;
     outline: none;
+    width: 100%;
   }
 `;
 
