@@ -2,7 +2,8 @@ import 'styled-components';
 import { css } from 'styled-components';
 
 declare module 'styled-components' {
-  export interface DefulatTheme {
+  export interface DefaultTheme {
+
     colors: {
       primary: string;
     };
