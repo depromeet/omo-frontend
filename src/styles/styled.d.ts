@@ -1,9 +1,15 @@
-import "styled-components";
+import 'styled-components';
+import { css } from 'styled-components';
 
-declare module "styled-components" {
-  export interface DefulatTheme {
+declare module 'styled-components' {
+  export interface DefaultTheme {
+
     colors: {
       primary: string;
+    };
+    fonts: {
+      regular: css;
+      bold: css;
     };
   }
 }
