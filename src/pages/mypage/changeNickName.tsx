@@ -12,6 +12,7 @@ const ChangeNickName = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     alert(`변경된 닉네임 : ${text}`);
+    setText('');
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
