@@ -4,6 +4,11 @@ export const StoreDisplay = styled.section`
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+
+  a {
+    text-decoration: none;
+    color: #444;
+  }
 `;
 
 export const StoreImageWrapper = styled.div`
@@ -22,6 +27,12 @@ export const SubTitles = styled.div`
   top: 1rem;
   right: 1rem;
   gap: 0.5rem;
+
+  span {
+    padding: 0.2rem 0.4rem;
+    border-radius: 1rem;
+    background-color: #ffffffb3;
+  }
 `;
 
 export const StoreDescriptionWrapper = styled.div`
