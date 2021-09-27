@@ -7,11 +7,11 @@ import Layout from '@components/Layout';
 const settings = () => {
   return (
     <Layout title="개인정보 설정">
-      <SettingSection>로그아웃</SettingSection>
-      <SettingSection>회원탈퇴</SettingSection>
+      <SettingSection onClick={() => alert('로그아웃이 완료되었습니다.')}>로그아웃</SettingSection>
+      <SettingSection onClick={() => alert('정말 탈퇴하시겠습니까?')}>회원탈퇴</SettingSection>
       <SettingSection>
         <Link href="/mypage/changeNickName" passHref>
-        <a className="setting-link">닉네임 변경</a>
+          <a className="setting-link">닉네임 변경</a>
         </Link>
       </SettingSection>
       <SettingSection>
