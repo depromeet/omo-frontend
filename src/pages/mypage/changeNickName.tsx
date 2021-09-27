@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ModalLayout from '@components/Layout/ModalLayout';
 
 const changeNickName = () => {
-  return <ModalLayout title="닉네임변경">닉네임변경</ModalLayout>;
+  return <ModalLayout title="닉네임변경" buttonContent="확인">닉네임변경</ModalLayout>;
 };
 
 export default changeNickName;
