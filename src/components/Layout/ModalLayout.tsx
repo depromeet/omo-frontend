@@ -6,6 +6,7 @@ interface Props {
   title: string;
   children: React.ReactNode;
   buttonContent: string;
+  clickHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ModalLayout = (props: Props) => {
@@ -13,7 +14,7 @@ const ModalLayout = (props: Props) => {
     <S.Layout>
       <Header title={props.title} />
       <S.Main>{props.children}</S.Main>
-      <S.Button>{props.buttonContent}</S.Button>
+      <S.Button onClick={props.clickHandler}>{props.buttonContent}</S.Button>
     </S.Layout>
   );
 };
