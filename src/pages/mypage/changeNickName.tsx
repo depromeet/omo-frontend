@@ -7,7 +7,10 @@ import ModalLayout from '@components/Layout/ModalLayout';
 const ChangeNickName = () => {
   const [text, setText] = useState('');
 
-  const onClick = () => alert(`변경된 닉네임 : ${text}`);
+  const onClick = () => {
+    alert(`변경된 닉네임 : ${text}`);
+    setText('');
+  };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
