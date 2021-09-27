@@ -1,5 +1,6 @@
 // 기본 찾기 페이지
 
+import Link from 'next/link';
 import styled from 'styled-components';
 
 import Layout from '@components/Layout';
@@ -10,9 +11,13 @@ const Search = () => {
   return (
     <Layout title="오마카세 찾기">
       <SearchPage className="container">
-        <SearchBar>
-          <input type="text" placeholder="위치 / 가게명을 검색해보세요." />
-        </SearchBar>
+        <Link href="/search/searching" passHref>
+          <a>
+            <SearchBar>
+              <span>위치 / 가게명을 검색해보세요.</span>
+            </SearchBar>
+          </a>
+        </Link>
 
         {dummys.map((dummy) => (
           <StoreDisplay
@@ -31,7 +36,11 @@ const Search = () => {
 
 export default Search;
 
-const SearchPage = styled.section``;
+const SearchPage = styled.section`
+  a {
+    text-decoration: none;
+  }
+`;
 
 const SearchBar = styled.div`
   display: flex;
@@ -40,10 +49,10 @@ const SearchBar = styled.div`
   padding: 10px 24px;
   margin-bottom: 1rem;
 
-  input {
+  span {
     ${({ theme }) => theme.fonts.regular}
-    border: none;
-    outline: none;
     width: 100%;
+    color: #989898;
+    padding: 5px 0;
   }
 `;
