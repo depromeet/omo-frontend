@@ -1,7 +1,7 @@
 // 프로필 등록 페이지
 
-const profile = () => {
-  return <div></div>;
+const Profile = () => {
+  return <div>prifileprofile</div>;
 };
 
-export default profile;
+export default Profile;

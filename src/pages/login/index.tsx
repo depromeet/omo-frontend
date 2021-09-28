@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -19,7 +20,13 @@ const errorStatusColor = {
 };
 
 const Index = () => {
+  const router = useRouter();
   const [errorStatus] = useState<ErrorType>('usable');
+
+  const onClickNextButton = () => {
+    if (errorStatus !== 'usable') return;
+    router.push('/login/profile');
+  };
 
   return (
     <LoginLayout>
@@ -32,7 +39,9 @@ const Index = () => {
           <ErrorNotifySpan errorStatus={errorStatus}>{errorStatusMsg[errorStatus]}</ErrorNotifySpan>
         </div>
       </Content>
-      <NextPageButton errorStatus={errorStatus}>다음</NextPageButton>
+      <NextPageButton errorStatus={errorStatus} onClick={onClickNextButton}>
+        다음
+      </NextPageButton>
     </LoginLayout>
   );
 };
@@ -106,6 +115,8 @@ const NextPageButton = styled.button<{ errorStatus: ErrorType }>`
 
   background-color: ${({ errorStatus }) => (errorStatus === 'usable' ? '#2334CF' : '#d7d8dd')};
   color: #fff;
+
   font-size: 18px;
   font-weight: 700;
+  cursor: ${({ errorStatus }) => (errorStatus === 'usable' ? 'pointer' : 'default')};
 `;
