@@ -1,7 +1,11 @@
-// 소셜 로그인 기본 페이지
+import LoginLayout from '@components/Layout/LoginLayout';
 
 const index = () => {
-  return <div>hihi</div>;
+  return (
+    <LoginLayout>
+      <div>hihi</div>
+    </LoginLayout>
+  );
 };
 
 export default index;
