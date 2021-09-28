@@ -30,14 +30,14 @@ const HomePage = styled.main`
   .button-wrapper {
     position: absolute;
     width: calc(100% - 40px);
-    bottom: 5rem;
+    bottom: 15rem;
 
-    button:not(:last-child) {
+    div:not(:last-child) {
       margin-bottom: 1rem;
     }
   }
 `;
 
 const Logo = styled(PlainLogo)`
-  margin-top: 10rem;
+  margin-top: 12rem;
 `;

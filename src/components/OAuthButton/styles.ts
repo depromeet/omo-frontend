@@ -25,6 +25,7 @@ export const ButtonWrapper = styled.button<{ buttonType: string }>`
   font-weight: bold;
   line-height: 19px;
   color: ${({ buttonType }) => fontColor[buttonType]};
+  cursor: pointer;
 
   div {
     position: absolute;

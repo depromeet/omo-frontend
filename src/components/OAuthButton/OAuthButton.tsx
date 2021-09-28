@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import AppleIcon from '@assets/icon/apple.svg';
 import KakaoIcon from '@assets/icon/kakao.svg';
 import NaverIcon from '@assets/icon/naver.svg';
@@ -23,11 +25,16 @@ const name: { [key: string]: string } = {
 
 const OAuthButton = ({ type }: OAuthButtonProps) => {
   return (
-    <S.ButtonWrapper buttonType={type}>
-      <div>{icon[type]()}</div>
-
-      <span>{`${name[type]}로 계속하기`}</span>
-    </S.ButtonWrapper>
+    <div>
+      <Link href="/login" passHref>
+        <a>
+          <S.ButtonWrapper buttonType={type}>
+            <div>{icon[type]()}</div>
+            <span>{`${name[type]}로 계속하기`}</span>
+          </S.ButtonWrapper>
+        </a>
+      </Link>
+    </div>
   );
 };
 
