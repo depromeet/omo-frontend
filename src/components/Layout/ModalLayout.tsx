@@ -6,7 +6,7 @@ interface Props {
   title: string;
   children: React.ReactNode;
   buttonContent: string;
-  clickHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  clickHandler: () => void;
 }
 
 const ModalLayout = (props: Props) => {
