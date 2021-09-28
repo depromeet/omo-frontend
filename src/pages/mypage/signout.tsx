@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import ModalLayout from '@components/Layout/ModalLayout';
 
-const signout = () => {
+const Signout = () => {
   const onClick = () => alert('탈퇴가 완료되었습니다.');
 
   return (
@@ -16,7 +16,7 @@ const signout = () => {
   );
 };
 
-export default signout;
+export default Signout;
 
 const SignOutPage = styled.section`
   display: flex;

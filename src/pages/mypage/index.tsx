@@ -6,7 +6,7 @@ import MyPageLayout from '@components/Layout/MyPageLayout';
 import VisitedStore from '@components/VisitedStore';
 import { dummys } from '@temp/VisitedStoreDummy';
 
-const index = () => {
+const MyPage = () => {
   return (
     <MyPageLayout title="마이페이지">
       <Header>
@@ -23,7 +23,7 @@ const index = () => {
           </Link>
         </div>
       </Header>
-      <MyPage>
+      <MyPagePage>
         <div className="store-list">내 이름님이 다녀간 오마카세 리스트</div>
         {dummys.map((dummy) => (
           <VisitedStore
@@ -34,12 +34,12 @@ const index = () => {
             date={dummy.date}
           />
         ))}
-      </MyPage>
+      </MyPagePage>
     </MyPageLayout>
   );
 };
 
-export default index;
+export default MyPage;
 
 const Header = styled.section`
   display: flex;
@@ -82,7 +82,7 @@ const Setting = styled.button`
   padding: 5px 13px; ;
 `;
 
-const MyPage = styled.div`
+const MyPagePage = styled.div`
   padding: 1rem;
 
   .store-list {

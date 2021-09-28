@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // 개인정보 설정 페이지
 import Layout from '@components/Layout';
 
-const settings = () => {
+const Settings = () => {
   return (
     <Layout title="개인정보 설정">
       <SettingSection onClick={() => alert('로그아웃이 완료되었습니다.')}>로그아웃</SettingSection>
@@ -27,7 +27,7 @@ const settings = () => {
   );
 };
 
-export default settings;
+export default Settings;
 
 const SettingSection = styled.div`
   display: flex;

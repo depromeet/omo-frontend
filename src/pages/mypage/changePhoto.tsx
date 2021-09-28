@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import ModalLayout from '@components/Layout/ModalLayout';
 
-const changePhoto = () => {
+const ChangePhoto = () => {
   const onClick = () => alert('프로필사진 변경이 완료되었습니다.');
 
   return (
@@ -25,7 +25,7 @@ const changePhoto = () => {
   );
 };
 
-export default changePhoto;
+export default ChangePhoto;
 
 const ChangePhotoPage = styled.section`
   padding: 1rem;
