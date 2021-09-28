@@ -48,7 +48,7 @@ const Index = () => {
 
 export default Index;
 
-const Content = styled.section`
+const Content = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 310px;
