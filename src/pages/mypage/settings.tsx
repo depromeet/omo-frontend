@@ -9,7 +9,7 @@ const settings = () => {
     <Layout title="개인정보 설정">
       <SettingSection onClick={() => alert('로그아웃이 완료되었습니다.')}>로그아웃</SettingSection>
       <SettingSection>
-        <Link href="/mypage/leave" passHref>
+        <Link href="/mypage/signout" passHref>
           <a className="setting-link">회원 탈퇴</a>
         </Link>
       </SettingSection>
