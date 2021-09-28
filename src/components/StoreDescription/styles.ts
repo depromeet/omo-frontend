@@ -50,6 +50,7 @@ export const StoreDescription = styled.div`
 
   .hashtag-wrapper {
     display: flex;
+    flex-wrap: wrap;
   }
 
   .button-wrapper {
@@ -60,10 +61,13 @@ export const HashTag = styled.span`
   border-radius: 20px;
   padding: 6px 15px;
   background-color: #f0f0f0;
-
-  & + & {
-    margin-left: 10px;
-  }
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #444;
+  margin-right: 10px;
+  margin-bottom: 10px;
 `;
 
 export const Button = styled.button<ButtonProps>`

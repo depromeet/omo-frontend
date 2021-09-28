@@ -10,6 +10,12 @@ export const Header = styled.header`
   margin-bottom: 1rem;
 `;
 
+export const MyPageHeader = styled(Header)`
+  background-color: #f1f1f1;
+  border: none;
+  margin-bottom: 0;
+`;
+
 export const PrevButton = styled.button`
   border: none;
   outline: none;
@@ -24,4 +30,24 @@ export const Title = styled.h1`
   color: #343434;
   font-weight: bold;
   font-family: 'Noto Sans KR', sans-serif;
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Noto Sans KR', sans-serif;
+  border: none;
+  outline: none;
+  padding: 0 40px;
+`;
+
+export const SearchButton = styled(PrevButton)`
+  left: unset;
+  right: 21px;
+  margin: 0;
+  font-weight: bold;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  line-height: 140%;
 `;
