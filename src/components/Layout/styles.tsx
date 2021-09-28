@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import PlainPrevIcon from '@assets/prev.svg';
+
 export const Layout = styled.div`
   position: relative;
   display: flex;
@@ -25,4 +27,10 @@ export const Button = styled.button`
   font-size: 16px;
   font-weight: bold;
   font-family: 'Noto Sans KR', sans-serif;
+`;
+
+export const PrevIcon = styled(PlainPrevIcon)`
+  position: absolute;
+  top: 2rem;
+  left: 1rem;
 `;
