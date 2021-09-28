@@ -10,6 +10,12 @@ export const Header = styled.header`
   margin-bottom: 1rem;
 `;
 
+export const MyPageHeader = styled(Header)`
+  background-color: #f1f1f1;
+  border: none;
+  margin-bottom: 0;
+`;
+
 export const PrevButton = styled.button`
   border: none;
   outline: none;
