@@ -25,3 +25,23 @@ export const Title = styled.h1`
   font-weight: bold;
   font-family: 'Noto Sans KR', sans-serif;
 `;
+
+export const Input = styled.input`
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Noto Sans KR', sans-serif;
+  border: none;
+  outline: none;
+  padding: 0 40px;
+`;
+
+export const SearchButton = styled(PrevButton)`
+  left: unset;
+  right: 21px;
+  margin: 0;
+  font-weight: bold;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  line-height: 140%;
+`;
