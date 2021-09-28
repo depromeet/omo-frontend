@@ -64,7 +64,7 @@ const SNSSection = styled.section`
 
   width: 100%;
   height: 123px;
-  ${({ theme }) => theme.fonts.regular};
+  font-size: 12px;
   color: #fff;
 
   .oauth-button-wrapper {
