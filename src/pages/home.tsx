@@ -67,6 +67,10 @@ const LogoSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  svg:first-child {
+    transform: scale(0.8);
+  }
 `;
 
 const SNSSection = styled.section`

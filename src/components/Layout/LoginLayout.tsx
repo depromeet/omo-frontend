@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import PlainPrevIcon from '@assets/prev.svg';
+
 import * as S from './styles';
 
 interface Props {
@@ -9,22 +11,16 @@ interface Props {
 const LoginLayout = (props: Props) => {
   return (
     <S.Layout>
+      <PrevIcon />
       <S.Main>{props.children}</S.Main>
-      <NextPageButton>다음</NextPageButton>
     </S.Layout>
   );
 };
 
 export default LoginLayout;
 
-const NextPageButton = styled.button`
-  border: none;
+const PrevIcon = styled(PlainPrevIcon)`
   position: absolute;
-  left: 20px;
-  bottom: 3rem;
-  width: calc(100% - 40px);
-  height: 48px;
-  margin: 0 auto;
-  background-color: #d7d8dd;
-  border-radius: 8px;
+  top: 2rem;
+  left: 1rem;
 `;
