@@ -1,4 +1,6 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import React from 'react';
 import styled from 'styled-components';
 
 import AppleIcon from '@assets/apple.svg';
@@ -8,6 +10,17 @@ import NaverIcon from '@assets/naver.svg';
 import PlainOMOLetter from '@assets/omo-letter.svg';
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
+  const onClickOAuthButton = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!(e.target instanceof Element)) return;
+
+    if (e.target.closest('.oauth-button')) {
+      // TODO: 추후에 플랫폼에 맞게 처리
+      router.push('/login');
+    }
+  };
+
   return (
     <HomePage>
       <Content>
@@ -19,16 +32,16 @@ const Home: NextPage = () => {
         </LogoSection>
         <SNSSection>
           <span>SNS 간편로그인</span>
-          <div className="oauth-button-wrapper">
-            <div className="oauth-button">
+          <div className="oauth-button-wrapper" onClick={onClickOAuthButton}>
+            <div className="oauth-button naver">
               <NaverIcon />
               <div>Naver</div>
             </div>
-            <div className="oauth-button">
+            <div className="oauth-button kakao">
               <KakaoIcon />
               <div>Kakao</div>
             </div>
-            <div className="oauth-button">
+            <div className="oauth-button apple">
               <AppleIcon />
               <div>Apple</div>
             </div>
@@ -76,6 +89,8 @@ const SNSSection = styled.section`
   .oauth-button {
     width: 60px;
     display: inline;
+    cursor: pointer;
+
     div {
       width: fit-content;
       margin: 7px auto 0;
