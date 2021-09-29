@@ -1,3 +1,4 @@
+import Button from '@components/Shared/Button';
 import { DetailPageProps } from '@pages/search/[id]';
 
 import * as S from './styles';
@@ -32,10 +33,8 @@ const StoreDescription = ({ store }: StoreDescriptionProps) => {
       </div>
 
       <div className="button-wrapper">
-        <S.Button onClick={() => alert('문의중...')}>예약 문의 하기</S.Button>
-        <S.Button onClick={() => alert('깨는중...')} bgColor="#c9c9c9">
-          이 가게 도장깨기
-        </S.Button>
+        <Button clickListener={() => alert('문의중')} text="예약 문의 하기" />
+        <Button clickListener={() => alert('문의중')} bgColor="#c9c9c9" text="이 가게 도장깨기" />
       </div>
     </S.StoreDescription>
   );
