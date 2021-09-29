@@ -19,6 +19,10 @@ const InputHeader = ({ placeholder, serachHandler }: HeaderInputProps) => {
     setText(value);
   };
 
+  const clearText = () => {
+    setText('');
+  };
+
   const handleOnSubmit = () => {
     serachHandler(text);
   };
@@ -34,7 +38,11 @@ const InputHeader = ({ placeholder, serachHandler }: HeaderInputProps) => {
         onChange={(e) => handleOnChange(e)}
         placeholder={placeholder}
       />
-      <S.SearchButton onClick={handleOnSubmit}>검색</S.SearchButton>
+      {text ? (
+        <S.SearchButton onClick={handleOnSubmit}>검색</S.SearchButton>
+      ) : (
+        <S.SearchButton onClick={clearText}>검색어 초기화</S.SearchButton>
+      )}
     </S.Header>
   );
 };
