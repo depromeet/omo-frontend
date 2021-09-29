@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import { HeaderInput } from '@components/Header';
+import SearchNoData from '@components/SearchNoData';
 import { HashTag } from '@components/StoreDescription/styles';
 import StoreDisplay from '@components/StoreDisplay';
 import { dummys } from '@temp/SearchListDummy';
@@ -9,10 +10,12 @@ import { dummys } from '@temp/SearchListDummy';
 import { DetailPageProps } from './[id]';
 
 const Searching = () => {
+  const [isSearched, setIsSearched] = useState<boolean>(false);
   const [stores, setStores] = useState<DetailPageProps[]>([]);
 
   const tempGetStoresByText = (text: string) => {
     const stores = dummys.filter((dummy) => dummy.name.includes(text));
+    setIsSearched(true);
     setStores(stores);
   };
 
@@ -31,6 +34,8 @@ const Searching = () => {
               desc={store.desc}
             />
           ))
+        ) : isSearched ? (
+          <SearchNoData />
         ) : (
           <RecentSeachedTexts>
             <HashTag>#은평구</HashTag>
@@ -52,6 +57,7 @@ export default Searching;
 const SearchingPage = styled.section`
   display: flex;
   flex-direction: column;
+  height: 100vh;
 `;
 
 const SearchingData = styled.div`
