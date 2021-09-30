@@ -16,6 +16,8 @@ export const NoData = styled.div`
   }
 
   .hashtag-wrapper {
+    display: flex;
+    flex-wrap: wrap;
     margin: auto;
     margin-top: 1rem;
     margin-bottom: 4rem;
