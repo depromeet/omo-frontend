@@ -8,8 +8,8 @@ export interface StampListProps {
   count: number;
 }
 
-const index = () => {
+const Ranking = () => {
   return <Layout title="랭킹">랭킹 영역</Layout>;
 };
 
-export default index;
+export default Ranking;
