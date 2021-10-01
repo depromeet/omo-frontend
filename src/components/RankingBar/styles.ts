@@ -22,7 +22,6 @@ export const RankingBarWrapper = styled.div`
 
   .nickname {
     width: 60%;
-    line-height: 2;
     margin-top: 4px;
   }
 
