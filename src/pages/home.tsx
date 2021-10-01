@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import Layout from '@components/Layout';
 import RankingProfile from '@components/RankerProfile/RankingProfile';
 import RankingBar from '@components/RankingBar';
 import Button from '@components/Shared/Button';
+import { userState } from '@recoil/userState';
 
 interface ILoginSection {
   moveOnLoginPage: () => void;
@@ -17,9 +19,11 @@ interface IRealtimeRankingSection {
 
 interface IStampSection {
   moveOnSearchPage: () => void;
+  nickname?: string;
 }
 
 interface IDistrictRankingSection extends IRealtimeRankingSection {
+  nickname?: string;
   top3RankerList: {
     rank: number;
     name: string;
@@ -50,9 +54,9 @@ const RealtimeRankingSection = ({ moveOnRankingPage, rankingList }: IRealtimeRan
   </RealtimeRankingSectionWrapper>
 );
 
-const StampSection = ({ moveOnSearchPage }: IStampSection) => (
+const StampSection = ({ moveOnSearchPage, nickname }: IStampSection) => (
   <StampSectionWrapper>
-    <div className="notify">지니님!</div>
+    <div className="notify">{nickname}님!</div>
     <div className="notify">17번 더 도장깨면</div>
     <div className="notify">초밥력이 &apos;중급&apos;으로 상승해요</div>
 
@@ -62,9 +66,13 @@ const StampSection = ({ moveOnSearchPage }: IStampSection) => (
   </StampSectionWrapper>
 );
 
-const DistrictRankingSection = ({ moveOnRankingPage, top3RankerList }: IDistrictRankingSection) => (
+const DistrictRankingSection = ({
+  moveOnRankingPage,
+  nickname,
+  top3RankerList,
+}: IDistrictRankingSection) => (
   <DistrictRankingSectionWrapper>
-    <div className="notify">지니님은 영등포구에서</div>
+    <div className="notify">{nickname}님은 영등포구에서</div>
     <div className="notify">13번째 초밥 고수에요!</div>
     <div className="rankers">
       {top3RankerList.map(({ rank, name, amount }) => (
@@ -76,6 +84,8 @@ const DistrictRankingSection = ({ moveOnRankingPage, top3RankerList }: IDistrict
 );
 
 const Home = () => {
+  const [user] = useRecoilState(userState);
+
   const router = useRouter();
   const moveOnLoginPage = () => router.push('/login');
   const moveOnRankingPage = () => router.push('/ranking');
@@ -94,13 +104,22 @@ const Home = () => {
       <LogoSection>
         <span className="logo">OMO</span>
       </LogoSection>
-      {/* <LoginSection moveOnLoginPage={moveOnLoginPage} />
-      <RealtimeRankingSection moveOnRankingPage={moveOnRankingPage} rankingList={rankingList} /> */}
-      <StampSection moveOnSearchPage={moveOnSearchPage} />
-      <DistrictRankingSection
-        moveOnRankingPage={moveOnRankingPage}
-        top3RankerList={top3RankerList}
-      />
+      {!user.isLoggedIn && (
+        <>
+          <LoginSection moveOnLoginPage={moveOnLoginPage} />
+          <RealtimeRankingSection moveOnRankingPage={moveOnRankingPage} rankingList={rankingList} />
+        </>
+      )}
+      {user.isLoggedIn && (
+        <>
+          <StampSection moveOnSearchPage={moveOnSearchPage} nickname={user.info?.nickname} />
+          <DistrictRankingSection
+            moveOnRankingPage={moveOnRankingPage}
+            top3RankerList={top3RankerList}
+            nickname={user.info?.nickname}
+          />
+        </>
+      )}
     </Layout>
   );
 };
