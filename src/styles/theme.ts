@@ -4,11 +4,13 @@ const fonts = {
   regular: css`
     font-size: 14px;
     font-weight: 400;
+    /* font-family: 'Pretendard-Regular', sans-serif; */
     font-family: 'Noto Sans KR', sans-serif;
   `,
   bold: css`
     font-size: 14px;
     font-weight: bold;
+    /* font-family: 'Pretendard-Regular', sans-serif; */
     font-family: 'Noto Sans KR', sans-serif;
   `,
 };
