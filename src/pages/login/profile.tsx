@@ -26,7 +26,7 @@ const Profile = () => {
         <button>+ 내 사진으로 할래요</button>
       </Content>
 
-      <ConfirmButton onClick={() => router.push('/search')}>확인</ConfirmButton>
+      <ConfirmButton onClick={() => router.push('/')}>확인</ConfirmButton>
     </LoginLayout>
   );
 };
