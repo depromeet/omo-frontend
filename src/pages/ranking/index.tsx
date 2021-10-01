@@ -2,6 +2,12 @@
 
 import Layout from '@components/Layout';
 
+export interface StampListProps {
+  id: number;
+  name: string;
+  count: number;
+}
+
 const index = () => {
   return <Layout title="랭킹">랭킹 영역</Layout>;
 };
