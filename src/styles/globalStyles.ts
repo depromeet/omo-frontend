@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    font-family: 'Pretendard-Regular';
+    font-family: 'Pretendard-Regular', sans-serif !important;
     font-style: normal;
     letter-spacing: -0.02em;
   }
