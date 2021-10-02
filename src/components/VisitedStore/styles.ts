@@ -22,7 +22,7 @@ export const StoreImageWrapper = styled.div`
 export const SubTitles = styled.div`
   position: absolute;
   display: flex;
-  ${({ theme }) => theme.fonts.regular};
+  ${({ theme }) => theme.fonts.contents3};
   z-index: 10;
   top: 1rem;
   right: 1rem;
@@ -40,13 +40,13 @@ export const StoreDescriptionWrapper = styled.div`
   flex-direction: column;
 
   .store-title {
-    ${({ theme }) => theme.fonts.bold};
+    ${({ theme }) => theme.fonts.header3_5};
     line-height: 140%;
     margin-top: 10px;
     margin-bottom: 2px;
   }
   .store-desc {
-    ${({ theme }) => theme.fonts.regular};
+    ${({ theme }) => theme.fonts.contents3};
     line-height: 140%;
   }
 `;
