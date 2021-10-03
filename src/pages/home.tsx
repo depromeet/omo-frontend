@@ -117,7 +117,7 @@ const LogoLetter = styled(PlainOMOLetter)`
 `;
 
 const SubLetter = styled.div`
-  ${({ theme }) => theme.fonts.bold};
+  ${({ theme }) => theme.fonts.contents2};
   letter-spacing: -0.02em;
   line-height: 18px;
   color: #fff;

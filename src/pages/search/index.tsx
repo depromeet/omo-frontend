@@ -50,9 +50,9 @@ const SearchBar = styled.div`
   margin-bottom: 1rem;
 
   span {
-    ${({ theme }) => theme.fonts.regular}
+    ${({ theme }) => theme.fonts.contents2};
+    ${({ theme }) => theme.colors.black400};
     width: 100%;
-    color: #989898;
     padding: 5px 0;
   }
 `;
