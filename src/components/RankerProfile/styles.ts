@@ -7,7 +7,7 @@ export const RankerProfileWrapper = styled.div`
   align-items: center;
 
   .text {
-    ${({ theme }) => theme.fonts.bold};
+    ${({ theme }) => theme.fonts.contentsBold};
   }
 
   div:not(:last-child) {
