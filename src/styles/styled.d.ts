@@ -4,19 +4,19 @@ import { css } from 'styled-components';
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
-      mainBlue: css;
-      pointYellow: css;
-      pointRed: css;
-      black900: css;
-      black800: css;
-      black700: css;
-      black600: css;
-      black500: css;
-      black400: css;
-      black300: css;
-      black200: css;
-      black100: css;
-      white: css;
+      mainBlue: string;
+      pointYellow: string;
+      pointRed: string;
+      black900: string;
+      black800: string;
+      black700: string;
+      black600: string;
+      black500: string;
+      black400: string;
+      black300: string;
+      black200: string;
+      black100: string;
+      white: string;
     };
     fonts: {
       header1: css;
