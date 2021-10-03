@@ -8,7 +8,7 @@ export interface StampListProps {
   count: number;
 }
 
-const Ranking = () => {
+const Ranking = ({ id, name, count }: StampListProps) => {
   return <Layout title="랭킹">랭킹 영역</Layout>;
 };
 
