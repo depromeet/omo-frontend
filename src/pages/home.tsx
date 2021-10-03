@@ -6,7 +6,7 @@ import Layout from '@components/Layout';
 import RankingProfile from '@components/RankerProfile/RankingProfile';
 import RankingBar from '@components/RankingBar';
 import Button from '@components/Shared/Button';
-import { maximumUserAmount } from '@constants/home';
+import { MAXIMUM_USER_AMOUNT } from '@constants/home';
 import { userState } from '@recoil/userState';
 
 interface ILoginSection {
@@ -92,7 +92,7 @@ const Home = () => {
   const moveOnRankingPage = () => router.push('/ranking');
   const moveOnSearchPage = () => router.push('/search');
 
-  const rankingList = Array.from({ length: maximumUserAmount }, (_, i) => i + 1);
+  const rankingList = Array.from({ length: MAXIMUM_USER_AMOUNT }, (_, i) => i + 1);
   const top3RankerList = [
     { rank: 12, name: '박일등', amount: 34 },
     { rank: 13, name: '지니', amount: 13 },
