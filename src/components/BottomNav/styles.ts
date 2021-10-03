@@ -1,22 +1,12 @@
 import styled from 'styled-components';
 
-export const NavButton = styled.button`
-  width: 25px;
-  height: 25px;
-  border-radius: 8px;
-  background-color: #c6c6c6;
-  border: none;
-  outline: none;
-  margin-bottom: 6px;
-`;
-
 export const BottomNav = styled.nav`
-  height: 60px;
-  background-color: #eee;
+  height: 56px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin-top: 1rem;
+  border-top: 1px solid #ebebeb;
 
   .nav-link {
     font-size: 12px;
@@ -29,9 +19,22 @@ export const BottomNav = styled.nav`
     text-decoration: none;
     color: #000;
 
+    svg {
+      opacity: 0.5;
+    }
+
+    span {
+      color: ${({ theme }) => theme.colors.black500};
+      ${({ theme }) => theme.fonts.contents3};
+      margin-top: 3px;
+    }
+
     &.active {
-      ${NavButton} {
-        background-color: #999;
+      svg {
+        opacity: 1;
+      }
+      span {
+        color: #000;
       }
     }
   }
