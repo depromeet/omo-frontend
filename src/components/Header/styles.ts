@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
-export const Header = styled.header`
+interface HeaderProps {
+  align?: string;
+}
+
+export const Header = styled.header<HeaderProps>`
   position: relative;
   height: 67px;
   display: flex;
-  justify-content: center;
+  justify-content: ${({ align }) => align ?? 'center'};
   align-items: center;
-  border-bottom: 1px solid rgba(196, 196, 196, 0.2);
-  margin-bottom: 1rem;
 `;
 
 export const MyPageHeader = styled(Header)`
@@ -26,10 +28,8 @@ export const PrevButton = styled.button`
 `;
 
 export const Title = styled.h1`
-  font-size: 18px;
-  color: #343434;
-  font-weight: bold;
-  font-family: 'Noto Sans KR', sans-serif;
+  color: ${({ theme }) => theme.colors.black800};
+  ${({ theme }) => theme.fonts.subTitle1};
 `;
 
 export const Input = styled.input`
