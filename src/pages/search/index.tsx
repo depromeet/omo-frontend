@@ -27,27 +27,29 @@ const Search = () => {
   return (
     <Layout title="오마카세 찾기">
       <SearchPage className="container">
-        <div className="tabs" onClick={(e) => handleClickOnTabs(e)}>
-          <span className={`tab ${tab === '미들' ? 'active' : ''}`}>미들</span>
-          <span className={`tab ${tab === '하이엔드' ? 'active' : ''}`}>하이엔드</span>
-          <span className={`tab ${tab === '캐쥬얼' ? 'active' : ''}`}>캐쥬얼</span>
-        </div>
+        <FixedArea>
+          <div className="tabs" onClick={(e) => handleClickOnTabs(e)}>
+            <span className={`tab ${tab === '미들' ? 'active' : ''}`}>미들</span>
+            <span className={`tab ${tab === '하이엔드' ? 'active' : ''}`}>하이엔드</span>
+            <span className={`tab ${tab === '캐쥬얼' ? 'active' : ''}`}>캐쥬얼</span>
+          </div>
 
-        <Link href="/search/searching" passHref>
-          <a>
-            <SearchBar>
-              <span>이름/지역구를 검색해주세요</span>
-              <SearchIcon />
-            </SearchBar>
-          </a>
-        </Link>
+          <Link href="/search/searching" passHref>
+            <a>
+              <SearchBar>
+                <span>이름/지역구를 검색해주세요</span>
+                <SearchIcon />
+              </SearchBar>
+            </a>
+          </Link>
 
-        <SearchResults>
           <div className="header-wrapper">
             <h1 className="sub-title">오모의 추천 오마카세</h1>
             <MenuIcon />
           </div>
+        </FixedArea>
 
+        <SearchResults>
           {tempStores.map((dummy) => (
             <StoreDisplay
               key={dummy.id}
@@ -67,6 +69,7 @@ const Search = () => {
 export default Search;
 
 const SearchPage = styled.section`
+  position: relative;
   a {
     text-decoration: none;
   }
@@ -108,14 +111,22 @@ const SearchBar = styled.article`
   }
 `;
 
-const SearchResults = styled.article`
-  display: flex;
-  flex-direction: column;
+const FixedArea = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  padding-bottom: 17.46px;
 
   .header-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 17.46px 0;
+    margin-top: 17.46px;
   }
+`;
+
+const SearchResults = styled.article`
+  display: flex;
+  flex-direction: column;
 `;
