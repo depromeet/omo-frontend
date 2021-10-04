@@ -14,28 +14,28 @@ const BottomNav = () => {
     <S.BottomNav className="container">
       <Link href="/home" passHref>
         <a className={`nav-link ${router.asPath === '/home' ? 'active' : ''}`}>
-          <HomeIcon />
+          <HomeIcon className="svg-path" />
           <span>홈</span>
         </a>
       </Link>
 
       <Link href="/search" passHref>
         <a className={`nav-link ${router.asPath === '/search' ? 'active' : ''}`}>
-          <SearchIcon />
+          <SearchIcon className="svg-complicated" />
           <span>오마카세 찾기</span>
         </a>
       </Link>
 
       <Link href="/ranking" passHref>
         <a className={`nav-link ${router.asPath === '/ranking' ? 'active' : ''}`}>
-          <RankingIcon />
+          <RankingIcon className="svg-paths" />
           <span>랭킹</span>
         </a>
       </Link>
 
       <Link href="/mypage" passHref>
         <a className={`nav-link ${router.asPath === '/mypage' ? 'active' : ''}`}>
-          <MyPageIcon />
+          <MyPageIcon className="svg-paths" />
           <span>마이페이지</span>
         </a>
       </Link>

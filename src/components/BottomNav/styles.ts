@@ -32,6 +32,21 @@ export const BottomNav = styled.nav`
     &.active {
       svg {
         opacity: 1;
+        &.svg-path path {
+          stroke: ${({ theme }) => theme.colors.mainBlue};
+        }
+        &.svg-paths path {
+          fill: ${({ theme }) => theme.colors.mainBlue};
+        }
+        &.svg-complicated {
+          path,
+          rect {
+            fill: ${({ theme }) => theme.colors.mainBlue};
+          }
+          circle {
+            stroke: ${({ theme }) => theme.colors.mainBlue};
+          }
+        }
       }
       span {
         color: #000;
