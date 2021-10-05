@@ -180,13 +180,6 @@ const StampSectionWrapper = styled(LogoSection)`
   }
 `;
 
-const SubLetter = styled.div`
-  ${({ theme }) => theme.fonts.contents2};
-  letter-spacing: -0.02em;
-  line-height: 18px;
-  color: #fff;
-`;
-
 const DistrictRankingSectionWrapper = styled(LogoSection)`
   .rankers {
     display: flex;
