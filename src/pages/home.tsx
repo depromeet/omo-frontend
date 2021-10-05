@@ -133,12 +133,12 @@ const LogoSection = styled.section`
   padding: 17px 24px;
 
   .logo {
-    ${({ theme }) => theme.fonts.bold};
+    ${({ theme }) => theme.fonts.contentsBold};
     font-size: 24px;
   }
 
   .notify {
-    ${({ theme }) => theme.fonts.bold};
+    ${({ theme }) => theme.fonts.contentsBold};
     line-height: 26px;
     font-size: 18px;
   }
@@ -158,7 +158,7 @@ const RealtimeRankingSectionWrapper = styled(LogoSection)`
   width: 100%;
 
   h2 {
-    ${({ theme }) => theme.fonts.bold};
+    ${({ theme }) => theme.fonts.contentsBold};
     font-size: 18px;
     line-height: 26px;
     margin-bottom: 14px;
@@ -185,7 +185,7 @@ const SubLetter = styled.div`
   letter-spacing: -0.02em;
   line-height: 18px;
   color: #fff;
-`  
+`;
 
 const DistrictRankingSectionWrapper = styled(LogoSection)`
   .rankers {
