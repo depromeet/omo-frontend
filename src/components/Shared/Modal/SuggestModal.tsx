@@ -1,3 +1,4 @@
+import CloseIcon from '@assets/close.svg';
 import Button from '@components/Shared/Button';
 import { HashTag } from '@components/StoreDescription/styles';
 
@@ -12,33 +13,45 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
     <S.ModalWrapper>
       <S.ModalBox>
         <S.SuggestModal>
-          <div className="guide-message-wrapper">
+          <S.ModalTitle>
+            <span className="sub-title">제보하기</span>
+            <CloseIcon className="close-btn" onClick={toggleModal} />
+          </S.ModalTitle>
+
+          <div className="guide-message-wrapper small-text">
             <p className="guide-message">원하는 오마카세를 찾지 못하셨나요?</p>
-            <p className="guide-message">직접 제보해주시면 확인 후 오모에 추가해둘게요!</p>
+            <p className="guide-message">제보해주시면 오모에 추가해둘게요!</p>
           </div>
 
-          <S.LocationWrapper>
-            <div className="sub-title">지역</div>
+          <S.InputWrapper>
+            <label className="sub-title">지역</label>
+            <input type="text" placeholder="예시) 강서" />
+          </S.InputWrapper>
+
+          <S.GradeWrapper>
+            <div className="sub-title">등급</div>
             <div className="hashtag-wrapper">
-              <HashTag>#강남구</HashTag>
-              <HashTag>#강동구</HashTag>
-              <HashTag>#어쩌구</HashTag>
-              <HashTag>#모르겠어요</HashTag>
+              <HashTag>#캐쥬얼</HashTag>
+              <HashTag>#하이엔드</HashTag>
+              <HashTag>#미들급</HashTag>
             </div>
-          </S.LocationWrapper>
+          </S.GradeWrapper>
 
           <S.InputWrapper>
-            <label className="sub-title">오마카세이름</label>
-            <input type="text" />
+            <label className="sub-title">이름</label>
+            <input type="text" placeholder="예시) 나오키" />
           </S.InputWrapper>
+
+          <div className="warning-message">유효하지 않은 가게는 반려될 수 있어요!</div>
 
           <Button
             clickListener={() => {
               alert('제보완료');
               toggleModal(false);
             }}
-            text="제보완료"
-            bgColor="#c9c9c9"
+            text="완료"
+            bgColor="#293AD2"
+            color="#fff"
           />
         </S.SuggestModal>
       </S.ModalBox>
