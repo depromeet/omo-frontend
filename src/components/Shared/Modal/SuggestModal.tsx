@@ -1,4 +1,7 @@
+import { useState } from 'react';
+
 import CloseIcon from '@assets/close.svg';
+import ErrorIcon from '@assets/error_outline.svg';
 import Button from '@components/Shared/Button';
 import { HashTag } from '@components/StoreDescription/styles';
 
@@ -9,6 +12,35 @@ interface SuggestModalProps {
 }
 
 const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
+  const [location, setLocation] = useState('');
+  const [name, setName] = useState('');
+  const [hashtag, setHashtag] = useState('');
+
+  const handleClickOnHashTag = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    if (!(e.target instanceof HTMLSpanElement)) return;
+
+    const content = e.target.textContent as string;
+    setHashtag(content);
+  };
+
+  const handleChangeOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target;
+    selectInputByName(target);
+  };
+
+  const selectInputByName = (target: EventTarget & HTMLInputElement) => {
+    switch (target.name) {
+      case 'location':
+        setLocation(target.value);
+        break;
+      case 'name':
+        setName(target.value);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <S.ModalWrapper>
       <S.ModalBox>
@@ -25,24 +57,54 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
 
           <S.InputWrapper>
             <label className="sub-title">지역</label>
-            <input type="text" placeholder="예시) 강서" />
+            <input
+              name="location"
+              type="text"
+              placeholder="예시) 강서"
+              value={location}
+              onChange={(e) => handleChangeOnInput(e)}
+            />
           </S.InputWrapper>
 
           <S.GradeWrapper>
             <div className="sub-title">등급</div>
             <div className="hashtag-wrapper">
-              <HashTag>#캐쥬얼</HashTag>
-              <HashTag>#하이엔드</HashTag>
-              <HashTag>#미들급</HashTag>
+              <HashTag
+                className={hashtag === '#캐쥬얼' ? 'active' : ''}
+                onClick={(e) => handleClickOnHashTag(e)}
+              >
+                #캐쥬얼
+              </HashTag>
+              <HashTag
+                className={hashtag === '#하이엔드' ? 'active' : ''}
+                onClick={(e) => handleClickOnHashTag(e)}
+              >
+                #하이엔드
+              </HashTag>
+              <HashTag
+                className={hashtag === '#미들급' ? 'active' : ''}
+                onClick={(e) => handleClickOnHashTag(e)}
+              >
+                #미들급
+              </HashTag>
             </div>
           </S.GradeWrapper>
 
           <S.InputWrapper>
             <label className="sub-title">이름</label>
-            <input type="text" placeholder="예시) 나오키" />
+            <input
+              name="name"
+              type="text"
+              placeholder="예시) 나오키"
+              value={name}
+              onChange={(e) => handleChangeOnInput(e)}
+            />
           </S.InputWrapper>
 
-          <div className="warning-message">유효하지 않은 가게는 반려될 수 있어요!</div>
+          <div className="warning-message">
+            <ErrorIcon />
+            유효하지 않은 가게는 반려될 수 있어요!
+          </div>
 
           <Button
             clickListener={() => {
@@ -52,6 +114,7 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
             text="완료"
             bgColor="#293AD2"
             color="#fff"
+            disabled={!location || !name || !hashtag}
           />
         </S.SuggestModal>
       </S.ModalBox>
