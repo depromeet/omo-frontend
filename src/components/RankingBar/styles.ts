@@ -26,7 +26,7 @@ export const RankingBarWrapper = styled.div`
   }
 
   .amount {
-    width: 10%;
+    width: 11%;
     margin-top: 4px;
   }
 `;
