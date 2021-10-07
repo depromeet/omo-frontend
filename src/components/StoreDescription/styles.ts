@@ -59,15 +59,18 @@ export const StoreDescription = styled.div`
 
 export const HashTag = styled.span`
   border-radius: 20px;
-  padding: 6px 15px;
-  background-color: #f0f0f0;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 140%;
-  font-family: 'Noto Sans KR', sans-serif;
-  color: #444;
+  padding: 8px 12px;
+  background-color: ${({ theme }) => theme.colors.black100};
+  ${({ theme }) => theme.fonts.contents2};
+  display: flex;
   margin-right: 10px;
   margin-bottom: 10px;
+
+  span.close {
+    display: flex;
+    align-items: center;
+    margin-left: 4px;
+  }
 `;
 
 export const Button = styled.button<ButtonProps>`
