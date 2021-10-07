@@ -71,6 +71,11 @@ export const HashTag = styled.span`
     align-items: center;
     margin-left: 4px;
   }
+
+  &.active {
+    background-color: ${({ theme }) => theme.colors.pointYellow};
+    color: #ffffff;
+  }
 `;
 
 export const Button = styled.button<ButtonProps>`
