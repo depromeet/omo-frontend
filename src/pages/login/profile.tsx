@@ -1,13 +1,22 @@
 import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import SampleImageOne from '@assets/sample/sample-image-one.svg';
 import SampleImageTwo from '@assets/sample/sample-image-two.svg';
 import LoginLayout from '@components/Layout/LoginLayout';
+import { userState } from '@recoil/userState';
 
 const Profile = () => {
   const router = useRouter();
 
+  const setUserState = useSetRecoilState(userState);
+  const successLoggedIn = () => {
+    setUserState({ isLoggedIn: true, info: { nickname: '안녕안녕나는뚜비야' } });
+    router.push('/');
+  };
+
+  console.log(setUserState);
   return (
     <LoginLayout>
       <Content>
@@ -26,7 +35,7 @@ const Profile = () => {
         <button>+ 내 사진으로 할래요</button>
       </Content>
 
-      <ConfirmButton onClick={() => router.push('/search')}>확인</ConfirmButton>
+      <ConfirmButton onClick={successLoggedIn}>확인</ConfirmButton>
     </LoginLayout>
   );
 };
