@@ -24,24 +24,26 @@ const Searching = () => {
   return (
     <SearchingPage>
       <HeaderInput placeholder="위치/가게명을 검색해주세요." searchHandler={tempGetStoresByText} />
-      <SearchingData className="container">
+      <SearchingResult className="container">
         {stores?.length ? (
-          stores.map((store) => (
-            <StoreDisplay
-              key={store.id}
-              id={store.id}
-              types={store.types}
-              image={store.image}
-              name={store.name}
-              desc={store.desc}
-            />
-          ))
+          <SearchingData>
+            {stores.map((store) => (
+              <StoreDisplay
+                key={store.id}
+                id={store.id}
+                types={store.types}
+                image={store.image}
+                name={store.name}
+                desc={store.desc}
+              />
+            ))}
+          </SearchingData>
         ) : isSearched ? (
           <SearchNoData keyword={keyword} />
         ) : (
           <SearchRecord />
         )}
-      </SearchingData>
+      </SearchingResult>
     </SearchingPage>
   );
 };
@@ -54,8 +56,11 @@ const SearchingPage = styled.section`
   height: 100vh;
 `;
 
-const SearchingData = styled.div`
+const SearchingResult = styled.div`
   flex: 1;
   overflow: auto;
+`;
+
+const SearchingData = styled.div`
   margin-top: 20px;
 `;
