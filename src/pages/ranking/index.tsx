@@ -51,11 +51,18 @@ const Ranking = () => {
   ];
   const top3RankingList = rankingList.slice(0, 3);
   const othersRankingList = rankingList.slice(3);
+  //TODO: login한 userID로 myRanking값 바꾸기
+  const myRanking = rankingList.slice(0, 1);
 
   return (
     <Layout title="랭킹">
       <Top3RankingSection rankingList={top3RankingList}></Top3RankingSection>
       <OhtersRankingSection rankingList={othersRankingList}></OhtersRankingSection>
+      <MyRangkingSection>
+        {myRanking.map(({ rank, name, amount }) => (
+          <RankingBar rank={rank} nickname={name} amount={amount} key={rank} />
+        ))}
+      </MyRangkingSection>
     </Layout>
   );
 };
@@ -80,10 +87,22 @@ const OthersRankingSectionWrapper = styled.section`
   }
 `;
 
+//TODO: 디자인 확정되면 따로 컴포넌트 분리
 const Top3RankingSectionWrapper = styled(OthersRankingSectionWrapper)`
   .rankers {
     display: flex;
     justify-content: space-between;
     margin: 18px 0;
   }
+`;
+
+const MyRangkingSection = styled.section`
+  box-sizing: border-box;
+  position: sticky;
+  width: 100%;
+  height: fit-content;
+  padding: 17px 24px;
+  left: 0px;
+  bottom: 0px;
+  background-color: white;
 `;
