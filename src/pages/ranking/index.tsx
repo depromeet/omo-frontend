@@ -98,12 +98,12 @@ const Top3RankingSectionWrapper = styled(OthersRankingSectionWrapper)`
 
 const MyRangkingSection = styled.section`
   box-sizing: border-box;
-  position: sticky;
+  position: fixed;
   width: 100%;
   height: fit-content;
   padding: 17px 24px;
   left: 0px;
-  bottom: -1rem;
+  bottom: 56px;
   background-color: white;
   box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.1);
 `;
