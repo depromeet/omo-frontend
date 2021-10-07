@@ -105,4 +105,5 @@ const MyRangkingSection = styled.section`
   left: 0px;
   bottom: 0px;
   background-color: white;
+  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.1);
 `;
