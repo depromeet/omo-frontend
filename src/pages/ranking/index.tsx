@@ -103,7 +103,7 @@ const MyRangkingSection = styled.section`
   height: fit-content;
   padding: 17px 24px;
   left: 0px;
-  bottom: 0px;
+  bottom: -1rem;
   background-color: white;
   box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.1);
 `;
