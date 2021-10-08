@@ -56,8 +56,8 @@ const Ranking = () => {
 
   return (
     <Layout title="랭킹">
-      <Top3RankingSection rankingList={top3RankingList}></Top3RankingSection>
-      <OhtersRankingSection rankingList={othersRankingList}></OhtersRankingSection>
+      <Top3RankingSection rankingList={top3RankingList} />
+      <OhtersRankingSection rankingList={othersRankingList} />
       <MyRangkingSection>
         {myRanking.map(({ rank, name, amount }) => (
           <RankingBar rank={rank} nickname={name} amount={amount} key={rank} />
