@@ -21,4 +21,8 @@ export const Button = styled.button<ButtonProps>`
   & + & {
     margin-top: 14px;
   }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.black300};
+  }
 `;

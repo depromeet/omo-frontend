@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const SearchRecord = styled.section``;
+export const SearchRecord = styled.section`
+  margin-top: 20px;
+`;
 
 export const RecordArticle = styled.article`
   margin-bottom: 15px;

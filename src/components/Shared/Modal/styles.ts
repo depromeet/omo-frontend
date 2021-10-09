@@ -45,10 +45,16 @@ export const SuggestModal = styled.section`
     margin-bottom: 28px !important;
   }
   .warning-message {
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     margin-bottom: 20px;
     color: ${({ theme }) => theme.colors.black500};
     ${({ theme }) => theme.fonts.contents3};
+
+    svg {
+      margin-right: 6px;
+    }
   }
 `;
 

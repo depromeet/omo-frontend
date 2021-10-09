@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import Prev from '@assets/prev.svg';
+import useLocalStorage from '@hooks/useLocalStorage';
 
 import * as S from './styles';
 
@@ -13,6 +14,7 @@ interface HeaderInputProps {
 const InputHeader = ({ placeholder, searchHandler }: HeaderInputProps) => {
   const router = useRouter();
   const [text, setText] = useState('');
+  const { setStorageItem } = useLocalStorage('recents-keyword');
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -25,6 +27,7 @@ const InputHeader = ({ placeholder, searchHandler }: HeaderInputProps) => {
       return;
     }
     searchHandler(text);
+    setStorageItem('#' + text);
   };
 
   return (
