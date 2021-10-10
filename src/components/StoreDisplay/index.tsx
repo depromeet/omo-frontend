@@ -4,6 +4,7 @@ export interface StoreDisplayProps {
   image: string;
   name: string;
   location: string;
+  desc?: string;
 }
 
 export { default } from './StoreDisplay';
