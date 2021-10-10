@@ -4,18 +4,16 @@ export const NoData = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: center;
 
   .guide-message-wrapper {
-    ${({ theme }) => theme.fonts.contents1};
+    margin-top: 66px;
+    ${({ theme }) => theme.fonts.contents2};
     color: ${({ theme }) => theme.colors.black500};
-    line-height: 25.6px;
+    line-height: 20px;
     text-align: center;
 
-    &.small-text {
-      ${({ theme }) => theme.fonts.contents3};
-      color: ${({ theme }) => theme.colors.black900};
-      line-height: 17.66px;
+    &.mt-30 {
+      margin-top: 30px;
       margin-bottom: 12px;
     }
   }
@@ -24,7 +22,14 @@ export const NoData = styled.div`
     display: flex;
     flex-wrap: wrap;
     margin: auto;
-    margin-top: 20px;
-    margin-bottom: 88px;
+    margin-top: 30px;
+    margin-bottom: 55px;
   }
+`;
+
+export const Divider = styled.div`
+  margin: 0 -20px;
+  width: calc(100% + 40px);
+  height: 8px;
+  background-color: ${({ theme }) => theme.colors.black100};
 `;
