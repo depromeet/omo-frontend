@@ -34,7 +34,7 @@ const Searching = () => {
                 types={store.types}
                 image={store.image}
                 name={store.name}
-                desc={store.desc}
+                location={store.location}
               />
             ))}
           </SearchingData>
