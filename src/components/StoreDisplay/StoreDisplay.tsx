@@ -19,7 +19,7 @@ const StoreDisplay = ({ id, image, types, name, desc }: StoreDisplayProps) => {
           <S.StoreImageWrapper>
             <S.SubTitles>
               {types.map((type) => (
-                <span key={type}>{type}</span>
+                <span key={type}>#{type}</span>
               ))}
             </S.SubTitles>
 

@@ -7,19 +7,24 @@ export const NoData = styled.div`
   justify-content: center;
 
   .guide-message-wrapper {
-    font-size: 14px;
-    font-family: 'Noto Sans KR', sans-serif;
-    line-height: 140%;
-    font-weight: 400;
+    ${({ theme }) => theme.fonts.contents1};
+    color: ${({ theme }) => theme.colors.black500};
+    line-height: 25.6px;
     text-align: center;
-    margin: 1rem 0;
+
+    &.small-text {
+      ${({ theme }) => theme.fonts.contents3};
+      color: ${({ theme }) => theme.colors.black900};
+      line-height: 17.66px;
+      margin-bottom: 12px;
+    }
   }
 
   .hashtag-wrapper {
     display: flex;
     flex-wrap: wrap;
     margin: auto;
-    margin-top: 1rem;
-    margin-bottom: 4rem;
+    margin-top: 20px;
+    margin-bottom: 88px;
   }
 `;

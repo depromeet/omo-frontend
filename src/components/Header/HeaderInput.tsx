@@ -2,33 +2,36 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import Prev from '@assets/prev.svg';
+import useLocalStorage from '@hooks/useLocalStorage';
 
 import * as S from './styles';
 
 interface HeaderInputProps {
   placeholder: string;
-  serachHandler: (text: string) => void;
+  searchHandler: (text: string) => void;
 }
 
-const InputHeader = ({ placeholder, serachHandler }: HeaderInputProps) => {
+const InputHeader = ({ placeholder, searchHandler }: HeaderInputProps) => {
   const router = useRouter();
   const [text, setText] = useState('');
+  const { setStorageItem } = useLocalStorage('recents-keyword');
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setText(value);
   };
 
-  const clearText = () => {
-    setText('');
-  };
-
   const handleOnSubmit = () => {
-    serachHandler(text);
+    if (!text) {
+      alert('검색어를 입력해주세요!');
+      return;
+    }
+    searchHandler(text);
+    setStorageItem('#' + text);
   };
 
   return (
-    <S.Header className="container">
+    <S.Header borderBottom className="container">
       <S.PrevButton onClick={() => router.back()}>
         <Prev />
       </S.PrevButton>
@@ -38,11 +41,7 @@ const InputHeader = ({ placeholder, serachHandler }: HeaderInputProps) => {
         onChange={(e) => handleOnChange(e)}
         placeholder={placeholder}
       />
-      {text ? (
-        <S.SearchButton onClick={handleOnSubmit}>검색</S.SearchButton>
-      ) : (
-        <S.SearchButton onClick={clearText}>검색어 초기화</S.SearchButton>
-      )}
+      <S.SearchButton onClick={handleOnSubmit}>검색</S.SearchButton>
     </S.Header>
   );
 };
