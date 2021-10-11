@@ -67,6 +67,7 @@ const DetailPage = styled.section`
 
 const ImageWrapper = styled.div`
   position: relative;
+  min-height: 190px;
   height: 224px;
   width: 100%;
 `;

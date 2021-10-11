@@ -8,9 +8,7 @@ export const BottomNav = styled.nav`
   border-top: 1px solid #ebebeb;
 
   .nav-link {
-    font-size: 12px;
-    font-weight: 400;
-    font-family: 'Noto Sans KR', sans-serif;
+    ${({ theme }) => theme.fonts.contents3};
     display: flex;
     flex-direction: column;
     justify-content: center;
