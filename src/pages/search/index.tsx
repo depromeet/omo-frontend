@@ -1,7 +1,7 @@
 // 기본 찾기 페이지
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import DisplayListIcon from '@assets/display-list.svg';
@@ -17,9 +17,20 @@ type Mode = 'wide' | 'list';
 
 const Search = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [mode, setMode] = useState<Mode>('wide');
+  const [mode, setMode] = useState<Mode>((localStorage.getItem('menu-mode') as Mode) ?? 'wide');
   const [tab, setTab] = useState('미들');
   const [tempStores, setTempStores] = useState(dummys.filter((dummy) => dummy.types.includes(tab)));
+
+  useEffect(() => {
+    const storage = localStorage.getItem('menu-mode') as Mode | null;
+
+    if (!storage) {
+      localStorage.setItem('menu-mode', 'wide');
+      return;
+    }
+
+    setMode(storage);
+  }, []);
 
   const toggleModal = () => {
     setIsOpenModal((prev) => !prev);
@@ -27,8 +38,10 @@ const Search = () => {
 
   const handleClickOnModeBtn = () => {
     if (mode === 'wide') {
+      localStorage.setItem('menu-mode', 'list');
       setMode('list');
     } else {
+      localStorage.setItem('menu-mode', 'wide');
       setMode('wide');
     }
   };
