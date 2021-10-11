@@ -12,7 +12,7 @@ const StoreDescription = ({ store }: StoreDescriptionProps) => {
     <S.StoreDescription>
       <div className="content-wrapper">
         <h1 className="list title">{store.name}</h1>
-        <pre className="list desc">{store.desc}</pre>
+        <pre className="list desc">{store.location}</pre>
         <div className="list sub-contents">
           <p className="sub-title">위치 :</p>
           <p>{store.location}</p>

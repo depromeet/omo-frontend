@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import StoreDescription from '@components/StoreDescription';
-import { StoreDisplayProps } from '@components/StoreDisplay/StoreDisplay';
+import { StoreDisplayProps } from '@components/StoreDisplay';
 import { dummys } from '@temp/SearchListDummy';
 
 export interface DetailPageProps extends StoreDisplayProps {
