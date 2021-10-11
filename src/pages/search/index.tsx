@@ -14,10 +14,12 @@ import { StoreDisplayList, StoreDisplayWide } from '@components/StoreDisplay';
 import { dummys } from '@temp/SearchListDummy';
 
 type Mode = 'wide' | 'list';
+const ISSERVER = typeof window === 'undefined';
 
 const Search = () => {
+  const menuMode = ISSERVER ? 'wide' : (localStorage.getItem('menu-mode') as Mode);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [mode, setMode] = useState<Mode>((localStorage.getItem('menu-mode') as Mode) ?? 'wide');
+  const [mode, setMode] = useState<Mode>(menuMode);
   const [tab, setTab] = useState('미들');
   const [tempStores, setTempStores] = useState(dummys.filter((dummy) => dummy.types.includes(tab)));
 
