@@ -112,7 +112,7 @@ export const GradeDescription = styled.div`
 
   .grade {
     display: inline-block;
-    min-width: 100px;
+    min-width: 90px;
     ${({ theme }) => theme.fonts.subTitle2};
     color: ${({ theme }) => theme.colors.black900};
   }
