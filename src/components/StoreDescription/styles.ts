@@ -75,6 +75,7 @@ export const DescriptionList = styled.div`
   display: flex;
   justify-content: space-between;
   color: ${({ theme }) => theme.colors.black800};
+  padding-bottom: 16px;
 
   .sub-title {
     ${({ theme }) => theme.fonts.subTitle3};
