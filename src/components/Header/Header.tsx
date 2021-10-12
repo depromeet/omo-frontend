@@ -5,7 +5,7 @@ import Prev from '@assets/prev.svg';
 import * as S from './styles';
 
 interface HeaderProps {
-  title: string;
+  title?: string;
 }
 
 const Header = ({ title }: HeaderProps) => {
@@ -16,7 +16,7 @@ const Header = ({ title }: HeaderProps) => {
       <S.PrevButton onClick={() => router.back()}>
         <Prev />
       </S.PrevButton>
-      <S.Title>{title}</S.Title>
+      {title && <S.Title>{title}</S.Title>}
     </S.Header>
   );
 };

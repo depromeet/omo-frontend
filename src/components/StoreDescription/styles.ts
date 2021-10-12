@@ -1,59 +1,40 @@
 import styled from 'styled-components';
 
-interface ButtonProps {
-  bgColor?: string;
-}
-
 export const StoreDescription = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transform: translateY(-30px);
+  height: 100%;
+  transform: translateY(-14px);
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   background-color: #fff;
   width: 100%;
   box-sizing: border-box;
-  padding: 21px;
-  margin-bottom: -30px;
-
-  .content-wrapper {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 140%;
-    font-family: 'Noto Sans KR', sans-serif;
-    color: #444;
-  }
-
-  .list {
-    margin-bottom: 16px;
-  }
-
-  .title {
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 140%;
-    font-family: 'Noto Sans KR', sans-serif;
-    margin-bottom: 10px;
-    color: #444;
-  }
-
-  .sub-contents {
-    display: flex;
-
-    .sub-title {
-      padding-right: 10px;
-      white-space: nowrap;
-    }
-  }
-
-  .hashtag-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-  }
+  padding: 20px;
+  margin-bottom: -14px;
 
   .button-wrapper {
+    display: flex;
+  }
+`;
+
+export const DescriptionHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+
+  .title {
+    ${({ theme }) => theme.fonts.header3};
+    margin-bottom: 8px;
+  }
+  .desc {
+    ${({ theme }) => theme.fonts.contents2};
+    color: ${({ theme }) => theme.colors.black800};
+  }
+  .hashtag-wrapper {
+    margin-top: 12px;
+    display: flex;
   }
 `;
 
@@ -78,21 +59,54 @@ export const HashTag = styled.span`
   }
 `;
 
-export const Button = styled.button<ButtonProps>`
-  width: 100%;
-  padding: 16px;
-  color: #4b4b4b;
-  outline: none;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 140%;
-  font-family: 'Noto Sans KR', sans-serif;
-  background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
-  border: ${({ bgColor }) => (bgColor ? 'none' : '1px solid #9e9e9e')};
+export const DescriptionMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+  padding-top: 16px;
+`;
+
+export const DescriptionList = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: ${({ theme }) => theme.colors.black800};
+  padding-bottom: 16px;
+
+  .sub-title {
+    ${({ theme }) => theme.fonts.subTitle3};
+  }
+  .contents {
+    ${({ theme }) => theme.fonts.contents2};
+  }
 
   & + & {
-    margin-top: 14px;
+    border-top: 1px solid ${({ theme }) => theme.colors.black200};
+    padding-top: 16px;
+  }
+`;
+
+export const ScrollArea = styled.div`
+  overflow: auto;
+  flex: 1;
+`;
+
+export const LikeButton = styled.button`
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  margin-right: 8px;
+  box-sizing: content-box;
+  background-color: ${({ theme }) => theme.colors.black100};
+  width: 54px;
+  height: 54px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .count {
+    color: ${({ theme }) => theme.colors.pointRed};
+    ${({ theme }) => theme.fonts.contents3};
   }
 `;

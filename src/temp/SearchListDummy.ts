@@ -11,6 +11,7 @@ export const dummys: DetailPageProps[] = [
     location: '서울특별시 강남구 어쩌고 저쩌구동 저쩌구 상가 A동 2342124호',
     tel: '02) 12345-67890',
     price: '디너 300,000 ~',
+    time: '런치 12:00 / 디너 1부 18:00 - 19:30',
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const dummys: DetailPageProps[] = [
     location: '서울특별시 강남구 어쩌고 저쩌구동 저쩌구 상가 B동 24호',
     tel: '02) 010-67890',
     price: '디너 250,000 ~',
+    time: '런치 12:00 / 디너 1부 18:00 - 19:30',
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ export const dummys: DetailPageProps[] = [
     location: '서울특별시 은평구 저기 어딘가',
     tel: '02) 15-690',
     price: '디너 1,300,000 ~',
+    time: '런치 12:00 / 디너 1부 18:00 - 19:30',
   },
   {
     id: 4,
@@ -44,6 +47,7 @@ export const dummys: DetailPageProps[] = [
     location: '서울특별시 은평구 저기 어딘가',
     tel: '02) 15-690',
     price: '디너 1,300,000 ~',
+    time: '런치 12:00 / 디너 1부 18:00 - 19:30',
   },
   {
     id: 5,
@@ -55,6 +59,7 @@ export const dummys: DetailPageProps[] = [
     location: '서울특별시 은평구 저기 어딘가',
     tel: '02) 15-690',
     price: '디너 1,300,000 ~',
+    time: '런치 12:00 / 디너 1부 18:00 - 19:30',
   },
   {
     id: 6,
@@ -66,6 +71,7 @@ export const dummys: DetailPageProps[] = [
     location: '서울특별시 은평구 저기 어딘가',
     tel: '02) 15-690',
     price: '디너 1,300,000 ~',
+    time: '런치 12:00 / 디너 1부 18:00 - 19:30',
   },
   {
     id: 7,
@@ -77,6 +83,7 @@ export const dummys: DetailPageProps[] = [
     location: '서울특별시 은평구 저기 어딘가',
     tel: '02) 15-690',
     price: '디너 1,300,000 ~',
+    time: '런치 12:00 / 디너 1부 18:00 - 19:30',
   },
   {
     id: 8,
@@ -88,6 +95,7 @@ export const dummys: DetailPageProps[] = [
     location: '서울특별시 은평구 저기 어딘가',
     tel: '02) 15-690',
     price: '디너 1,300,000 ~',
+    time: '런치 12:00 / 디너 1부 18:00 - 19:30',
   },
   {
     id: 9,
@@ -99,6 +107,7 @@ export const dummys: DetailPageProps[] = [
     location: '서울특별시 은평구 저기 어딘가',
     tel: '02) 15-690',
     price: '디너 1,300,000 ~',
+    time: '런치 12:00 / 디너 1부 18:00 - 19:30',
   },
   {
     id: 10,
@@ -110,5 +119,6 @@ export const dummys: DetailPageProps[] = [
     location: '서울특별시 은평구 저기 어딘가',
     tel: '02) 15-690',
     price: '디너 1,300,000 ~',
+    time: '런치 12:00 / 디너 1부 18:00 - 19:30',
   },
 ];
