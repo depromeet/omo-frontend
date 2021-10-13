@@ -1,41 +1,37 @@
 import { useRouter } from 'next/router';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import SampleImageOne from '@assets/sample/sample-image-one.svg';
-import SampleImageTwo from '@assets/sample/sample-image-two.svg';
+import AddProfile from '@assets/add_profile.svg';
 import LoginLayout from '@components/Layout/LoginLayout';
 import { userState } from '@recoil/userState';
 
 const Profile = () => {
   const router = useRouter();
+  const [userValue, setUserValue] = useRecoilState(userState);
 
-  const setUserState = useSetRecoilState(userState);
   const successLoggedIn = () => {
-    setUserState({ isLoggedIn: true, info: { nickname: '안녕안녕나는뚜비야' } });
+    setUserValue((state) => ({ ...state, isLoggedIn: true }));
     router.push('/');
   };
 
-  console.log(setUserState);
   return (
     <LoginLayout>
       <Content>
         <div className="notify-main-letter">좋아요!</div>
         <div className="notify-sub-letter">
-          <span className="nickname">오마카세에대출땡기는</span>님을 대표할
+          <span className="nickname">{userValue.info?.nickname}</span>님을 대표할
         </div>
         <div className="notify-sub-letter">이미지를 골라주세요!</div>
 
         <div className="icon-selector">
-          <SampleImageOne />
-          <SampleImageTwo />
-          <SampleImageOne />
+          <input type="file" accept="image/*, video/*" />
+          <AddProfile />
         </div>
 
-        <button>+ 내 사진으로 할래요</button>
+        <button onClick={successLoggedIn}>다음</button>
+        <div className="set-next">다음에 할래요</div>
       </Content>
-
-      <ConfirmButton onClick={successLoggedIn}>확인</ConfirmButton>
     </LoginLayout>
   );
 };
@@ -46,18 +42,6 @@ const Content = styled.div`
   margin-top: 6rem;
   width: 100%;
   height: 441px;
-
-  button {
-    all: unset;
-    display: block;
-    padding: 15px 25px;
-    border: none;
-    border-radius: 22px;
-    margin: 0 auto;
-    font-size: 14px;
-    color: #fff;
-    background-color: #ffc737;
-  }
 
   .notify-main-letter {
     margin: 0 0 26px 20px;
@@ -80,31 +64,49 @@ const Content = styled.div`
   }
 
   .icon-selector {
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
-    height: 140px;
     margin: 88px 0 56px 0;
+
+    input {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      opacity: 0;
+    }
   }
-`;
 
-const ConfirmButton = styled.button`
-  border: none;
-  position: absolute;
-  left: 20px;
-  bottom: 3rem;
-  width: calc(100% - 40px);
-  height: 48px;
+  button {
+    border: none;
+    position: absolute;
+    left: 20px;
+    bottom: 4rem;
+    width: calc(100% - 40px);
+    height: 48px;
 
-  margin: 0 auto;
-  border-radius: 8px;
+    margin: 0 auto;
+    border-radius: 8px;
 
-  background-color: #2334cf;
-  color: #fff;
+    background-color: #2334cf;
+    color: #fff;
 
-  font-size: 18px;
-  font-weight: 700;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+  }
 
-  cursor: pointer;
+  .set-next {
+    border: none;
+    position: absolute;
+    left: calc(50% - 30px);
+    bottom: 2rem;
+
+    font-size: 12px;
+    text-decoration-line: underline;
+    color: #8c8c95;
+  }
 `;
