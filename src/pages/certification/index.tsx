@@ -74,7 +74,5 @@ const ReceiptImageWrapper = styled.div`
   position: relative;
   width: 205px;
   height: 322px;
-  min-height: 322px;
-  max-height: 322px;
   margin: 0 auto;
 `;
