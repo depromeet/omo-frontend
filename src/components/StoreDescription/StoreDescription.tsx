@@ -1,4 +1,4 @@
-import router from 'next/router';
+import { useRouter } from 'next/router';
 
 import CopyIcon from '@assets/copy.svg';
 import FavoriteIcon from '@assets/favorite.svg';
@@ -14,6 +14,8 @@ interface StoreDescriptionProps {
 }
 
 const StoreDescription = ({ store }: StoreDescriptionProps) => {
+  const router = useRouter();
+
   return (
     <S.StoreDescription>
       <S.DescriptionHeader>
