@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import Mascot from '@assets/mascot.svg';
 import LoginLayout from '@components/Layout/LoginLayout';
 
 type ErrorType = 'default' | 'duplicate' | 'usable';
@@ -21,7 +20,7 @@ const errorStatusColor = {
 
 const Nickname = () => {
   const router = useRouter();
-  const [errorStatus] = useState<ErrorType>('usable');
+  const [errorStatus] = useState<ErrorType>('default');
 
   const onClickNextButton = () => {
     if (errorStatus !== 'usable') return;
@@ -31,7 +30,6 @@ const Nickname = () => {
   return (
     <LoginLayout>
       <Content>
-        <Mascot />
         <div className="welcome-letter">어서오세요!</div>
         <div className="welcome-sub-letter">닉네임을 정해주세요 (최대 10자)</div>
         <div className="nickname-input">
@@ -52,7 +50,7 @@ const Content = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 310px;
-  margin-top: 6rem;
+  margin-top: 7rem;
   padding: 0 20px;
 
   svg {
