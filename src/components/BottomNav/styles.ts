@@ -1,17 +1,14 @@
 import styled from 'styled-components';
 
 export const BottomNav = styled.nav`
-  height: 56px;
+  height: 64px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 1rem;
   border-top: 1px solid #ebebeb;
 
   .nav-link {
-    font-size: 12px;
-    font-weight: 400;
-    font-family: 'Noto Sans KR', sans-serif;
+    ${({ theme }) => theme.fonts.contents3};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,6 +27,9 @@ export const BottomNav = styled.nav`
     }
 
     &.active {
+      span {
+        color: ${({ theme }) => theme.colors.mainBlue};
+      }
       svg {
         opacity: 1;
         &.svg-path path {
@@ -47,9 +47,6 @@ export const BottomNav = styled.nav`
             stroke: ${({ theme }) => theme.colors.mainBlue};
           }
         }
-      }
-      span {
-        color: #000;
       }
     }
   }

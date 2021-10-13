@@ -30,9 +30,11 @@ const SearchNoData = ({ keyword }: SearchNoDataProps) => {
         <HashTag>#미들</HashTag>
       </div>
 
-      <div className="guide-message-wrapper small-text">
-        <p className="guide-message">원하는 오마카세를 찾지 못하셨나요?</p>
-        <p className="guide-message">직접 제보해주세요!</p>
+      <S.Divider />
+
+      <div className="guide-message-wrapper mt-30">
+        <p className="guide-message">원하는 가게를 찾지 못하셨나요?</p>
+        <p className="guide-message">오모에 제보해주세요!</p>
       </div>
 
       <Button clickListener={toggleModal} text="오마카세 제보하기" bgColor="#FFC737" color="#fff" />
