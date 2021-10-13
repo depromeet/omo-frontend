@@ -1,8 +1,8 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import AddProfile from '@assets/add_profile.svg';
 import LoginLayout from '@components/Layout/LoginLayout';
 import { userState } from '@recoil/userState';
 
@@ -25,8 +25,14 @@ const Profile = () => {
         <div className="notify-sub-letter">이미지를 골라주세요!</div>
 
         <div className="icon-selector">
+          <Image
+            src="/default_profile.png"
+            width="200"
+            height="200"
+            alt="profile"
+            className="profile"
+          />
           <input type="file" accept="image/*, video/*" />
-          <AddProfile />
         </div>
 
         <button onClick={successLoggedIn}>다음</button>
