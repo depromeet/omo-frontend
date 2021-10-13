@@ -5,9 +5,8 @@ import styled from 'styled-components';
 
 import AppleIcon from '@assets/apple.svg';
 import KakaoIcon from '@assets/kakao.svg';
-import Mascot from '@assets/mascot.svg';
+import Logo from '@assets/logo.svg';
 import NaverIcon from '@assets/naver.svg';
-import PlainOMOLetter from '@assets/omo-letter.svg';
 
 const Login: NextPage = () => {
   const router = useRouter();
@@ -25,10 +24,7 @@ const Login: NextPage = () => {
     <HomePage>
       <Content>
         <LogoSection>
-          <Mascot />
-          <LogoLetter />
-          <SubLetter>오마카세의</SubLetter>
-          <SubLetter>모든것</SubLetter>
+          <Logo />
         </LogoSection>
         <SNSSection>
           <span>SNS 간편로그인</span>
@@ -59,7 +55,7 @@ const HomePage = styled.main`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #2334cf;
+  background-color: #fff;
 `;
 
 const LogoSection = styled.section`
@@ -67,10 +63,6 @@ const LogoSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  svg:first-child {
-    transform: scale(0.8);
-  }
 `;
 
 const SNSSection = styled.section`
@@ -82,7 +74,7 @@ const SNSSection = styled.section`
   width: 100%;
   height: 123px;
   font-size: 12px;
-  color: #fff;
+  color: #000;
 
   .oauth-button-wrapper {
     width: 100%;
@@ -109,16 +101,5 @@ const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 225px;
-  height: 500px;
-`;
-
-const LogoLetter = styled(PlainOMOLetter)`
-  margin: 5px 0 15px;
-`;
-
-const SubLetter = styled.div`
-  ${({ theme }) => theme.fonts.contentsBold};
-  letter-spacing: -0.02em;
-  line-height: 18px;
-  color: #fff;
+  height: 450px;
 `;
