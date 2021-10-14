@@ -108,7 +108,8 @@ const Content = styled.div`
   .set-next {
     border: none;
     position: absolute;
-    left: calc(50% - 30px);
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 2rem;
 
     font-size: 12px;
