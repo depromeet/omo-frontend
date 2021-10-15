@@ -10,7 +10,8 @@ const debounce = <Params extends unknown[]>( //
   func: (...args: Params) => unknown,
   wait: number,
 ) => {
-  let timeoutID: NodeJS.Timeout;
+  type Timer = ReturnType<typeof setTimeout>;
+  let timeoutID: Timer;
 
   return (...args: Params) => {
     clearTimeout(timeoutID);

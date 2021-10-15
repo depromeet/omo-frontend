@@ -10,7 +10,8 @@ const throttle = <Params extends unknown[]>( //
   func: (...args: Params) => unknown,
   wait: number,
 ) => {
-  let timeoutID: NodeJS.Timeout | null;
+  type Timer = ReturnType<typeof setTimeout>;
+  let timeoutID: Timer | null;
 
   return (...args: Params) => {
     if (!timeoutID) {
