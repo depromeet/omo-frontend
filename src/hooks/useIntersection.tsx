@@ -1,7 +1,5 @@
 import { MutableRefObject, useEffect, useState } from 'react';
 
-import throttle from '@utils/throttle';
-
 /**
  * useRef를 사용해 지정한 DOM이 화면에 보이게 되면,
  * 해당 DOM의 IntersectionObserverEntry를 반환합니다.
@@ -22,14 +20,10 @@ const useIntersection = (
   ref: MutableRefObject<HTMLElement>,
   { threshold = 1 }: IntersectionObserverInit,
 ) => {
-  const DELAY_TIME = 500;
   const [entry, setEntry] = useState<IntersectionObserverEntry>();
 
   useEffect(() => {
-    const updateEntry = throttle(
-      ([entry]: IntersectionObserverEntry[]) => setEntry(entry),
-      DELAY_TIME,
-    );
+    const updateEntry = ([entry]: IntersectionObserverEntry[]) => setEntry(entry);
 
     const node = ref.current;
     const observer = new IntersectionObserver(updateEntry, { threshold });
