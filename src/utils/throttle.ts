@@ -4,7 +4,7 @@
  * 인자로 받은 wait 시간 간격으로 호출됩니다.
  *
  * @example
- *  const delaySomething = throttle(() => console.log('test'), 1000);
+ * const delaySomething = throttle(() => console.log('test'), 1000);
  */
 const throttle = <Params extends unknown[]>( //
   func: (...args: Params) => unknown,

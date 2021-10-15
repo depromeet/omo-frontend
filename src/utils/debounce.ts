@@ -4,7 +4,7 @@
  * 인자로 받은 wait 시간이 지난 후 호출된 마지막 함수만 반환합니다.
  *
  * @example
- *   const delaySomething = debounce(() => console.log('hi'), 500);
+ * const delaySomething = debounce(() => console.log('hi'), 500);
  */
 const debounce = <Params extends unknown[]>( //
   func: (...args: Params) => unknown,
