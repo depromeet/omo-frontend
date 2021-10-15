@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useState } from 'react';
 
-import debounce from '@utils/debounce';
+import throttle from '@utils/throttle';
 
 /**
  * useRef를 사용해 지정한 DOM이 화면에 보이게 되면,
@@ -26,7 +26,7 @@ const useIntersection = (
   const [entry, setEntry] = useState<IntersectionObserverEntry>();
 
   useEffect(() => {
-    const updateEntry = debounce(
+    const updateEntry = throttle(
       ([entry]: IntersectionObserverEntry[]) => setEntry(entry),
       DELAY_TIME,
     );
