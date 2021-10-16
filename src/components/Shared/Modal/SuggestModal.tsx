@@ -44,9 +44,9 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
   return (
     <S.ModalWrapper>
       <S.ModalBox>
-        <S.SuggestModal>
-          <S.ModalTitle>
-            <span className="sub-title">제보하기</span>
+        <S.ModalInner>
+          <S.ModalTitle horizontalAlign="center">
+            <span className="header3">제보하기</span>
             <CloseIcon className="close-btn" onClick={toggleModal} />
           </S.ModalTitle>
 
@@ -56,7 +56,7 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
           </div>
 
           <S.InputWrapper>
-            <label className="sub-title">지역</label>
+            <label className="sub-title2">지역</label>
             <input
               name="location"
               type="text"
@@ -67,7 +67,7 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
           </S.InputWrapper>
 
           <S.GradeWrapper>
-            <div className="sub-title">등급</div>
+            <div className="sub-title2">등급</div>
             <div className="hashtag-wrapper">
               <HashTag
                 className={hashtag === '#캐쥬얼' ? 'active' : ''}
@@ -91,7 +91,7 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
           </S.GradeWrapper>
 
           <S.InputWrapper>
-            <label className="sub-title">이름</label>
+            <label className="sub-title2">이름</label>
             <input
               name="name"
               type="text"
@@ -101,7 +101,7 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
             />
           </S.InputWrapper>
 
-          <div className="warning-message">
+          <div className="warning-message mb-20">
             <ErrorIcon />
             유효하지 않은 가게는 반려될 수 있어요!
           </div>
@@ -116,7 +116,7 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
             color="#fff"
             disabled={!location || !name || !hashtag}
           />
-        </S.SuggestModal>
+        </S.ModalInner>
       </S.ModalBox>
     </S.ModalWrapper>
   );

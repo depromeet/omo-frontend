@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface ModalTitleProps {
+  horizontalAlign: string;
+}
+
 export const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
@@ -8,6 +12,7 @@ export const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  z-index: 9999;
   align-items: center;
 `;
 
@@ -19,10 +24,10 @@ export const ModalBox = styled.div`
   margin: auto 20px;
 `;
 
-export const ModalTitle = styled.div`
+export const ModalTitle = styled.div<ModalTitleProps>`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: ${({ horizontalAlign }) => horizontalAlign};
   position: relative;
   margin-top: 10px;
   margin-bottom: 20px;
@@ -33,11 +38,19 @@ export const ModalTitle = styled.div`
   }
 `;
 
-export const SuggestModal = styled.section`
+export const ModalInner = styled.section`
   display: flex;
   flex-direction: column;
 
-  .sub-title {
+  .header3 {
+    ${({ theme }) => theme.fonts.header3};
+    color: ${({ theme }) => theme.colors.black900};
+  }
+  .sub-title1 {
+    ${({ theme }) => theme.fonts.subTitle1};
+    color: ${({ theme }) => theme.colors.black900};
+  }
+  .sub-title2 {
     ${({ theme }) => theme.fonts.subTitle2};
     color: ${({ theme }) => theme.colors.black900};
   }
@@ -48,13 +61,15 @@ export const SuggestModal = styled.section`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-bottom: 20px;
     color: ${({ theme }) => theme.colors.black500};
     ${({ theme }) => theme.fonts.contents3};
 
     svg {
       margin-right: 6px;
     }
+  }
+  .mb-20 {
+    margin-bottom: 20px;
   }
 `;
 
@@ -80,5 +95,33 @@ export const InputWrapper = styled.article`
     padding-bottom: 5px;
     margin-top: 8px;
     margin-bottom: 20px;
+  }
+`;
+
+export const GradeDescriptionWrapper = styled.article`
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-bottom: 17px;
+`;
+
+export const GradeDescription = styled.div`
+  padding: 20px 23px;
+  background-color: ${({ theme }) => theme.colors.black100};
+  border-radius: 10px;
+
+  .grade {
+    display: inline-block;
+    min-width: 90px;
+    ${({ theme }) => theme.fonts.subTitle2};
+    color: ${({ theme }) => theme.colors.black900};
+  }
+  .price {
+    ${({ theme }) => theme.fonts.contents2};
+    color: ${({ theme }) => theme.colors.black800};
+  }
+
+  & + & {
+    margin-top: 10px;
   }
 `;

@@ -1,18 +1,52 @@
 // 기본 찾기 페이지
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import MenuIcon from '@assets/menu.svg';
+import DisplayListIcon from '@assets/display-list.svg';
+import DisplayWideIcon from '@assets/display-wide.svg';
+import QuestionIcon from '@assets/question.svg';
 import SearchIcon from '@assets/search.svg';
 import Layout from '@components/Layout';
-import StoreDisplay from '@components/StoreDisplay';
+import { GradeDescriptionModal } from '@components/Shared/Modal';
+import { StoreDisplayList, StoreDisplayWide } from '@components/StoreDisplay';
 import { dummys } from '@temp/SearchListDummy';
 
+type Mode = 'wide' | 'list';
+const ISSERVER = typeof window === 'undefined';
+
 const Search = () => {
+  const menuMode = ISSERVER ? 'wide' : (localStorage.getItem('menu-mode') as Mode);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [mode, setMode] = useState<Mode>(menuMode);
   const [tab, setTab] = useState('미들');
   const [tempStores, setTempStores] = useState(dummys.filter((dummy) => dummy.types.includes(tab)));
+
+  useEffect(() => {
+    const storage = localStorage.getItem('menu-mode') as Mode | null;
+
+    if (!storage) {
+      localStorage.setItem('menu-mode', 'wide');
+      return;
+    }
+
+    setMode(storage);
+  }, []);
+
+  const toggleModal = () => {
+    setIsOpenModal((prev) => !prev);
+  };
+
+  const handleClickOnModeBtn = () => {
+    if (mode === 'wide') {
+      localStorage.setItem('menu-mode', 'list');
+      setMode('list');
+    } else {
+      localStorage.setItem('menu-mode', 'wide');
+      setMode('wide');
+    }
+  };
 
   const handleClickOnTabs = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (!(e.target instanceof HTMLSpanElement)) return;
@@ -32,6 +66,7 @@ const Search = () => {
             <span className={`tab ${tab === '미들' ? 'active' : ''}`}>미들</span>
             <span className={`tab ${tab === '하이엔드' ? 'active' : ''}`}>하이엔드</span>
             <span className={`tab ${tab === '캐쥬얼' ? 'active' : ''}`}>캐쥬얼</span>
+            <QuestionIcon className="float-right" onClick={toggleModal} />
           </div>
 
           <Link href="/search/searching" passHref>
@@ -44,24 +79,40 @@ const Search = () => {
           </Link>
 
           <div className="header-wrapper">
-            <h1 className="sub-title">오모의 추천 오마카세</h1>
-            <MenuIcon />
+            <h1 className="sub-title">인기순 오마카세</h1>
+            {mode === 'wide' ? (
+              <DisplayListIcon onClick={handleClickOnModeBtn} />
+            ) : (
+              <DisplayWideIcon onClick={handleClickOnModeBtn} />
+            )}
           </div>
         </FixedArea>
 
         <SearchResults>
-          {tempStores.map((dummy) => (
-            <StoreDisplay
-              key={dummy.id}
-              id={dummy.id}
-              image={dummy.image}
-              types={dummy.types}
-              name={dummy.name}
-              desc={dummy.desc}
-            />
-          ))}
+          {tempStores.map((dummy) =>
+            mode === 'wide' ? (
+              <StoreDisplayWide
+                key={dummy.id}
+                id={dummy.id}
+                image={dummy.image}
+                types={dummy.types}
+                name={dummy.name}
+                location={dummy.location}
+              />
+            ) : (
+              <StoreDisplayList
+                key={dummy.id}
+                id={dummy.id}
+                image={dummy.image}
+                types={dummy.types}
+                name={dummy.name}
+                location={dummy.location}
+              />
+            ),
+          )}
         </SearchResults>
       </SearchPage>
+      {isOpenModal && <GradeDescriptionModal toggleModal={toggleModal} />}
     </Layout>
   );
 };
@@ -79,9 +130,16 @@ const SearchPage = styled.section`
   }
 
   .tabs {
+    position: relative;
     display: flex;
+    align-items: center;
     ${({ theme }) => theme.fonts.subTitle3};
     color: ${({ theme }) => theme.colors.black400};
+
+    .float-right {
+      position: absolute;
+      right: 0;
+    }
 
     .tab {
       margin-right: 10px;
@@ -102,8 +160,7 @@ const SearchBar = styled.article`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.black100};
   padding: 12px 16px;
-  margin: 18.56px auto;
-  margin-top: 13.56px;
+  margin: 18px auto;
 
   span {
     ${({ theme }) => theme.fonts.contents3};

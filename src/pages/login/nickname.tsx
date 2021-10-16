@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import Mascot from '@assets/mascot.svg';
 import LoginLayout from '@components/Layout/LoginLayout';
+import { MAX_NICKNAME_LENGTH, MIN_NICKNAME_LENGTH } from '@constants/login';
+import { userState } from '@recoil/userState';
 
 type ErrorType = 'default' | 'duplicate' | 'usable';
 
@@ -21,21 +23,53 @@ const errorStatusColor = {
 
 const Nickname = () => {
   const router = useRouter();
-  const [errorStatus] = useState<ErrorType>('usable');
+  const [errorStatus, setErrorStatus] = useState<ErrorType>('duplicate');
+  const [nickname, setNickname] = useState<string>('');
+  const setNicknameState = useSetRecoilState(userState);
 
+  const isNicknameValid = (val: string) =>
+    val.length > MIN_NICKNAME_LENGTH && val.length < MAX_NICKNAME_LENGTH;
+  const isNicknameDuplicated = (val: string) => {
+    //TODO: 백엔드 중복 검증 API 연결해야함
+    if (val === '중복된닉네임') return false;
+    return true;
+  };
+
+  /**
+   * 유저가 입력하는 Nickname을 검증합니다.
+   * 검증 수단은 다음과 같습니다.
+   * - 1. 유저 닉네임이 2 ~ 8글자여야 합니다.
+   * - 2. 유저 닉네임이 중복되지 않아야 합니다.
+   */
+  const checkNickname = (value: string) => {
+    setNickname(value);
+    if (!isNicknameValid(value)) return setErrorStatus('default');
+    if (!isNicknameDuplicated(value)) return setErrorStatus('duplicate');
+    setErrorStatus('usable');
+  };
+
+  /**
+   * errorStatus가 usable 일 경우,
+   * recoil에 닉네임 상태를 반영하고 profile 설정 페이지로 이동합니다.
+   */
   const onClickNextButton = () => {
     if (errorStatus !== 'usable') return;
+    setNicknameState((state) => ({ ...state, info: { nickname: nickname } }));
     router.push('/login/profile');
   };
 
   return (
     <LoginLayout>
       <Content>
-        <Mascot />
         <div className="welcome-letter">어서오세요!</div>
-        <div className="welcome-sub-letter">닉네임을 정해주세요 (최대 10자)</div>
+        <div className="welcome-sub-letter">닉네임을 정해주세요 (최대 8자)</div>
         <div className="nickname-input">
-          <input type="text" placeholder="닉네임 입력" maxLength={10} />
+          <input
+            type="text"
+            placeholder="닉네임 입력"
+            maxLength={8}
+            onChange={(e) => checkNickname(e.target.value)}
+          />
           <ErrorNotifySpan errorStatus={errorStatus}>{errorStatusMsg[errorStatus]}</ErrorNotifySpan>
         </div>
       </Content>
@@ -52,7 +86,7 @@ const Content = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 310px;
-  margin-top: 6rem;
+  margin-top: 7rem;
   padding: 0 20px;
 
   svg {
