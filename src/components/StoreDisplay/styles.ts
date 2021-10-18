@@ -74,6 +74,9 @@ export const StoreDescriptionWrapper = styled.div`
   }
   .store-location {
     ${({ theme }) => theme.fonts.contents2};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 
@@ -82,11 +85,12 @@ export const ListDescriptionWrapper = styled.div`
 `;
 
 export const ListDescription = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-left: 15px;
+  flex: 1;
+  min-width: 0;
 
   ${SubTitles} {
     position: static;
