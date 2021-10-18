@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import CopyIcon from '@assets/copy.svg';
 import FavoriteIcon from '@assets/favorite.svg';
 import TelIcon from '@assets/telephone.svg';
-import { Divider } from '@components/SearchNoData/styles';
 import Button from '@components/Shared/Button';
 import { DetailPageProps } from '@pages/search/[id]';
 
@@ -27,8 +26,6 @@ const StoreDescription = ({ store }: StoreDescriptionProps) => {
           ))}
         </div>
       </S.DescriptionHeader>
-
-      <Divider />
 
       <S.DescriptionMain>
         <S.DescriptionList>
