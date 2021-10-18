@@ -1,18 +1,24 @@
 // 마이페이지 메인
 import Link from 'next/link';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import MyPageLayout from '@components/Layout/MyPageLayout';
 import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
+import { userState } from '@recoil/userState';
 import { dummys } from '@temp/VisitedStoreDummy';
 
 const MyPage = () => {
+  const [userValue, setUserValue] = useRecoilState(userState);
+
   return (
     <MyPageLayout>
       <MyProfile />
-      <MyPagePage>
-        <div className="store-list">내 이름님이 다녀간 오마카세 리스트</div>
+      <MyPagePage className="container">
+        <div className="store-list-title">
+          <span>{userValue.info?.nickname}</span>님의오마카세 리스트
+        </div>
         {dummys.map((dummy) => (
           <VisitedStore
             key={dummy.id}
@@ -29,35 +35,11 @@ const MyPage = () => {
 
 export default MyPage;
 
-const Header = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1rem;
-  height: 150px;
-
-  .profile {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .profile-image {
-    background-color: #c4c4c4;
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-  }
-  .profile-content {
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
 const MyPagePage = styled.div`
-  padding: 1rem;
+  //padding: 1rem;
 
-  .store-list {
-    padding: 1rem;
-    font-weight: bold;
+  .store-list-title {
+    ${({ theme }) => theme.fonts.subTitle1};
+    margin-bottom: 1.5rem;
   }
 `;
