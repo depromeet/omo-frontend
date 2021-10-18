@@ -25,10 +25,10 @@ export const MyPageHeader = styled(Header)`
 
 export const TitleSection = styled.section`
   ${({ theme }) => theme.fonts.subTitle1};
-  font-weight: 400;
+  font-weight: normal;
 
   span {
-    font-weight: 700;
+    font-weight: bold;
   }
 `;
 
