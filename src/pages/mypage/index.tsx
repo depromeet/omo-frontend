@@ -3,26 +3,14 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import MyPageLayout from '@components/Layout/MyPageLayout';
+import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
 import { dummys } from '@temp/VisitedStoreDummy';
 
 const MyPage = () => {
   return (
     <MyPageLayout>
-      <Header>
-        <div className="profile">
-          <div className="profile-image"></div>
-          <div className="profile-content">
-            <NickName>지니님</NickName>
-            <Stamp>3개</Stamp>
-          </div>
-        </div>
-        <div>
-          <Link href="/mypage/settings" passHref>
-            <Setting>설정</Setting>
-          </Link>
-        </div>
-      </Header>
+      <MyProfile />
       <MyPagePage>
         <div className="store-list">내 이름님이 다녀간 오마카세 리스트</div>
         {dummys.map((dummy) => (
@@ -47,7 +35,6 @@ const Header = styled.section`
   align-items: center;
   padding: 0 1rem;
   height: 150px;
-  background-color: #f1f1f1;
 
   .profile {
     display: flex;
@@ -64,22 +51,6 @@ const Header = styled.section`
     display: flex;
     flex-direction: column;
   }
-`;
-
-const NickName = styled.h1`
-  font-size: 24px;
-  font-weight: bold;
-`;
-
-const Stamp = styled.h2`
-  font-size: 16px;
-`;
-
-const Setting = styled.button`
-  background-color: #c4c4c4;
-  border-radius: 15px;
-  border: none;
-  padding: 5px 13px; ;
 `;
 
 const MyPagePage = styled.div`
