@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 
@@ -16,9 +17,10 @@ const MyPageHeader = () => {
         <span>{userValue.info?.nickname}</span>님 안녕하세요!
       </S.TitleSection>
       <S.SettingSection>
-        <Setting />
+        <Link href="/mypage/settings" passHref>
+          <Setting />
+        </Link>
       </S.SettingSection>
-      
     </S.MyPageHeader>
   );
 };
