@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const MyProfileWrapper = styled.div``;
+export const MyProfileWrapper = styled.div`
+  margin-bottom: 2rem;
+`;
 
 export const MyProfileSection = styled.section`
   display: flex;
@@ -11,13 +13,13 @@ export const MyProfileSection = styled.section`
   padding: 0 16px;
   background: #f8f8fc;
   border-radius: 15px;
-  height: 96px;
+  height: 6rem;
 `;
 
 export const ProfileInformationWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  flex : 1;
+  flex: 1;
   width: 70%;
 `;
 
@@ -32,7 +34,7 @@ export const Content = styled.div`
     color: ${({ theme }) => theme.colors.black900};
   }
   .sub {
-      ${({ theme }) => theme.fonts.contents3};
+    ${({ theme }) => theme.fonts.contents3};
     color: ${({ theme }) => theme.colors.black700};
   }
 `;
