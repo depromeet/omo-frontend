@@ -8,7 +8,7 @@ import { dummys } from '@temp/VisitedStoreDummy';
 
 const MyPage = () => {
   return (
-    <MyPageLayout title="마이페이지">
+    <MyPageLayout>
       <Header>
         <div className="profile">
           <div className="profile-image"></div>
