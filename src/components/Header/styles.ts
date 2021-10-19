@@ -16,9 +16,27 @@ export const Header = styled.header<HeaderProps>`
 `;
 
 export const MyPageHeader = styled(Header)`
-  background-color: #f1f1f1;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
   border: none;
   margin-bottom: 0;
+`;
+
+export const TitleSection = styled.section`
+  ${({ theme }) => theme.fonts.subTitle1};
+  font-weight: normal;
+
+  span {
+    font-weight: bold;
+  }
+`;
+
+export const SettingSection = styled.section`
+  display: flex;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const PrevButton = styled.button`
