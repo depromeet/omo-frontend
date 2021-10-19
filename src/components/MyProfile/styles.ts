@@ -6,20 +6,17 @@ export const MyProfileWrapper = styled.div`
 
 export const MyProfileSection = styled.section`
   display: flex;
-  flex: 1;
-  //justify-content: space-between;
-  gap: 16px;
   align-items: center;
+  gap: 16px;
   padding: 0 16px;
+  height: 6rem;
   background: #f8f8fc;
   border-radius: 15px;
-  height: 6rem;
 `;
 
 export const ProfileInformationWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  flex: 1;
   width: 70%;
 `;
 
