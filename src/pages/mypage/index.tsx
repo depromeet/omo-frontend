@@ -45,6 +45,6 @@ const MyPagePage = styled.div`
     display: grid;
     grid-auto-rows: auto;
     grid-template-columns: repeat(2, 1fr);
-    gap:  5px 15px;
+    gap: 5px 15px;
   }
 `;
