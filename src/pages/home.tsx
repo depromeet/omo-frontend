@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import HorizontalLogo from '@assets/horizontal-logo.svg';
 import Layout from '@components/Layout';
 import RankingProfile from '@components/RankerProfile/RankingProfile';
 import RankingBar from '@components/RankingBar';
@@ -100,9 +101,9 @@ const Home = () => {
   ];
 
   return (
-    <Layout title="홈">
+    <Layout title="홈" noHeader>
       <LogoSection>
-        <span className="logo">OMO</span>
+        <HorizontalLogo />
       </LogoSection>
       {!user.isLoggedIn && (
         <>
