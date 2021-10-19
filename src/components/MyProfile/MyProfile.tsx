@@ -25,7 +25,6 @@ const MyProfile = () => (
           <span className="main">Lv.1</span>
           <span className="sub">초밥력</span>
         </S.Content>
-        
       </S.ProfileInformationWrapper>
     </S.MyProfileSection>
   </S.MyProfileWrapper>
