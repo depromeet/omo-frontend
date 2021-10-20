@@ -9,6 +9,7 @@ interface IUserState {
   };
 }
 
+// FIXME: 유저 로그인 로직이 연결되면 해당 부분을 수정해주세요!
 const defaultUserState = {
   isLoggedIn: false,
   info: {
