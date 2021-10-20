@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import HorizontalLogo from '@assets/horizontal-logo.svg';
 import InfoCard from '@components/InfoCard';
 import Layout from '@components/Layout';
+import OmakaseStampCard from '@components/OmakaseStampCard';
 import RankingCard from '@components/RankingCard';
 import { useUserValue } from '@recoil/userState';
 
@@ -26,6 +27,7 @@ const Home = () => {
             <InfoCard type="visited" value={userValue.info?.visitedOmakase} />
             <InfoCard type="ranking" value={userValue.info?.ranking} />
           </InfoCardArea>
+          <OmakaseStampCard nickname={userValue.info?.nickname} level={userValue.info?.level} />
         </MyInfoSection>
         <RankingSection>
           <RankingSectionTitle>{'진짜들의 오마카세 엿보기 👀'}</RankingSectionTitle>
