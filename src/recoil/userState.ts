@@ -17,7 +17,7 @@ const defaultUserState = {
     nickname: '지니지니지니지니',
     visitedOmakase: 12,
     ranking: 2,
-    level: 1,
+    level: 2,
   },
 };
 

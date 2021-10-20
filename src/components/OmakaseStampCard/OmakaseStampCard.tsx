@@ -1,3 +1,7 @@
+import Image from 'next/image';
+
+import { STAMP_BUTTON_VALUE, STAMP_TITLE_NO_STAMP, STAMP_TITLE_SUFFIX } from '@constants/home';
+
 import * as S from './styles';
 
 interface IOmakaseStampCard {
@@ -6,9 +10,8 @@ interface IOmakaseStampCard {
 }
 
 const OmakaseStampCard = ({ nickname, level }: IOmakaseStampCard) => {
-  const STAMP_TITLE_NO_STAMP = '오마카세 영수증으로 도장깨기를 시작해보세요!';
-  const STAMP_TITLE_SUFFIX = '님의 초밥력은?';
-  const STAMP_BUTTON_VALUE = '도장깨러가기';
+  const stampAmount = level && level >= 4 ? 20 : 10;
+  const rankingAreaArray = new Array(stampAmount).fill(null);
 
   return (
     <S.OmakaseStampCardWrapper>
@@ -25,20 +28,42 @@ const OmakaseStampCard = ({ nickname, level }: IOmakaseStampCard) => {
       </S.TitleArea>
       <S.Division />
       <S.StampArea>
-        <S.Stamp />
-        <S.Stamp />
-        <S.Stamp />
-        <S.Stamp />
-        <S.Stamp />
-        <S.Stamp />
-        <S.Stamp />
-        <S.Stamp />
-        <S.Stamp />
-        <S.Stamp />
+        {rankingAreaArray.map((_, idx) => (
+          <S.Stamp key={idx}>{stampInnerText(idx)}</S.Stamp>
+        ))}
       </S.StampArea>
       <S.StampButton>{STAMP_BUTTON_VALUE}</S.StampButton>
     </S.OmakaseStampCardWrapper>
   );
+};
+
+const stampInnerText = (index: number) => {
+  let returnText;
+  switch (index) {
+    case 0:
+      returnText = <span>LV.1</span>;
+      break;
+    case 1:
+      returnText = <span>LV.2</span>;
+      break;
+    case 4:
+      returnText = <span>LV.3</span>;
+      break;
+    case 9:
+      returnText = <span>LV.4</span>;
+      break;
+    case 19:
+      returnText = <span>LV.5</span>;
+      break;
+    default:
+      returnText = (
+        <div>
+          <Image src="/images/add.svg" alt="add" width={24} height={24} />
+        </div>
+      );
+      break;
+  }
+  return returnText;
 };
 
 export default OmakaseStampCard;

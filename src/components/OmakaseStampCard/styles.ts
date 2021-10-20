@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const OmakaseStampCardWrapper = styled.div`
   box-sizing: border-box;
   width: 100%;
-  height: 290px;
   padding: 20px;
   margin-top: 20px;
   border-radius: 10px;
@@ -50,11 +49,30 @@ export const StampArea = styled.div`
 `;
 
 export const Stamp = styled.div`
+  position: relative;
   width: 100%;
   height: 0;
   padding-bottom: 100%;
   border-radius: 50%;
   background-color: #eff0f6;
+
+  color: #b0b0bb;
+
+  span {
+    ${({ theme }) => theme.fonts.contentsBold};
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  div {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export const StampButton = styled.button`
