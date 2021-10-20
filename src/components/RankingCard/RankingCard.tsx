@@ -20,6 +20,10 @@ const RankingCard = ({ props }: { props: IRankingCard }) => {
         </S.ProfileBubble>
         <Image src="/images/default-profile.png" width={60} height={60} alt="default-profile" />
       </S.ProfileArea>
+      <S.InfoArea>
+        <S.Nickname>{nickname}</S.Nickname>
+        <S.StampCount>도장 깬 횟수 : {count}회</S.StampCount>
+      </S.InfoArea>
       <S.RightButton>
         <Image src="/images/ranking-card-right-button.svg" width={24} height={24} alt="right" />
       </S.RightButton>
