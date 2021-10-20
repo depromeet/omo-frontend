@@ -6,7 +6,7 @@ import * as S from './styles';
 
 interface IInfoCard {
   type: InfoCardType;
-  value: number;
+  value?: number;
 }
 
 const InfoCard = ({ type, value }: IInfoCard) => {
