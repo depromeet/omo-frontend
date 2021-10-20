@@ -29,7 +29,7 @@ const OmakaseStampCard = ({ nickname, level }: IOmakaseStampCard) => {
       <S.Division />
       <S.StampArea>
         {rankingAreaArray.map((_, idx) => (
-          <S.Stamp key={idx}>{stampInnerText(idx)}</S.Stamp>
+          <S.Stamp key={idx}>{getStampInnerText(idx)}</S.Stamp>
         ))}
       </S.StampArea>
       <S.StampButton>{STAMP_BUTTON_VALUE}</S.StampButton>
@@ -37,7 +37,7 @@ const OmakaseStampCard = ({ nickname, level }: IOmakaseStampCard) => {
   );
 };
 
-const stampInnerText = (index: number) => {
+const getStampInnerText = (index: number) => {
   let returnText;
   switch (index) {
     case 0:
