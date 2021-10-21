@@ -1,5 +1,4 @@
-import Image from 'next/image';
-
+import Add from '@assets/add.svg';
 import { STAMP_BUTTON_VALUE, STAMP_TITLE_NO_STAMP, STAMP_TITLE_SUFFIX } from '@constants/home';
 
 import * as S from './styles';
@@ -58,7 +57,7 @@ const getStampInnerText = (index: number) => {
     default:
       returnText = (
         <div>
-          <Image src="/images/add.svg" alt="add" width={24} height={24} />
+          <Add />
         </div>
       );
       break;
