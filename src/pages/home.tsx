@@ -73,7 +73,7 @@ const CatchPhraseArea = styled.h1`
 const InfoCardArea = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  gap: 13px;
 `;
 
 const RankingSection = styled(MyInfoSection)`
