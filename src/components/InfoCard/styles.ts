@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
-export const InfoCardWrapper = styled.div`
+export const InfoCardWrapper = styled.div<{ type: string }>`
   position: relative;
-  width: 160px;
+  width: calc((100% - 13px) / 2);
   height: 186px;
   border-radius: 16px;
+  background-color: ${({ type }) => (type === 'visited' ? '#2a3ad2' : '#ffc737')};
 `;
 
 export const Title = styled.p`

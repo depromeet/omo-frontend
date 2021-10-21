@@ -1,6 +1,6 @@
-import Image from 'next/image';
-
 import { InfoCardType } from '@@types/home';
+import PatternOne from '@assets/pattern-one.svg';
+import PatternTwo from '@assets/pattern-two.svg';
 
 import * as S from './styles';
 
@@ -10,12 +10,11 @@ interface IInfoCard {
 }
 
 const InfoCard = ({ type, value }: IInfoCard) => {
-  const src = `/images/infocard-${type}.svg`;
   const title = type === 'visited' ? `내가 다녀간\n오마카세` : `나의 오마카세\n랭킹`;
 
   return (
-    <S.InfoCardWrapper>
-      <Image src={src} width={160} height={186} alt="info-card" />
+    <S.InfoCardWrapper type={type}>
+      {type === 'visited' ? <PatternOne /> : <PatternTwo />}
       <S.Title>{title}</S.Title>
       <S.ValueArea>
         <S.Value>{value}</S.Value>
