@@ -8,6 +8,10 @@ export const RankingCardWrapper = styled.div<{ rank: number }>`
   border-radius: 10px;
   height: ${({ rank }) => ([1, 2, 3].includes(rank) ? '100px' : '66px')};
   background-color: ${({ rank }) => RANKING_CARD_BG_COLOR[rank] ?? '#F8F8FC'};
+
+  & + & {
+    margin-top: 10px;
+  }
 `;
 
 export const ProfileArea = styled.div<{ rank: number }>`

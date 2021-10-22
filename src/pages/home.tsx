@@ -92,8 +92,4 @@ const RankingSectionTitle = styled.h2`
 
 const RankingCardArea = styled.div`
   margin-top: 20px;
-
-  .ranking-card:not(:last-child) {
-    margin-bottom: 10px;
-  }
 `;

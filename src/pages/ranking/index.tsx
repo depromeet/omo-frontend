@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import Earth from '@assets/earth.svg';
 import Guidance from '@assets/guidance.svg';
 import BackgroundPattern from '@assets/pattern-one.svg';
 import Layout from '@components/Layout';
+import { RankingNotifyModal } from '@components/Shared/Modal';
 import RankingCard from '@components/Shared/RankingCard';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
@@ -11,6 +13,8 @@ import { useUserValue } from '@recoil/userState';
 
 const Ranking = () => {
   const userValue = useUserValue();
+
+  const [isOpenModal, setIsOpenModal] = useState(true);
 
   const rankingList = [
     { rank: 1, nickname: '오마카세에대출땡', amount: 24 },
@@ -62,6 +66,7 @@ const Ranking = () => {
           </h2>
         </RankingSectionArea>
       </MyRankingSection>
+      {!isOpenModal && <RankingNotifyModal toggleModal={setIsOpenModal} />}
     </Layout>
   );
 };
@@ -132,10 +137,6 @@ const RankingSection = styled.section`
     position: absolute;
     top: 22px;
     right: 20px;
-  }
-
-  .ranking-card:not(:last-child) {
-    margin-bottom: 10px;
   }
 `;
 
