@@ -45,6 +45,7 @@ export const StoreDescriptionWrapper = styled.div`
     margin-bottom: 2px;
   }
   .store-desc {
-    ${({ theme }) => theme.fonts.subTitle3};
+    ${({ theme }) => theme.fonts.contents3};
+    color: ${({ theme }) => theme.colors.black600};
   }
 `;
