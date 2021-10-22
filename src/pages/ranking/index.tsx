@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import Guidance from '@assets/guidance.svg';
 import Layout from '@components/Layout';
-import RankingProfile from '@components/RankerProfile/RankingProfile';
 import RankingBar from '@components/RankingBar';
 import RankingCard from '@components/RankingCard';
 
@@ -14,24 +13,6 @@ export interface RankingProps {
   }[];
 }
 
-// const Top3RankingSection = ({ rankingList }: RankingProps) => (
-//   <Top3RankingSectionWrapper>
-//     <div className="rankers">
-//       {rankingList.map(({ rank, name, amount }) => (
-//         <RankingProfile rank={rank} name={name} amount={amount} key={rank} />
-//       ))}
-//     </div>
-//   </Top3RankingSectionWrapper>
-// );
-
-// const OhtersRankingSection = ({ rankingList }: RankingProps) => (
-//   <OthersRankingSectionWrapper>
-//     {rankingList.map(({ rank, name, amount }) => (
-//       <RankingBar rank={rank} nickname={name} amount={amount} key={rank} />
-//     ))}
-//   </OthersRankingSectionWrapper>
-// );
-
 const Ranking = () => {
   const rankingList = [
     { rank: 1, nickname: '오모마카세에대출', amount: 24 },
@@ -39,15 +20,11 @@ const Ranking = () => {
     { rank: 3, nickname: '오마카새우', amount: 8 },
     { rank: 4, nickname: '오마카사위', amount: 3 },
     { rank: 5, nickname: '오마카사위', amount: 3 },
-    // { rank: 6, nickname: '오마카사위', amount: 3 },
-    // { rank: 7, nickname: '오마카사위', amount: 3 },
-    // { rank: 8, nickname: '오마카사위', amount: 3 },
-    // { rank: 9, nickname: '오마카사위', amount: 3 },
-    // { rank: 10, nickname: '오마카사위', amount: 3 },
-    // { rank: 11, nickname: '오마카사위', amount: 3 },
-    // { rank: 12, nickname: '오마카사위', amount: 3 },
-    // { rank: 13, nickname: '오마카사위', amount: 3 },
-    // { rank: 14, nickname: '오마카사위', amount: 3 },
+    { rank: 6, nickname: '오마카사위', amount: 3 },
+    { rank: 7, nickname: '오마카사위', amount: 3 },
+    { rank: 8, nickname: '오마카사위', amount: 3 },
+    { rank: 9, nickname: '오마카사위', amount: 3 },
+    { rank: 10, nickname: '오마카사위', amount: 3 },
   ];
 
   return (
@@ -58,7 +35,7 @@ const Ranking = () => {
       <RankingSection>
         <h1>전체랭킹</h1>
         <h2>랭킹은 매일 24시에 갱신됩니다.</h2>
-        <Guidance />
+        <Guidance className="guidance" />
         {rankingList.map((props) => (
           <RankingCard props={props} key={props.rank} />
         ))}
@@ -84,6 +61,25 @@ const OmakasePioneerWrapper = styled.div`
 
 const RankingSection = styled(OmakasePioneerSection)`
   margin-top: 35px;
+  position: relative;
+
+  h1 {
+    ${({ theme }) => theme.fonts.subTitle1};
+    line-height: 32px;
+  }
+
+  h2 {
+    ${({ theme }) => theme.fonts.contents3};
+    color: ${({ theme }) => theme.colors.black400};
+    line-height: 17px;
+    margin-bottom: 20px;
+  }
+
+  .guidance {
+    position: absolute;
+    top: 22px;
+    right: 20px;
+  }
 
   .ranking-card:not(:last-child) {
     margin-bottom: 10px;
