@@ -2,11 +2,12 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 // 개인정보 설정 페이지
-import Layout from '@components/Layout';
+import Header from '@components/Header';
 
 const Settings = () => {
   return (
-    <Layout title="개인정보 설정">
+    <>
+      <Header title="개인정보 설정" />
       <SettingSection onClick={() => alert('로그아웃이 완료되었습니다.')}>로그아웃</SettingSection>
       <SettingSection>
         <Link href="/mypage/signout" passHref>
@@ -23,7 +24,7 @@ const Settings = () => {
           <a className="setting-link">프로필사진 변경</a>
         </Link>
       </SettingSection>
-    </Layout>
+    </>
   );
 };
 
