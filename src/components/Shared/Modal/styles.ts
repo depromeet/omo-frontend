@@ -125,3 +125,28 @@ export const GradeDescription = styled.div`
     margin-top: 10px;
   }
 `;
+
+export const RankingNotifyModalContent = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  height: 225px;
+  background: #f8f8fc;
+  border-radius: 10px;
+  padding: 20px 0;
+  margin-top: 9px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  ${({ theme }) => theme.fonts.contents2};
+  line-height: 22.4px;
+  color: ${({ theme }) => theme.colors.black900};
+  p {
+    text-align: center;
+  }
+  p:last-child {
+    font-weight: bold;
+  }
+`;
