@@ -1,5 +1,3 @@
-// 랭킹 메인 페이지
-
 import styled from 'styled-components';
 
 import Layout from '@components/Layout';
@@ -55,7 +53,7 @@ const Ranking = () => {
   const myRanking = rankingList.slice(0, 1);
 
   return (
-    <Layout title="랭킹">
+    <Layout title="명예의 전당 ✨">
       <Top3RankingSection rankingList={top3RankingList} />
       <OhtersRankingSection rankingList={othersRankingList} />
       <MyRangkingSection>
