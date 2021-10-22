@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 
 import Setting from '@assets/setting.svg';
@@ -8,7 +7,6 @@ import { userState } from '@recoil/userState';
 import * as S from './styles';
 
 const MyPageHeader = () => {
-  const router = useRouter();
   const [userValue, setUserValue] = useRecoilState(userState);
 
   return (
