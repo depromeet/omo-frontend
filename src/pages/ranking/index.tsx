@@ -7,14 +7,6 @@ import Layout from '@components/Layout';
 import RankingCard from '@components/RankingCard';
 import { PIONEER_PHRASE } from '@constants/ranking';
 
-export interface RankingProps {
-  rankingList: {
-    rank: number;
-    name: string;
-    amount: number;
-  }[];
-}
-
 const Ranking = () => {
   const rankingList = [
     { rank: 1, nickname: '오마카세에대출땡', amount: 24 },
@@ -30,8 +22,9 @@ const Ranking = () => {
   ];
 
   return (
-    <Layout title="명예의 전당 ✨">
+    <Layout title="Ranking" noHeader>
       <OmakasePioneerSection>
+        <h1>명예의 전당 ✨</h1>
         <OmakasePioneerWrapper>
           <p>{PIONEER_PHRASE}</p>
           <p>{rankingList[0].nickname}</p>
@@ -57,6 +50,12 @@ export default Ranking;
 
 const OmakasePioneerSection = styled.section`
   padding: 0 20px;
+
+  & > h1 {
+    ${({ theme }) => theme.fonts.subTitle1};
+    line-height: 32px;
+    margin: 16px 0 10px 0;
+  }
 `;
 
 const OmakasePioneerWrapper = styled.div`
@@ -90,9 +89,12 @@ const OmakasePioneerWrapper = styled.div`
   }
 `;
 
-const RankingSection = styled(OmakasePioneerSection)`
-  margin-top: 35px;
+const RankingSection = styled.section`
   position: relative;
+  margin-top: 35px;
+  padding: 0 20px;
+  padding-bottom: 85px;
+  /* MyRankingSection에 가려져 랭킹 10위까지 보여주기 위한 padding-bottom */
 
   h1 {
     ${({ theme }) => theme.fonts.subTitle1};
@@ -121,10 +123,10 @@ const MyRangkingSection = styled.section`
   box-sizing: border-box;
   position: fixed;
   width: 100%;
-  height: fit-content;
-  padding: 17px 24px;
+  height: 71px;
   left: 0px;
-  bottom: 56px;
-  background-color: white;
-  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.1);
+  bottom: 65px;
+
+  background-color: #fff;
+  box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
 `;
