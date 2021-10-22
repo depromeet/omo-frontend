@@ -1,10 +1,10 @@
-import styled, { ThemeContext } from 'styled-components';
+import styled from 'styled-components';
 
 import Earth from '@assets/earth.svg';
 import Guidance from '@assets/guidance.svg';
 import BackgroundPattern from '@assets/pattern-one.svg';
 import Layout from '@components/Layout';
-import RankingCard from '@components/RankingCard';
+import RankingCard from '@components/Shared/RankingCard';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
 import { useUserValue } from '@recoil/userState';

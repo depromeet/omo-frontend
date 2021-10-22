@@ -4,7 +4,7 @@ import HorizontalLogo from '@assets/horizontal-logo.svg';
 import InfoCard from '@components/InfoCard';
 import Layout from '@components/Layout';
 import OmakaseStampCard from '@components/OmakaseStampCard';
-import RankingCard from '@components/RankingCard';
+import RankingCard from '@components/Shared/RankingCard';
 import { useUserValue } from '@recoil/userState';
 
 const Home = () => {
