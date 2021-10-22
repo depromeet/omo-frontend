@@ -12,6 +12,9 @@ interface IRankingCard {
   amount: number;
 }
 
+/**
+ * @usage Home, Ranking Page
+ */
 const RankingCard = ({ props }: { props: IRankingCard }) => {
   const { rank, nickname, amount } = props;
   const isRanker = [1, 2, 3].includes(rank);

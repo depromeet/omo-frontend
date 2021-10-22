@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
+import Earth from '@assets/earth.svg';
 import Guidance from '@assets/guidance.svg';
+import BackgroundPattern from '@assets/pattern-one.svg';
 import Layout from '@components/Layout';
-import RankingBar from '@components/RankingBar';
 import RankingCard from '@components/RankingCard';
+import { PIONEER_PHRASE } from '@constants/ranking';
 
 export interface RankingProps {
   rankingList: {
@@ -15,7 +17,7 @@ export interface RankingProps {
 
 const Ranking = () => {
   const rankingList = [
-    { rank: 1, nickname: '오모마카세에대출', amount: 24 },
+    { rank: 1, nickname: '오마카세에대출땡', amount: 24 },
     { rank: 2, nickname: '지니지니', amount: 14 },
     { rank: 3, nickname: '오마카새우', amount: 8 },
     { rank: 4, nickname: '오마카사위', amount: 3 },
@@ -30,7 +32,12 @@ const Ranking = () => {
   return (
     <Layout title="명예의 전당 ✨">
       <OmakasePioneerSection>
-        <OmakasePioneerWrapper />
+        <OmakasePioneerWrapper>
+          <p>{PIONEER_PHRASE}</p>
+          <p>{rankingList[0].nickname}</p>
+          <BackgroundPattern className="pattern" />
+          <Earth className="earth" />
+        </OmakasePioneerWrapper>
       </OmakasePioneerSection>
       <RankingSection>
         <h1>전체랭킹</h1>
@@ -53,10 +60,34 @@ const OmakasePioneerSection = styled.section`
 `;
 
 const OmakasePioneerWrapper = styled.div`
+  box-sizing: border-box;
+  position: relative;
   width: 100%;
   height: 131.35px;
   background-color: #293ad2;
+  padding: 20px;
   border-radius: 16px;
+
+  p {
+    color: #fff;
+    ${({ theme }) => theme.fonts.contents1};
+
+    &:nth-child(2) {
+      margin-top: 10px;
+      ${({ theme }) => theme.fonts.header3};
+    }
+  }
+
+  svg.pattern {
+    position: absolute;
+    top: -30px;
+    left: -30px;
+  }
+  svg.earth {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
 `;
 
 const RankingSection = styled(OmakasePioneerSection)`
