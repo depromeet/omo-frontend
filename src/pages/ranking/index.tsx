@@ -12,23 +12,23 @@ export interface RankingProps {
   }[];
 }
 
-const Top3RankingSection = ({ rankingList }: RankingProps) => (
-  <Top3RankingSectionWrapper>
-    <div className="rankers">
-      {rankingList.map(({ rank, name, amount }) => (
-        <RankingProfile rank={rank} name={name} amount={amount} key={rank} />
-      ))}
-    </div>
-  </Top3RankingSectionWrapper>
-);
+// const Top3RankingSection = ({ rankingList }: RankingProps) => (
+//   <Top3RankingSectionWrapper>
+//     <div className="rankers">
+//       {rankingList.map(({ rank, name, amount }) => (
+//         <RankingProfile rank={rank} name={name} amount={amount} key={rank} />
+//       ))}
+//     </div>
+//   </Top3RankingSectionWrapper>
+// );
 
-const OhtersRankingSection = ({ rankingList }: RankingProps) => (
-  <OthersRankingSectionWrapper>
-    {rankingList.map(({ rank, name, amount }) => (
-      <RankingBar rank={rank} nickname={name} amount={amount} key={rank} />
-    ))}
-  </OthersRankingSectionWrapper>
-);
+// const OhtersRankingSection = ({ rankingList }: RankingProps) => (
+//   <OthersRankingSectionWrapper>
+//     {rankingList.map(({ rank, name, amount }) => (
+//       <RankingBar rank={rank} nickname={name} amount={amount} key={rank} />
+//     ))}
+//   </OthersRankingSectionWrapper>
+// );
 
 const Ranking = () => {
   const rankingList = [
@@ -47,15 +47,16 @@ const Ranking = () => {
     { rank: 13, name: '박일등', amount: 3 },
     { rank: 14, name: '박일등', amount: 3 },
   ];
-  const top3RankingList = rankingList.slice(0, 3);
   const othersRankingList = rankingList.slice(3);
   //TODO: login한 userID로 myRanking값 바꾸기
   const myRanking = rankingList.slice(0, 1);
 
   return (
     <Layout title="명예의 전당 ✨">
-      <Top3RankingSection rankingList={top3RankingList} />
-      <OhtersRankingSection rankingList={othersRankingList} />
+      <OmakasePioneerSection>
+        <OmakasePioneerWrapper />
+      </OmakasePioneerSection>
+      {/* <Top3RankingSection rankingList={top3RankingList} /> */}
       <MyRangkingSection>
         {myRanking.map(({ rank, name, amount }) => (
           <RankingBar rank={rank} nickname={name} amount={amount} key={rank} />
@@ -66,6 +67,17 @@ const Ranking = () => {
 };
 
 export default Ranking;
+
+const OmakasePioneerSection = styled.section`
+  padding: 0 20px;
+`;
+
+const OmakasePioneerWrapper = styled.div`
+  width: 100%;
+  height: 131.35px;
+  background-color: #293ad2;
+  border-radius: 16px;
+`;
 
 const OthersRankingSectionWrapper = styled.section`
   box-sizing: border-box;
@@ -82,15 +94,6 @@ const OthersRankingSectionWrapper = styled.section`
 
   .ranking-bar {
     margin-bottom: 11px;
-  }
-`;
-
-//TODO: 디자인 확정되면 따로 컴포넌트 분리
-const Top3RankingSectionWrapper = styled(OthersRankingSectionWrapper)`
-  .rankers {
-    display: flex;
-    justify-content: space-between;
-    margin: 18px 0;
   }
 `;
 
