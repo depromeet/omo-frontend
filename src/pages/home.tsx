@@ -24,7 +24,7 @@ const Home = () => {
           </LogoArea>
           <CatchPhraseArea>{'오늘은\n오마카세 먹는날!'}</CatchPhraseArea>
           <InfoCardArea>
-            <InfoCard type="visited" value={userValue.info?.visitedOmakase} />
+            <InfoCard type="visited" value={userValue.info?.amount} />
             <InfoCard type="ranking" value={userValue.info?.ranking} />
           </InfoCardArea>
           <OmakaseStampCard nickname={userValue.info?.nickname} level={userValue.info?.level} />

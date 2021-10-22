@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 
 import Earth from '@assets/earth.svg';
 import Guidance from '@assets/guidance.svg';
@@ -6,8 +6,12 @@ import BackgroundPattern from '@assets/pattern-one.svg';
 import Layout from '@components/Layout';
 import RankingCard from '@components/RankingCard';
 import { PIONEER_PHRASE } from '@constants/ranking';
+import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
+import { useUserValue } from '@recoil/userState';
 
 const Ranking = () => {
+  const userValue = useUserValue();
+
   const rankingList = [
     { rank: 1, nickname: '오마카세에대출땡', amount: 24 },
     { rank: 2, nickname: '지니지니', amount: 14 },
@@ -41,7 +45,23 @@ const Ranking = () => {
         ))}
       </RankingSection>
 
-      <MyRangkingSection></MyRangkingSection>
+      <MyRankingSection>
+        <RankingSectionArea>
+          <h1>내 순위</h1>
+          <RankBlock>
+            {userValue.info?.ranking ?? '-'}
+            {RANK_SUFFIX}
+          </RankBlock>
+        </RankingSectionArea>
+        <Divider />
+        <RankingSectionArea>
+          <h1>도장 깬 횟수</h1>
+          <h2>
+            {userValue.info?.amount}
+            {STAMP_AMOUNT_SUFFIX}
+          </h2>
+        </RankingSectionArea>
+      </MyRankingSection>
     </Layout>
   );
 };
@@ -119,9 +139,11 @@ const RankingSection = styled.section`
   }
 `;
 
-const MyRangkingSection = styled.section`
+const MyRankingSection = styled.section`
   box-sizing: border-box;
   position: fixed;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   height: 71px;
   left: 0px;
@@ -129,4 +151,40 @@ const MyRangkingSection = styled.section`
 
   background-color: #fff;
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px 44px;
+`;
+
+const RankingSectionArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 108px;
+
+  h1 {
+    ${({ theme }) => theme.fonts.subTitle2};
+    line-height: 32px;
+  }
+  h2 {
+    ${({ theme }) => theme.fonts.contents1};
+  }
+`;
+
+const RankBlock = styled.div`
+  width: 52px;
+  height: 32px;
+
+  background-color: #293ad2;
+  border-radius: 24px;
+  ${({ theme }) => theme.fonts.contents2};
+  line-height: 32px;
+  text-align: center;
+  color: #fff;
+`;
+
+const Divider = styled.div.attrs({
+  'aria-hidden': true,
+})`
+  width: 1px;
+  height: 32px;
+  background-color: #e7e7e7;
 `;
