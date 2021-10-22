@@ -5,9 +5,9 @@ import { RANKING_CARD_BG_COLOR, RANKING_CARD_THUMBNAIL_COLOR } from '@constants/
 export const RankingCardWrapper = styled.div<{ rank: number }>`
   position: relative;
   width: 100%;
-  height: 100px;
   border-radius: 10px;
-  background-color: ${({ rank }) => RANKING_CARD_BG_COLOR[rank]};
+  height: ${({ rank }) => ([1, 2, 3].includes(rank) ? '100px' : '66px')};
+  background-color: ${({ rank }) => RANKING_CARD_BG_COLOR[rank] ?? '#F8F8FC'};
 `;
 
 export const ProfileArea = styled.div<{ rank: number }>`
@@ -22,6 +22,17 @@ export const ProfileArea = styled.div<{ rank: number }>`
   transform: translateY(-50%);
   border-radius: 50%;
   background-color: ${({ rank }) => RANKING_CARD_THUMBNAIL_COLOR[rank]};
+`;
+
+export const RankIndicator = styled.div`
+  width: 52px;
+  height: 32px;
+  background-color: #aaacbe;
+  border-radius: 24px;
+  color: #fff;
+  text-align: center;
+  ${({ theme }) => theme.fonts.subTitle3};
+  line-height: 32px;
 `;
 
 export const ProfileBubble = styled.div`
@@ -50,24 +61,30 @@ export const RightButton = styled.button`
 
 export const InfoArea = styled.div`
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: space-between;
   top: 50%;
   left: 106px;
   width: 129px;
-  height: 49px;
   transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
 `;
 
 export const Nickname = styled.p`
   ${({ theme }) => theme.fonts.subTitle2};
   line-height: 22.4px;
   color: #1b1b1d;
+
+  span {
+    margin-left: 3px;
+    font-size: 14px;
+    ${({ theme }) => theme.fonts.contents2};
+    color: ${({ theme }) => theme.colors.black400};
+  }
 `;
 
 export const StampAmount = styled.p`
   ${({ theme }) => theme.fonts.contents2};
-  line-height: 32px;
+  line-height: 27px;
   color: #707077;
 `;
