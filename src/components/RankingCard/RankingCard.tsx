@@ -15,13 +15,13 @@ const RankingCard = ({ props }: { props: IRankingCard }) => {
   const { rank, nickname, amount } = props;
 
   return (
-    <S.RankingCardWrapper className="ranking-card">
-      <S.ProfileArea className="ranking-card--profile-area">
+    <S.RankingCardWrapper className="ranking-card" rank={rank}>
+      <S.ProfileArea rank={rank}>
         <S.ProfileBubble>
           <MessageBubble />
           <span>{rank}위</span>
         </S.ProfileBubble>
-        <Image src="/images/default-profile.png" width={60} height={60} alt="default-profile" />
+        <Image src="/images/default-profile.png" width={55} height={55} alt="default-profile" />
       </S.ProfileArea>
       <S.InfoArea>
         <S.Nickname>{nickname}</S.Nickname>
@@ -29,7 +29,6 @@ const RankingCard = ({ props }: { props: IRankingCard }) => {
       </S.InfoArea>
       <S.RightButton>
         <RightButton />
-        {/* <Image src="/images/ranking-card-right-button.svg" width={24} height={24} alt="right" /> */}
       </S.RightButton>
     </S.RankingCardWrapper>
   );

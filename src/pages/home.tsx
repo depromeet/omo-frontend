@@ -93,25 +93,6 @@ const RankingSectionTitle = styled.h2`
 const RankingCardArea = styled.div`
   margin-top: 20px;
 
-  .ranking-card:nth-child(1) {
-    background-color: #fff1cd;
-    .ranking-card--profile-area {
-      background-color: #ffd569;
-    }
-  }
-  .ranking-card:nth-child(2) {
-    background-color: #eff0f6;
-    .ranking-card--profile-area {
-      background-color: #d0d0db;
-    }
-  }
-  .ranking-card:nth-child(3) {
-    background-color: #ffe8cd;
-    .ranking-card--profile-area {
-      background-color: #ffcb8e;
-    }
-  }
-
   .ranking-card:not(:last-child) {
     margin-bottom: 10px;
   }

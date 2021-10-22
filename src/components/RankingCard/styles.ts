@@ -1,14 +1,19 @@
 import styled from 'styled-components';
 
-export const RankingCardWrapper = styled.div`
+import { RANKING_CARD_BG_COLOR, RANKING_CARD_THUMBNAIL_COLOR } from '@constants/shared';
+
+export const RankingCardWrapper = styled.div<{ rank: number }>`
   position: relative;
   width: 100%;
   height: 100px;
-  background-color: #000;
   border-radius: 10px;
+  background-color: ${({ rank }) => RANKING_CARD_BG_COLOR[rank]};
 `;
 
-export const ProfileArea = styled.div`
+export const ProfileArea = styled.div<{ rank: number }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   width: 60px;
   height: 60px;
@@ -16,6 +21,7 @@ export const ProfileArea = styled.div`
   left: 20px;
   transform: translateY(-50%);
   border-radius: 50%;
+  background-color: ${({ rank }) => RANKING_CARD_THUMBNAIL_COLOR[rank]};
 `;
 
 export const ProfileBubble = styled.div`
