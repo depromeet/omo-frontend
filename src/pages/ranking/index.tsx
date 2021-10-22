@@ -14,7 +14,8 @@ import { useUserValue } from '@recoil/userState';
 const Ranking = () => {
   const userValue = useUserValue();
 
-  const [isOpenModal, setIsOpenModal] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const toggleModal = () => setIsOpenModal((prev) => !prev);
 
   const rankingList = [
     { rank: 1, nickname: '오마카세에대출땡', amount: 24 },
@@ -43,7 +44,7 @@ const Ranking = () => {
       <RankingSection>
         <h1>전체랭킹</h1>
         <h2>랭킹은 매일 24시에 갱신됩니다.</h2>
-        <Guidance className="guidance" />
+        <Guidance className="guidance" onClick={toggleModal} />
         {rankingList.map((props) => (
           <RankingCard props={props} key={props.rank} />
         ))}
@@ -66,7 +67,7 @@ const Ranking = () => {
           </h2>
         </RankingSectionArea>
       </MyRankingSection>
-      {!isOpenModal && <RankingNotifyModal toggleModal={setIsOpenModal} />}
+      {isOpenModal && <RankingNotifyModal toggleModal={toggleModal} />}
     </Layout>
   );
 };
