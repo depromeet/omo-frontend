@@ -10,9 +10,9 @@ import { useUserValue } from '@recoil/userState';
 const Home = () => {
   const userValue = useUserValue();
   const top3Rankers = [
-    { rank: 1, nickname: '오모마카세에대출', count: 24 },
-    { rank: 2, nickname: '지니지니', count: 14 },
-    { rank: 3, nickname: '오마카새우', count: 8 },
+    { rank: 1, nickname: '오모마카세에대출', amount: 24 },
+    { rank: 2, nickname: '지니지니', amount: 14 },
+    { rank: 3, nickname: '오마카새우', amount: 8 },
   ];
 
   return (

@@ -60,7 +60,7 @@ export const Nickname = styled.p`
   color: #1b1b1d;
 `;
 
-export const StampCount = styled.p`
+export const StampAmount = styled.p`
   ${({ theme }) => theme.fonts.contents2};
   line-height: 32px;
   color: #707077;

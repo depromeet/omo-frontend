@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import Guidance from '@assets/guidance.svg';
 import Layout from '@components/Layout';
 import RankingProfile from '@components/RankerProfile/RankingProfile';
 import RankingBar from '@components/RankingBar';
@@ -32,20 +33,20 @@ export interface RankingProps {
 
 const Ranking = () => {
   const rankingList = [
-    { rank: 1, name: '오마', amount: 99 },
-    { rank: 2, name: '카세', amount: 100 },
-    { rank: 3, name: '오모', amount: 101 },
-    { rank: 4, name: '박일등', amount: 34 },
-    { rank: 5, name: '지니', amount: 13 },
-    { rank: 6, name: '박일등', amount: 3 },
-    { rank: 7, name: '박일등', amount: 34 },
-    { rank: 8, name: '지니', amount: 13 },
-    { rank: 9, name: '박일등', amount: 3 },
-    { rank: 10, name: '박일등', amount: 3 },
-    { rank: 11, name: '박일등', amount: 3 },
-    { rank: 12, name: '박일등', amount: 3 },
-    { rank: 13, name: '박일등', amount: 3 },
-    { rank: 14, name: '박일등', amount: 3 },
+    { rank: 1, nickname: '오모마카세에대출', amount: 24 },
+    { rank: 2, nickname: '지니지니', amount: 14 },
+    { rank: 3, nickname: '오마카새우', amount: 8 },
+    { rank: 4, nickname: '박일등', amount: 34 },
+    { rank: 5, nickname: '지니', amount: 13 },
+    { rank: 6, nickname: '박일등', amount: 3 },
+    { rank: 7, nickname: '박일등', amount: 34 },
+    { rank: 8, nickname: '지니', amount: 13 },
+    { rank: 9, nickname: '박일등', amount: 3 },
+    { rank: 10, nickname: '박일등', amount: 3 },
+    { rank: 11, nickname: '박일등', amount: 3 },
+    { rank: 12, nickname: '박일등', amount: 3 },
+    { rank: 13, nickname: '박일등', amount: 3 },
+    { rank: 14, nickname: '박일등', amount: 3 },
   ];
   const othersRankingList = rankingList.slice(3);
   //TODO: login한 userID로 myRanking값 바꾸기
@@ -56,7 +57,12 @@ const Ranking = () => {
       <OmakasePioneerSection>
         <OmakasePioneerWrapper />
       </OmakasePioneerSection>
-      {/* <Top3RankingSection rankingList={top3RankingList} /> */}
+      <RankingSection>
+        <h1>전체랭킹</h1>
+        <h2>랭킹은 매일 24시에 갱신됩니다.</h2>
+        <Guidance />
+      </RankingSection>
+
       <MyRangkingSection>
         {myRanking.map(({ rank, name, amount }) => (
           <RankingBar rank={rank} nickname={name} amount={amount} key={rank} />
@@ -79,22 +85,8 @@ const OmakasePioneerWrapper = styled.div`
   border-radius: 16px;
 `;
 
-const OthersRankingSectionWrapper = styled.section`
-  box-sizing: border-box;
-  width: 100%;
-  height: fit-content;
-  padding: 17px 24px;
-
-  h2 {
-    ${({ theme }) => theme.fonts.contentsBold};
-    font-size: 18px;
-    line-height: 26px;
-    margin-bottom: 14px;
-  }
-
-  .ranking-bar {
-    margin-bottom: 11px;
-  }
+const RankingSection = styled(OmakasePioneerSection)`
+  margin-top: 35px;
 `;
 
 const MyRangkingSection = styled.section`

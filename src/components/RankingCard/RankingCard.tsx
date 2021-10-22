@@ -8,11 +8,11 @@ import * as S from './styles';
 interface IRankingCard {
   rank: number;
   nickname: string;
-  count: number;
+  amount: number;
 }
 
 const RankingCard = ({ props }: { props: IRankingCard }) => {
-  const { rank, nickname, count } = props;
+  const { rank, nickname, amount } = props;
 
   return (
     <S.RankingCardWrapper className="ranking-card">
@@ -25,7 +25,7 @@ const RankingCard = ({ props }: { props: IRankingCard }) => {
       </S.ProfileArea>
       <S.InfoArea>
         <S.Nickname>{nickname}</S.Nickname>
-        <S.StampCount>도장 깬 횟수 : {count}회</S.StampCount>
+        <S.StampAmount>도장 깬 횟수 : {amount}회</S.StampAmount>
       </S.InfoArea>
       <S.RightButton>
         <RightButton />
