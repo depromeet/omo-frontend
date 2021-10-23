@@ -4,7 +4,7 @@ interface IUserState {
   isLoggedIn: boolean;
   info?: {
     nickname: string;
-    visitedOmakase: number;
+    amount: number;
     ranking: number;
     level: number;
   };
@@ -15,7 +15,7 @@ const defaultUserState = {
   isLoggedIn: false,
   info: {
     nickname: '지니지니지니지니',
-    visitedOmakase: 12,
+    amount: 12,
     ranking: 2,
     level: 2,
   },

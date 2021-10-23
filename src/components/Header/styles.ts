@@ -51,7 +51,6 @@ export const PrevButton = styled.button`
 export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.black800};
   ${({ theme }) => theme.fonts.subTitle1};
-  font-weight: 500;
 `;
 
 export const Input = styled.input`
