@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
@@ -44,11 +45,19 @@ const Login: NextPage = () => {
           </div>
         </SNSSection>
       </Content>
+      <ImsiLink>
+        <Link href="/home">홈으로 가는 임시 링크</Link>
+      </ImsiLink>
     </HomePage>
   );
 };
 
 export default Login;
+
+const ImsiLink = styled.div`
+  position: absolute;
+  bottom: 150px;
+`;
 
 const HomePage = styled.main`
   display: flex;
