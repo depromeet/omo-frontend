@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import LoginLayout from '@components/Layout/LoginLayout';
+import ProfileImage from '@components/ProfileImage';
 import Button from '@components/Shared/Button';
 import { useSignupFormState } from '@recoil/signupFormState';
 import { useSetUserState } from '@recoil/userState';
@@ -35,16 +36,7 @@ const Profile = () => {
         </div>
         <div className="notify-sub-letter">이미지를 골라주세요!</div>
 
-        <div className="icon-selector">
-          <Image
-            src="/default_profile.png"
-            width="200"
-            height="200"
-            alt="profile"
-            className="profile"
-          />
-          <input type="file" accept="image/*, video/*" />
-        </div>
+        <ProfileImage />
 
         <Button
           text="다음"
@@ -85,23 +77,6 @@ const Content = styled.div`
 
     .nickname {
       font-weight: bold;
-    }
-  }
-
-  .icon-selector {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 88px 0 56px 0;
-
-    input {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      opacity: 0;
     }
   }
 
