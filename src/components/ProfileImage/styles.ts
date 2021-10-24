@@ -36,11 +36,14 @@ export const DefaultImage = styled.img.attrs({
   z-index: 9997;
 `;
 
-export const ProfileImage = styled(DefaultImage).attrs({
+export const ProfileImage = styled.img.attrs({
+  src: DEFAULT_PROFILE_IMAGE_PATH,
   alt: 'profile',
 })`
+  position: absolute;
   width: 103px;
   height: 103px;
+  border-radius: 50%;
   object-fit: cover;
   object-position: center center;
   z-index: 9998;
@@ -87,6 +90,6 @@ export const Circle = styled.div`
 `;
 
 export const CircleAura = styled(Circle)`
-  animation: ${aura} 2s infinite;
+  animation: ${aura} 1.5s infinite;
   animation-timing-function: linear;
 `;
