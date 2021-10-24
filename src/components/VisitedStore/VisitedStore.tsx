@@ -16,12 +16,11 @@ const VisitedStore = ({ id, image, name, date }: VisitedStoreProps) => {
       <Link href={`/search/${id}`} passHref>
         <a>
           <S.StoreImageWrapper>
-            <S.SubTitles>심사중</S.SubTitles>
             <Image src={image} alt="매장 이미지 미리보기" layout="fill" />
           </S.StoreImageWrapper>
           <S.StoreDescriptionWrapper>
             <h1 className="store-title">{name}</h1>
-            <pre className="store-desc">도장 깬 날짜 : {date}</pre>
+            <pre className="store-desc">{date}</pre>
           </S.StoreDescriptionWrapper>
         </a>
       </Link>

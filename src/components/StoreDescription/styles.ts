@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const StoreDescription = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
   transform: translateY(-14px);
   border-top-left-radius: 16px;
@@ -15,6 +15,12 @@ export const StoreDescription = styled.div`
   margin-bottom: -14px;
 
   .button-wrapper {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 -20px;
+    box-sizing: border-box;
     display: flex;
   }
 `;
@@ -62,14 +68,16 @@ export const HashTag = styled.span`
 export const DescriptionMain = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  overflow: auto;
   padding-top: 16px;
+  background-color: #fafafa;
+  padding: 16px 20px;
+  border-radius: 10px;
 `;
 
 export const DescriptionList = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: ${({ theme }) => theme.colors.black800};
   padding-bottom: 16px;
 

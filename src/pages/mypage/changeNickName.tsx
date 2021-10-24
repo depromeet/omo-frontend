@@ -25,7 +25,7 @@ const ChangeNickName = () => {
   return (
     <ModalLayout title="닉네임변경" buttonContent="확인" clickHandler={onClick}>
       <ChangeNickNamePage>
-        <Title>변경할 닉네임을 입력해주세요!</Title>
+        <Title>변경할 닉네임을 정해주세요. (최대 8자)</Title>
         <form onSubmit={onSubmit}>
           <Input type="text" value={text} onChange={onChange} />
         </form>
@@ -44,8 +44,8 @@ const ChangeNickNamePage = styled.section`
 `;
 
 const Title = styled.h1`
-  font-size: 20px;
-  font-weight: bold;
+  ${({ theme }) => theme.fonts.subTitle1};
+  margin-top: 30px;
 `;
 
 const Input = styled.input`

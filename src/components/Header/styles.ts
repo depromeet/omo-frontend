@@ -16,9 +16,28 @@ export const Header = styled.header<HeaderProps>`
 `;
 
 export const MyPageHeader = styled(Header)`
-  background-color: #f1f1f1;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
   border: none;
   margin-bottom: 0;
+`;
+
+export const TitleSection = styled.section`
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 25px;
+
+  span {
+    ${({ theme }) => theme.fonts.subTitle1};
+  }
+`;
+
+export const SettingSection = styled.section`
+  display: flex;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const PrevButton = styled.button`
@@ -33,7 +52,6 @@ export const PrevButton = styled.button`
 export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.black800};
   ${({ theme }) => theme.fonts.subTitle1};
-  font-weight: 500;
 `;
 
 export const Input = styled.input`

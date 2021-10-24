@@ -14,7 +14,7 @@ export const StoreDisplay = styled.section`
 export const StoreImageWrapper = styled.div`
   position: relative;
   height: 146.86px;
-  border-radius: 16px;
+  border-radius: 8px;
   overflow: hidden;
   background-color: #f6f6f6;
 `;
@@ -40,13 +40,12 @@ export const StoreDescriptionWrapper = styled.div`
   flex-direction: column;
 
   .store-title {
-    ${({ theme }) => theme.fonts.header3_5};
-    line-height: 140%;
+    ${({ theme }) => theme.fonts.subTitle3};
     margin-top: 10px;
     margin-bottom: 2px;
   }
   .store-desc {
     ${({ theme }) => theme.fonts.contents3};
-    line-height: 140%;
+    color: ${({ theme }) => theme.colors.black600};
   }
 `;
