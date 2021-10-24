@@ -1,17 +1,18 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import LoginLayout from '@components/Layout/LoginLayout';
-import { userState } from '@recoil/userState';
+import { useSignupFormState } from '@recoil/signupFormState';
+import { useSetUserState } from '@recoil/userState';
 
 const Profile = () => {
   const router = useRouter();
-  const [userValue, setUserValue] = useRecoilState(userState);
+  const setUserState = useSetUserState();
+  const [signupFormState, setSingupFormState] = useSignupFormState();
 
   const successLoggedIn = () => {
-    setUserValue((state) => ({ ...state, isLoggedIn: true }));
+    setUserState({ isLoggedIn: true, info: { ...signupFormState, amount: 0, level: 0 } });
     router.push('/');
   };
 
@@ -20,7 +21,7 @@ const Profile = () => {
       <Content>
         <div className="notify-main-letter">좋아요!</div>
         <div className="notify-sub-letter">
-          <span className="nickname">{userValue.info?.nickname}</span>님을 대표할
+          <span className="nickname">{signupFormState.nickname}</span>님을 대표할
         </div>
         <div className="notify-sub-letter">이미지를 골라주세요!</div>
 

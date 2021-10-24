@@ -1,11 +1,10 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import LoginLayout from '@components/Layout/LoginLayout';
 import { MAX_NICKNAME_LENGTH, MIN_NICKNAME_LENGTH } from '@constants/login';
-import { userState } from '@recoil/userState';
+import { useSetSignupFormState } from '@recoil/signupFormState';
 
 type ErrorType = 'default' | 'duplicate' | 'usable';
 
@@ -25,7 +24,7 @@ const Nickname = () => {
   const router = useRouter();
   const [errorStatus, setErrorStatus] = useState<ErrorType>('duplicate');
   const [nickname, setNickname] = useState<string>('');
-  const setNicknameState = useSetRecoilState(userState);
+  const setSignupFormState = useSetSignupFormState();
 
   const isNicknameValid = (val: string) =>
     val.length > MIN_NICKNAME_LENGTH && val.length < MAX_NICKNAME_LENGTH;
@@ -54,7 +53,7 @@ const Nickname = () => {
    */
   const onClickNextButton = () => {
     if (errorStatus !== 'usable') return;
-    setNicknameState((state) => ({ ...state, info: { nickname: nickname } }));
+    setSignupFormState((state) => ({ ...state, nickname }));
     router.push('/login/profile');
   };
 
