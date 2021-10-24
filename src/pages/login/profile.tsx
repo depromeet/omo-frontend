@@ -13,19 +13,23 @@ const Profile = () => {
   const router = useRouter();
   const setUserState = useSetUserState();
   const [signupFormState, setSingupFormState] = useSignupFormState();
-
   const [isValidForm, setIsValidForm] = useState<boolean>(false);
 
-  useEffect(() => {
-    setIsValidForm(signupFormState.profileImage !== undefined);
-  }, [signupFormState]);
+  const setProfileImage = (profileImage: File) => {
+    setSingupFormState((prev) => ({ ...prev, profileImage }));
+  };
 
   const successLoggedIn = () => {
     if (isValidForm) {
       setUserState({ isLoggedIn: true, info: { ...signupFormState, amount: 0, level: 0 } });
+      // API Call
       router.push('/');
     }
   };
+
+  useEffect(() => {
+    setIsValidForm(signupFormState.profileImage !== undefined);
+  }, [signupFormState]);
 
   return (
     <LoginLayout>
@@ -36,7 +40,7 @@ const Profile = () => {
         </div>
         <div className="notify-sub-letter">이미지를 골라주세요!</div>
 
-        <ProfileImage />
+        <ProfileImage setProfileImage={setProfileImage} thumbnail={signupFormState.profileImage} />
 
         <Button
           text="다음"
@@ -44,7 +48,7 @@ const Profile = () => {
           position="absolute"
           left="20px"
           bottom="4rem"
-          disabled={isValidForm}
+          disabled={!isValidForm}
           clickListener={successLoggedIn}
         />
         <div className="set-next">다음에 할래요</div>
@@ -56,24 +60,23 @@ const Profile = () => {
 export default Profile;
 
 const Content = styled.div`
+  box-sizing: border-box;
   margin-top: 6rem;
   width: 100%;
-  height: 441px;
+  color: #000;
 
   .notify-main-letter {
-    margin: 0 0 26px 20px;
-
-    font-weight: bold;
-    font-size: 30px;
+    margin-left: 20px;
+    ${({ theme }) => theme.fonts.header1};
     line-height: 36px;
-    color: #000;
+    margin-bottom: 18px;
   }
 
   .notify-sub-letter {
     margin-left: 20px;
-    font-size: 18px;
-    line-height: 140%;
-    color: #000;
+    ${({ theme }) => theme.fonts.subTitle1};
+    font-weight: normal;
+    line-height: 28px;
 
     .nickname {
       font-weight: bold;
