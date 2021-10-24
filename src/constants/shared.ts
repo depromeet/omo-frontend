@@ -1,3 +1,5 @@
+export const UNDEF = undefined;
+
 export const RANKING_CARD_BG_COLOR: { [key: number]: string } = {
   1: '#fff1cd',
   2: '#eff0f6',
