@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -18,13 +17,11 @@ const Profile = () => {
 
   const setProfileImage = (profileImage: File) =>
     setSignupFormState((prev) => ({ ...prev, profileImage }));
-
   const removeProfileImage = () => setSignupFormState((prev) => ({ nickname: prev.nickname }));
 
   const successLoggedIn = () => {
     if (isValidForm) {
-      // TODO:
-      // console.log에 있는 signupFormState formData로 묶어서
+      // TODO: console.log에 있는 signupFormState formData로 묶어서
       // POST request 하면 될 것 같습니다 :)
       console.log(signupFormState);
       setUserState({ isLoggedIn: true, info: { ...signupFormState, amount: 0, level: 0 } });
@@ -32,9 +29,10 @@ const Profile = () => {
     }
   };
 
-  useEffect(() => {
-    setIsValidForm(signupFormState.profileImage !== UNDEF);
-  }, [signupFormState]);
+  /**
+   * signupFormState에 profileImage 키가 없으면 valid 하지 않습니다.
+   */
+  useEffect(() => setIsValidForm(signupFormState.profileImage !== UNDEF), [signupFormState]);
 
   return (
     <LoginLayout>
