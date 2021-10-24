@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import LoginLayout from '@components/Layout/LoginLayout';
+import Button from '@components/Shared/Button';
 import { MAX_NICKNAME_LENGTH, MIN_NICKNAME_LENGTH } from '@constants/login';
 import { useSetSignupFormState } from '@recoil/signupFormState';
 
@@ -72,9 +73,16 @@ const Nickname = () => {
           <ErrorNotifySpan errorStatus={errorStatus}>{errorStatusMsg[errorStatus]}</ErrorNotifySpan>
         </div>
       </Content>
-      <NextPageButton errorStatus={errorStatus} onClick={onClickNextButton}>
-        다음
-      </NextPageButton>
+      <Button
+        text="다음"
+        width="calc(100% - 40px)"
+        position="absolute"
+        left="20px"
+        bottom="3rem"
+        disabled={errorStatus !== 'usable'}
+        clickListener={onClickNextButton}
+      />
+      {/* <NextPageButton errorStatus={errorStatus} onClick> */}
     </LoginLayout>
   );
 };
@@ -133,23 +141,4 @@ const ErrorNotifySpan = styled.span<{ errorStatus: ErrorType }>`
   font-size: 12px;
 
   color: ${({ errorStatus }) => errorStatusColor[errorStatus]};
-`;
-
-const NextPageButton = styled.button<{ errorStatus: ErrorType }>`
-  border: none;
-  position: absolute;
-  left: 20px;
-  bottom: 3rem;
-  width: calc(100% - 40px);
-  height: 48px;
-
-  margin: 0 auto;
-  border-radius: 8px;
-
-  background-color: ${({ errorStatus }) => (errorStatus === 'usable' ? '#2334CF' : '#d7d8dd')};
-  color: #fff;
-
-  font-size: 18px;
-  font-weight: 700;
-  cursor: ${({ errorStatus }) => (errorStatus === 'usable' ? 'pointer' : 'default')};
 `;

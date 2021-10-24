@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import LoginLayout from '@components/Layout/LoginLayout';
+import Button from '@components/Shared/Button';
 import { useSignupFormState } from '@recoil/signupFormState';
 import { useSetUserState } from '@recoil/userState';
 
@@ -11,9 +13,17 @@ const Profile = () => {
   const setUserState = useSetUserState();
   const [signupFormState, setSingupFormState] = useSignupFormState();
 
+  const [isValidForm, setIsValidForm] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsValidForm(signupFormState.profileImage !== undefined);
+  }, [signupFormState]);
+
   const successLoggedIn = () => {
-    setUserState({ isLoggedIn: true, info: { ...signupFormState, amount: 0, level: 0 } });
-    router.push('/');
+    if (isValidForm) {
+      setUserState({ isLoggedIn: true, info: { ...signupFormState, amount: 0, level: 0 } });
+      router.push('/');
+    }
   };
 
   return (
@@ -36,7 +46,15 @@ const Profile = () => {
           <input type="file" accept="image/*, video/*" />
         </div>
 
-        <button onClick={successLoggedIn}>다음</button>
+        <Button
+          text="다음"
+          width="calc(100% - 40px)"
+          position="absolute"
+          left="20px"
+          bottom="4rem"
+          disabled={isValidForm}
+          clickListener={successLoggedIn}
+        />
         <div className="set-next">다음에 할래요</div>
       </Content>
     </LoginLayout>
@@ -85,25 +103,6 @@ const Content = styled.div`
       border-radius: 50%;
       opacity: 0;
     }
-  }
-
-  button {
-    border: none;
-    position: absolute;
-    left: 20px;
-    bottom: 4rem;
-    width: calc(100% - 40px);
-    height: 48px;
-
-    margin: 0 auto;
-    border-radius: 8px;
-
-    background-color: #2334cf;
-    color: #fff;
-
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
   }
 
   .set-next {
