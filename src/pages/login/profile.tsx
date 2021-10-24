@@ -6,29 +6,34 @@ import styled from 'styled-components';
 import LoginLayout from '@components/Layout/LoginLayout';
 import ProfileImage from '@components/ProfileImage';
 import Button from '@components/Shared/Button';
+import { UNDEF } from '@constants/shared';
 import { useSignupFormState } from '@recoil/signupFormState';
 import { useSetUserState } from '@recoil/userState';
 
 const Profile = () => {
   const router = useRouter();
   const setUserState = useSetUserState();
-  const [signupFormState, setSingupFormState] = useSignupFormState();
+  const [signupFormState, setSignupFormState] = useSignupFormState();
   const [isValidForm, setIsValidForm] = useState<boolean>(false);
 
-  const setProfileImage = (profileImage: File) => {
-    setSingupFormState((prev) => ({ ...prev, profileImage }));
-  };
+  const setProfileImage = (profileImage: File) =>
+    setSignupFormState((prev) => ({ ...prev, profileImage }));
+
+  const removeProfileImage = () => setSignupFormState((prev) => ({ nickname: prev.nickname }));
 
   const successLoggedIn = () => {
     if (isValidForm) {
+      // TODO:
+      // console.log에 있는 signupFormState formData로 묶어서
+      // POST request 하면 될 것 같습니다 :)
+      console.log(signupFormState);
       setUserState({ isLoggedIn: true, info: { ...signupFormState, amount: 0, level: 0 } });
-      // API Call
-      router.push('/');
+      router.push('/home');
     }
   };
 
   useEffect(() => {
-    setIsValidForm(signupFormState.profileImage !== undefined);
+    setIsValidForm(signupFormState.profileImage !== UNDEF);
   }, [signupFormState]);
 
   return (
@@ -40,7 +45,11 @@ const Profile = () => {
         </div>
         <div className="notify-sub-letter">이미지를 골라주세요!</div>
 
-        <ProfileImage setProfileImage={setProfileImage} thumbnail={signupFormState.profileImage} />
+        <ProfileImage
+          setProfileImage={setProfileImage}
+          removeProfileImage={removeProfileImage}
+          thumbnail={signupFormState.profileImage}
+        />
 
         <Button
           text="다음"
