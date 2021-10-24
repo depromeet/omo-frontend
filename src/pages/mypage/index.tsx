@@ -16,7 +16,7 @@ const MyPage = () => {
       <MyProfile />
       <MyPagePage className="container">
         <div className="store-list-title">
-          <span>{userValue.info?.nickname}</span>님의오마카세 리스트
+          <span>{userValue.info?.nickname}</span>님의 오마카세 리스트
         </div>
         <div className="store-list-layout">
           {dummys.map((dummy) => (

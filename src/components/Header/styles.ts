@@ -24,11 +24,12 @@ export const MyPageHeader = styled(Header)`
 `;
 
 export const TitleSection = styled.section`
-  ${({ theme }) => theme.fonts.subTitle1};
+  font-size: 18px;
   font-weight: normal;
+  line-height: 25px;
 
   span {
-    font-weight: bold;
+    ${({ theme }) => theme.fonts.subTitle1};
   }
 `;
 

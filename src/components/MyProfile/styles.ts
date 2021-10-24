@@ -6,6 +6,7 @@ export const MyProfileWrapper = styled.div`
 
 export const MyProfileSection = styled.section`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 16px;
   padding: 0 16px;
@@ -14,10 +15,12 @@ export const MyProfileSection = styled.section`
   border-radius: 15px;
 `;
 
+export const ImageWrapper = styled.div`
+`;
 export const ProfileInformationWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 70%;
+  flex: 1;
 `;
 
 export const Content = styled.div`

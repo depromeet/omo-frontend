@@ -16,7 +16,6 @@ const VisitedStore = ({ id, image, name, date }: VisitedStoreProps) => {
       <Link href={`/search/${id}`} passHref>
         <a>
           <S.StoreImageWrapper>
-            {/* <S.SubTitles>심사중</S.SubTitles> */}
             <Image src={image} alt="매장 이미지 미리보기" layout="fill" />
           </S.StoreImageWrapper>
           <S.StoreDescriptionWrapper>
