@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 
-import { useUserValue } from '@recoil/userState';
+import { IUserState } from '@recoil/userState';
 
 import * as S from './styles';
 
-const MyProfile = () => {
-  const userValue = useUserValue();
+const MyProfile = (props: { userValue: IUserState }) => {
+  const { userValue } = props;
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {

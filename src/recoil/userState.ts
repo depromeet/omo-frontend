@@ -1,6 +1,6 @@
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-interface IUserState {
+export interface IUserState {
   isLoggedIn: boolean;
   info?: {
     nickname?: string;

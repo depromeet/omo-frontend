@@ -1,4 +1,3 @@
-// 마이페이지 메인
 import styled from 'styled-components';
 
 import MyPageLayout from '@components/Layout/MyPageLayout';
@@ -12,7 +11,7 @@ const MyPage = () => {
 
   return (
     <MyPageLayout>
-      <MyProfile />
+      <MyProfile userValue={userValue} />
       <MyPagePage className="container">
         <div className="store-list-title">
           <span>{userValue.info?.nickname}</span>님의 오마카세 리스트
