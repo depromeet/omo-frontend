@@ -36,7 +36,7 @@ const BottomNav = () => {
       <Link href="/mypage" passHref>
         <a className={`nav-link ${router.asPath === '/mypage' ? 'active' : ''}`}>
           <MyPageIcon className="svg-paths" />
-          <span>마이페이지</span>
+          <span>MY 오모</span>
         </a>
       </Link>
     </S.BottomNav>
