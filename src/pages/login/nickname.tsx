@@ -2,29 +2,17 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
+import { NicknameInputErrorType } from '@@types/shared';
 import LoginLayout from '@components/Layout/LoginLayout';
+import NicknameInput from '@components/NicknameInput';
 import Button from '@components/Shared/Button';
 import { MAX_NICKNAME_LENGTH, MIN_NICKNAME_LENGTH } from '@constants/login';
 import { useSetSignupFormState } from '@recoil/signupFormState';
 
-type ErrorType = 'default' | 'duplicate' | 'usable';
-
-const errorStatusMsg = {
-  default: '2자 이상 입력해주세요',
-  duplicate: '중복된 닉네임입니다',
-  usable: '사용가능한 닉네임입니다',
-};
-
-const errorStatusColor = {
-  default: '#000',
-  duplicate: '#FF473B',
-  usable: '#2334CF',
-};
-
 const Nickname = () => {
   const router = useRouter();
-  const [errorStatus, setErrorStatus] = useState<ErrorType>('duplicate');
   const [nickname, setNickname] = useState<string>('');
+  const [errorStatus, setErrorStatus] = useState<NicknameInputErrorType>('default');
   const setSignupFormState = useSetSignupFormState();
 
   const isNicknameValid = (val: string) =>
@@ -63,16 +51,10 @@ const Nickname = () => {
       <Content>
         <div className="welcome-letter">어서오세요!</div>
         <div className="welcome-sub-letter">닉네임을 정해주세요 (최대 8자)</div>
-        <div className="nickname-input">
-          <input
-            type="text"
-            placeholder="닉네임 입력"
-            maxLength={8}
-            onChange={(e) => checkNickname(e.target.value)}
-          />
-          <ErrorNotifySpan errorStatus={errorStatus}>{errorStatusMsg[errorStatus]}</ErrorNotifySpan>
-        </div>
+
+        <NicknameInput errorStatus={errorStatus} checkNickname={checkNickname} />
       </Content>
+
       <Button
         text="다음"
         width="calc(100% - 40px)"
@@ -82,7 +64,6 @@ const Nickname = () => {
         disabled={errorStatus !== 'usable'}
         clickListener={onClickNextButton}
       />
-      {/* <NextPageButton errorStatus={errorStatus} onClick> */}
     </LoginLayout>
   );
 };
@@ -113,32 +94,4 @@ const Content = styled.div`
     font-size: 14px;
     margin-bottom: 40px;
   }
-
-  .nickname-input {
-    position: relative;
-    width: 100%;
-  }
-
-  input {
-    all: unset;
-    width: 100%;
-    height: 29px;
-    border-bottom: 1px solid #000;
-
-    color: #000;
-
-    ::placeholder {
-      color: #b8b8b8;
-    }
-  }
-`;
-
-const ErrorNotifySpan = styled.span<{ errorStatus: ErrorType }>`
-  position: absolute;
-  bottom: 4px;
-  right: 0;
-  line-height: 18px;
-  font-size: 12px;
-
-  color: ${({ errorStatus }) => errorStatusColor[errorStatus]};
 `;

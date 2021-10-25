@@ -15,3 +15,15 @@ export const RANKING_CARD_THUMBNAIL_COLOR: { [key: number]: string } = {
 export const STAMP_AMOUNT_PREFIX = '도장 깬 횟수 : ';
 export const STAMP_AMOUNT_SUFFIX = '회';
 export const RANK_SUFFIX = '위';
+
+export const NICKNAME_INPUT_ERROR_TEXT = {
+  default: '2자 이상 입력해주세요',
+  duplicate: '중복된 닉네임입니다',
+  usable: '사용가능한 닉네임입니다',
+};
+
+export const NICKNAME_ERROR_STATUS_COLOR = {
+  default: '#000',
+  duplicate: '#FF473B',
+  usable: '#2334CF',
+};
