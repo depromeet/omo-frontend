@@ -27,7 +27,7 @@ const NicknameInput = ({
   setErrorStatus,
 }: INicknameInput) => {
   const isNicknameValid = (val: string) =>
-    val.length > MIN_NICKNAME_LENGTH && val.length < MAX_NICKNAME_LENGTH;
+    val.length >= MIN_NICKNAME_LENGTH && val.length < MAX_NICKNAME_LENGTH;
 
   //TODO: 백엔드 중복 검증 API 연결해야함
   const isNicknameDuplicated = (val: string) => {
