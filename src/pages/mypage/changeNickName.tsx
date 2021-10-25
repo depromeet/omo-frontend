@@ -1,19 +1,25 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
 import { NicknameInputErrorType } from '@@types/shared';
 import ModalLayout from '@components/Layout/ModalLayout';
 import NicknameInput from '@components/NicknameInput';
+import { useSetUserState } from '@recoil/userState';
 
 const ChangeNickName = () => {
   const [nickname, setNickname] = useState<string>('');
   const [errorStatus, setErrorStatus] = useState<NicknameInputErrorType>('default');
+  const setUserState = useSetUserState();
+  const router = useRouter();
 
   const onClick = () => {
     if (errorStatus !== 'usable') return;
 
     // TODO: API Call
-    alert(`변경된 닉네임 : ${nickname}`);
+    setUserState((prev) => ({ ...prev, info: { ...prev.info, nickname } }));
+    alert('닉네임이 변경되었습니다.');
+    router.back();
   };
 
   return (

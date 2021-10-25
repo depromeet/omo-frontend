@@ -4,8 +4,8 @@ interface IUserState {
   isLoggedIn: boolean;
   info?: {
     nickname: string;
-    amount: number;
-    level: number;
+    amount?: number;
+    level?: number;
     ranking?: number;
     profileImage?: File;
   };
