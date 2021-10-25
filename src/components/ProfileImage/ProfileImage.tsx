@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useRef } from 'react';
+import React, { Dispatch, useEffect, useRef } from 'react';
 import { SetterOrUpdater } from 'recoil';
 
 import ProfileEraseImage from '@assets/profile-erase-image.svg';
@@ -9,21 +9,19 @@ import { ISignupFormState } from '@recoil/signupFormState';
 import * as S from './styles';
 
 interface IProfileImage {
-  setSignupFormState: SetterOrUpdater<ISignupFormState>;
+  // setSignupFormState: SetterOrUpdater<ISignupFormState>;
+  setThumbnail: Dispatch<File | undefined>;
   thumbnail?: File;
 }
 
-const ProfileImage = ({ thumbnail, setSignupFormState }: IProfileImage) => {
+const ProfileImage = ({ thumbnail, setThumbnail }: IProfileImage) => {
   const imgRef = useRef<HTMLImageElement>(null);
-
-  const setProfileImage = (profileImage: File) =>
-    setSignupFormState((prev) => ({ ...prev, profileImage }));
-  const removeProfileImage = () => setSignupFormState((prev) => ({ nickname: prev.nickname }));
 
   const addProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (e.target.files) setProfileImage(e.target.files[0]);
+    if (e.target.files) setThumbnail(e.target.files[0]);
   };
+  const removeProfileImage = () => setThumbnail(UNDEF);
 
   /**
    * thumbnail이 있을 경우,

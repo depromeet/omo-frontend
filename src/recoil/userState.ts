@@ -1,9 +1,9 @@
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 interface IUserState {
   isLoggedIn: boolean;
   info?: {
-    nickname: string;
+    nickname?: string;
     amount?: number;
     level?: number;
     ranking?: number;
@@ -29,3 +29,4 @@ export const userState = atom<IUserState>({
 
 export const useUserValue = () => useRecoilValue(userState);
 export const useSetUserState = () => useSetRecoilState(userState);
+export const useUserState = () => useRecoilState(userState);

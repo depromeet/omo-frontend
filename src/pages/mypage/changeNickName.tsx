@@ -16,10 +16,11 @@ const ChangeNickName = () => {
   const onClick = () => {
     if (errorStatus !== 'usable') return;
 
-    // TODO: API Call
-    setUserState((prev) => ({ ...prev, info: { ...prev.info, nickname } }));
-    alert('닉네임이 변경되었습니다.');
-    router.back();
+    if (confirm('닉네임을 변경하시겠습니까?')) {
+      setUserState((prev) => ({ ...prev, info: { ...prev.info, nickname } }));
+      alert('닉네임이 변경되었습니다.');
+      router.push('/mypage');
+    }
   };
 
   return (

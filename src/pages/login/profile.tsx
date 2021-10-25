@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import LoginLayout from '@components/Layout/LoginLayout';
@@ -13,22 +13,16 @@ const Profile = () => {
   const router = useRouter();
   const setUserState = useSetUserState();
   const [signupFormState, setSignupFormState] = useSignupFormState();
-  const [isValidForm, setIsValidForm] = useState<boolean>(false);
+  const [thumbnail, setThumbnail] = useState<File | undefined>();
 
   const successLoggedIn = () => {
-    if (isValidForm) {
-      // TODO: console.log에 있는 signupFormState formData로 묶어서
-      // POST request 하면 될 것 같습니다 :)
-      console.log(signupFormState);
-      setUserState({ isLoggedIn: true, info: { ...signupFormState, amount: 0, level: 0 } });
-      router.push('/home');
-    }
+    setSignupFormState((prev) => ({ ...prev, profileImage: thumbnail }));
+    setUserState({
+      isLoggedIn: true,
+      info: { ...signupFormState, profileImage: thumbnail },
+    });
+    router.push('/home');
   };
-
-  /**
-   * signupFormState에 profileImage 키가 없으면 valid 하지 않습니다.
-   */
-  useEffect(() => setIsValidForm(signupFormState.profileImage !== UNDEF), [signupFormState]);
 
   return (
     <LoginLayout>
@@ -39,10 +33,7 @@ const Profile = () => {
         </div>
         <div className="notify-sub-letter">이미지를 골라주세요!</div>
 
-        <ProfileImage
-          setSignupFormState={setSignupFormState}
-          thumbnail={signupFormState.profileImage}
-        />
+        <ProfileImage thumbnail={thumbnail} setThumbnail={setThumbnail} />
 
         <Button
           text="다음"
@@ -50,10 +41,12 @@ const Profile = () => {
           position="absolute"
           left="20px"
           bottom="4rem"
-          disabled={!isValidForm}
+          disabled={thumbnail === UNDEF}
           clickListener={successLoggedIn}
         />
-        <div className="set-next">다음에 할래요</div>
+        <div className="set-next" onClick={successLoggedIn}>
+          다음에 할래요
+        </div>
       </Content>
     </LoginLayout>
   );
