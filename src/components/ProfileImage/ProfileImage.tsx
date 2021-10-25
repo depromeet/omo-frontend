@@ -1,15 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { Dispatch, useEffect, useRef } from 'react';
-import { SetterOrUpdater } from 'recoil';
 
 import ProfileEraseImage from '@assets/profile-erase-image.svg';
 import { UNDEF } from '@constants/shared';
-import { ISignupFormState } from '@recoil/signupFormState';
 
 import * as S from './styles';
 
 interface IProfileImage {
-  // setSignupFormState: SetterOrUpdater<ISignupFormState>;
   setThumbnail: Dispatch<File | undefined>;
   thumbnail?: File;
 }
@@ -53,9 +50,7 @@ const ProfileImage = ({ thumbnail, setThumbnail }: IProfileImage) => {
           </S.ProfileEraseButton>
         </>
       )}
-      {thumbnail === UNDEF && (
-        <input type="file" accept="image/*, video/*" onChange={addProfileImage} />
-      )}
+      {thumbnail === UNDEF && <input type="file" accept="image/*" onChange={addProfileImage} />}
     </S.ProfileImageWrapper>
   );
 };
