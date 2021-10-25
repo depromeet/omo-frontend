@@ -27,3 +27,5 @@ export const NICKNAME_ERROR_STATUS_COLOR = {
   duplicate: '#FF473B',
   usable: '#2334CF',
 };
+
+export const MAX_NICKNAME_LENGTH = 8;

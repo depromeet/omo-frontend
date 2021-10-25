@@ -6,7 +6,6 @@ import { NicknameInputErrorType } from '@@types/shared';
 import LoginLayout from '@components/Layout/LoginLayout';
 import NicknameInput from '@components/NicknameInput';
 import Button from '@components/Shared/Button';
-import { MAX_NICKNAME_LENGTH, MIN_NICKNAME_LENGTH } from '@constants/login';
 import { useSetSignupFormState } from '@recoil/signupFormState';
 
 const Nickname = () => {
@@ -14,27 +13,6 @@ const Nickname = () => {
   const [nickname, setNickname] = useState<string>('');
   const [errorStatus, setErrorStatus] = useState<NicknameInputErrorType>('default');
   const setSignupFormState = useSetSignupFormState();
-
-  const isNicknameValid = (val: string) =>
-    val.length > MIN_NICKNAME_LENGTH && val.length < MAX_NICKNAME_LENGTH;
-  const isNicknameDuplicated = (val: string) => {
-    //TODO: 백엔드 중복 검증 API 연결해야함
-    if (val === '중복된닉네임') return false;
-    return true;
-  };
-
-  /**
-   * 유저가 입력하는 Nickname을 검증합니다.
-   * 검증 수단은 다음과 같습니다.
-   * - 1. 유저 닉네임이 2 ~ 8글자여야 합니다.
-   * - 2. 유저 닉네임이 중복되지 않아야 합니다.
-   */
-  const checkNickname = (value: string) => {
-    setNickname(value);
-    if (!isNicknameValid(value)) return setErrorStatus('default');
-    if (!isNicknameDuplicated(value)) return setErrorStatus('duplicate');
-    setErrorStatus('usable');
-  };
 
   /**
    * errorStatus가 usable 일 경우,
@@ -52,7 +30,11 @@ const Nickname = () => {
         <div className="welcome-letter">어서오세요!</div>
         <div className="welcome-sub-letter">닉네임을 정해주세요 (최대 8자)</div>
 
-        <NicknameInput errorStatus={errorStatus} checkNickname={checkNickname} />
+        <NicknameInput
+          errorStatus={errorStatus}
+          setNickname={setNickname}
+          setErrorStatus={setErrorStatus}
+        />
       </Content>
 
       <Button
