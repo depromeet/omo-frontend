@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 import ModalLayout from '@components/Layout/ModalLayout';
 import ProfileImage from '@components/ProfileImage';
@@ -30,9 +31,25 @@ const ChangePhoto = () => {
       clickHandler={changeProfilePhoto}
       disabled={thumbnail === UNDEF}
     >
+      <NotifyParagraph>
+        <b>{userState.info?.nickname}</b>
+        님의 프로필사진
+      </NotifyParagraph>
       <ProfileImage thumbnail={thumbnail} setThumbnail={setThumbnail} />
     </ModalLayout>
   );
 };
 
 export default ChangePhoto;
+
+const NotifyParagraph = styled.p`
+  position: absolute;
+  width: 100%;
+  top: 20%;
+  ${({ theme }) => theme.fonts.header2_5};
+  text-align: center;
+
+  b {
+    font-weight: bold;
+  }
+`;
