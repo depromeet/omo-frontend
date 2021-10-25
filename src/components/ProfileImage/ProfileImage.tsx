@@ -1,19 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useRef } from 'react';
+import { SetterOrUpdater } from 'recoil';
 
 import ProfileEraseImage from '@assets/profile-erase-image.svg';
 import { UNDEF } from '@constants/shared';
+import { ISignupFormState } from '@recoil/signupFormState';
 
 import * as S from './styles';
 
 interface IProfileImage {
-  setProfileImage: (file: File) => void;
-  removeProfileImage: () => void;
+  setSignupFormState: SetterOrUpdater<ISignupFormState>;
   thumbnail?: File;
 }
 
-const ProfileImage = ({ thumbnail, removeProfileImage, setProfileImage }: IProfileImage) => {
+const ProfileImage = ({ thumbnail, setSignupFormState }: IProfileImage) => {
   const imgRef = useRef<HTMLImageElement>(null);
+
+  const setProfileImage = (profileImage: File) =>
+    setSignupFormState((prev) => ({ ...prev, profileImage }));
+  const removeProfileImage = () => setSignupFormState((prev) => ({ nickname: prev.nickname }));
 
   const addProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

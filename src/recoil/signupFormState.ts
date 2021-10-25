@@ -1,6 +1,6 @@
 import { atom, useRecoilState, useSetRecoilState } from 'recoil';
 
-interface ISingupFormState {
+export interface ISignupFormState {
   nickname: string;
   profileImage?: File;
 }
@@ -9,7 +9,7 @@ const DEFAULT_SIGNUP_FORM = {
   nickname: '',
 };
 
-export const signupFormState = atom<ISingupFormState>({
+export const signupFormState = atom<ISignupFormState>({
   key: 'signupFormState',
   default: DEFAULT_SIGNUP_FORM,
 });

@@ -15,10 +15,6 @@ const Profile = () => {
   const [signupFormState, setSignupFormState] = useSignupFormState();
   const [isValidForm, setIsValidForm] = useState<boolean>(false);
 
-  const setProfileImage = (profileImage: File) =>
-    setSignupFormState((prev) => ({ ...prev, profileImage }));
-  const removeProfileImage = () => setSignupFormState((prev) => ({ nickname: prev.nickname }));
-
   const successLoggedIn = () => {
     if (isValidForm) {
       // TODO: console.log에 있는 signupFormState formData로 묶어서
@@ -44,8 +40,7 @@ const Profile = () => {
         <div className="notify-sub-letter">이미지를 골라주세요!</div>
 
         <ProfileImage
-          setProfileImage={setProfileImage}
-          removeProfileImage={removeProfileImage}
+          setSignupFormState={setSignupFormState}
           thumbnail={signupFormState.profileImage}
         />
 
