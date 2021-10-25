@@ -1,4 +1,3 @@
-// 사진 수정 페이지
 import styled from 'styled-components';
 
 import ModalLayout from '@components/Layout/ModalLayout';
