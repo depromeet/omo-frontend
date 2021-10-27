@@ -1,25 +1,11 @@
-import { useEffect, useRef } from 'react';
-
+import useImageReader from '@hooks/useImageReader';
 import { IUserState } from '@recoil/userState';
 
 import * as S from './styles';
 
 const MyProfile = (props: { userValue: IUserState }) => {
   const { userValue } = props;
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    if (!userValue.info?.profileImage) return;
-
-    const reader = new FileReader();
-    const setImageOnSrc = () => {
-      if (imgRef.current === null || reader.result === null) return;
-      imgRef.current.src = reader.result as string;
-    };
-
-    reader.readAsDataURL(userValue.info?.profileImage);
-    reader.addEventListener('load', setImageOnSrc);
-  }, [userValue]);
+  const imgRef = useImageReader(userValue.info?.profileImage);
 
   return (
     <S.MyProfileWrapper className="container">

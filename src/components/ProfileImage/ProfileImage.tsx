@@ -3,6 +3,7 @@ import React, { Dispatch, useEffect, useRef } from 'react';
 
 import ProfileEraseImage from '@assets/profile-erase-image.svg';
 import { UNDEF } from '@constants/shared';
+import useImageReader from '@hooks/useImageReader';
 
 import * as S from './styles';
 
@@ -12,30 +13,13 @@ interface IProfileImage {
 }
 
 const ProfileImage = ({ thumbnail, setThumbnail }: IProfileImage) => {
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useImageReader(thumbnail);
 
   const addProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.target.files) setThumbnail(e.target.files[0]);
   };
   const removeProfileImage = () => setThumbnail(UNDEF);
-
-  /**
-   * thumbnail이 있을 경우,
-   * imgRef의 src 에 해당 thumbnail을 넣어줍니다.
-   */
-  useEffect(() => {
-    if (!thumbnail) return;
-
-    const reader = new FileReader();
-    const setImageOnSrc = () => {
-      if (imgRef.current === null || reader.result === null) return;
-      imgRef.current.src = reader.result as string;
-    };
-
-    reader.readAsDataURL(thumbnail);
-    reader.addEventListener('load', setImageOnSrc);
-  }, [thumbnail]);
 
   return (
     <S.ProfileImageWrapper className="icon-selector">
