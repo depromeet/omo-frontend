@@ -1,12 +1,19 @@
 import styled, { keyframes } from 'styled-components';
 
-const DEFAULT_SCREEN_WIDTH = 375; // px
-const DEFAULT_SCREEN_HEIGHT = 812; // px
+/**
+ * 이 값은 figma 상의 UI 위치를
+ * 여러 뷰포트에서 동일하게 위치하기 위해 사용하는 값입니다.
+ * 즉, 100% * 140 / FIGMA_SCRREN_HEIGHT 는 약 17% 으로,
+ * 모든 뷰포트에서 해당 UI는 top: 17% 에 위치하게 됩니다.
+ */
+const FIGMA_SCREEN_WIDTH = 375; // px
+const FIGMA_SCREEN_HEIGHT = 812; // px
+
 const DEFAULT_PROFILE_IMAGE_PATH = '/images/add-profile.png';
 
 export const ProfileImageWrapper = styled.div`
   position: absolute;
-  top: calc(100% * (140 / ${DEFAULT_SCREEN_HEIGHT}));
+  top: calc(100% * (140 / ${FIGMA_SCREEN_HEIGHT}));
 
   height: 440px;
   display: flex;
@@ -81,9 +88,9 @@ const aura = keyframes`
 export const Circle = styled.div`
   z-index: 1;
   position: absolute;
-  width: calc(100% * (315 / ${DEFAULT_SCREEN_WIDTH}));
+  width: calc(100% * (315 / ${FIGMA_SCREEN_WIDTH}));
   height: 0;
-  padding-bottom: calc(100% * (315 / ${DEFAULT_SCREEN_WIDTH}));
+  padding-bottom: calc(100% * (315 / ${FIGMA_SCREEN_WIDTH}));
 
   background-color: #ffc737;
   border-radius: 50%;
