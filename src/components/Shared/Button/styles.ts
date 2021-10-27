@@ -1,21 +1,35 @@
 import styled from 'styled-components';
 
+import { colors } from '@styles/colors';
+
 interface ButtonProps {
   bgColor?: string;
   color?: string;
   width?: string;
+  position?: string;
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
 }
 
+const MAIN_BLUE = colors.mainBlue;
+
 export const Button = styled.button<ButtonProps>`
-  width: ${({ width }) => (width ? width : '100%')};
+  width: ${({ width }) => width ?? '100%'};
+  color: ${({ color }) => color ?? '#fff'};
+  background-color: ${({ bgColor }) => bgColor ?? MAIN_BLUE};
+  position: ${({ position }) => position ?? 'default'};
+  top: ${({ top }) => top ?? 'default'};
+  left: ${({ left }) => left ?? 'default'};
+  right: ${({ right }) => right ?? 'default'};
+  bottom: ${({ bottom }) => bottom ?? 'default'};
+
   padding: 18px;
-  color: ${({ color }) => (color ? color : '#000')};
-  outline: none;
-  border: none;
   border-radius: 8px;
   ${({ theme }) => theme.fonts.subTitle1};
-  background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
-  border: ${({ bgColor }) => (bgColor ? 'none' : '1px solid #9e9e9e')};
+  border: none;
+  outline: none;
   cursor: pointer;
 
   & + & {

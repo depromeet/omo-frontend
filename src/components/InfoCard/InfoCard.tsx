@@ -17,8 +17,8 @@ const InfoCard = ({ type, value }: IInfoCard) => {
       {type === 'visited' ? <PatternOne /> : <PatternTwo />}
       <S.Title>{title}</S.Title>
       <S.ValueArea>
-        <S.Value>{value}</S.Value>
-        {type === 'ranking' && <S.Suffix>위</S.Suffix>}
+        <S.Value>{value ?? '-'}</S.Value>
+        {type === 'ranking' && <S.Suffix> 위</S.Suffix>}
       </S.ValueArea>
       <S.Notification>자세히 보기 &gt;</S.Notification>
     </S.InfoCardWrapper>

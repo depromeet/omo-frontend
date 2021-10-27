@@ -1,19 +1,17 @@
-// 마이페이지 메인
-import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import MyPageLayout from '@components/Layout/MyPageLayout';
 import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
-import { userState } from '@recoil/userState';
+import { useUserValue } from '@recoil/userState';
 import { dummys } from '@temp/VisitedStoreDummy';
 
 const MyPage = () => {
-  const [userValue, setUserValue] = useRecoilState(userState);
+  const userValue = useUserValue();
 
   return (
-    <MyPageLayout >
-      <MyProfile />
+    <MyPageLayout>
+      <MyProfile userValue={userValue} />
       <MyPagePage className="container">
         <div className="store-list-title">
           <span>{userValue.info?.nickname}</span>님의 오마카세 리스트

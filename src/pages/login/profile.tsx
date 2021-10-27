@@ -1,18 +1,27 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import LoginLayout from '@components/Layout/LoginLayout';
-import { userState } from '@recoil/userState';
+import ProfileImage from '@components/ProfileImage';
+import Button from '@components/Shared/Button';
+import { UNDEF } from '@constants/shared';
+import { useSignupFormState } from '@recoil/signupFormState';
+import { useSetUserState } from '@recoil/userState';
 
 const Profile = () => {
   const router = useRouter();
-  const [userValue, setUserValue] = useRecoilState(userState);
+  const setUserState = useSetUserState();
+  const [signupFormState, setSignupFormState] = useSignupFormState();
+  const [thumbnail, setThumbnail] = useState<File | undefined>();
 
   const successLoggedIn = () => {
-    setUserValue((state) => ({ ...state, isLoggedIn: true }));
-    router.push('/');
+    setSignupFormState((prev) => ({ ...prev, profileImage: thumbnail }));
+    setUserState({
+      isLoggedIn: true,
+      info: { ...signupFormState, profileImage: thumbnail },
+    });
+    router.push('/home');
   };
 
   return (
@@ -20,23 +29,24 @@ const Profile = () => {
       <Content>
         <div className="notify-main-letter">좋아요!</div>
         <div className="notify-sub-letter">
-          <span className="nickname">{userValue.info?.nickname}</span>님을 대표할
+          <span className="nickname">{signupFormState.nickname}</span>님을 대표할
         </div>
         <div className="notify-sub-letter">이미지를 골라주세요!</div>
 
-        <div className="icon-selector">
-          <Image
-            src="/default_profile.png"
-            width="200"
-            height="200"
-            alt="profile"
-            className="profile"
-          />
-          <input type="file" accept="image/*, video/*" />
-        </div>
+        <ProfileImage thumbnail={thumbnail} setThumbnail={setThumbnail} />
 
-        <button onClick={successLoggedIn}>다음</button>
-        <div className="set-next">다음에 할래요</div>
+        <Button
+          text="다음"
+          width="calc(100% - 40px)"
+          position="absolute"
+          left="20px"
+          bottom="4rem"
+          disabled={thumbnail === UNDEF}
+          clickListener={successLoggedIn}
+        />
+        <div className="set-next" onClick={successLoggedIn}>
+          다음에 할래요
+        </div>
       </Content>
     </LoginLayout>
   );
@@ -45,64 +55,27 @@ const Profile = () => {
 export default Profile;
 
 const Content = styled.div`
+  box-sizing: border-box;
   margin-top: 6rem;
   width: 100%;
-  height: 441px;
+  color: #000;
 
   .notify-main-letter {
-    margin: 0 0 26px 20px;
-
-    font-weight: bold;
-    font-size: 30px;
+    margin-left: 20px;
+    ${({ theme }) => theme.fonts.header1};
     line-height: 36px;
-    color: #000;
+    margin-bottom: 18px;
   }
 
   .notify-sub-letter {
     margin-left: 20px;
-    font-size: 18px;
-    line-height: 140%;
-    color: #000;
+    ${({ theme }) => theme.fonts.subTitle1};
+    font-weight: normal;
+    line-height: 28px;
 
     .nickname {
       font-weight: bold;
     }
-  }
-
-  .icon-selector {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 88px 0 56px 0;
-
-    input {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      opacity: 0;
-    }
-  }
-
-  button {
-    border: none;
-    position: absolute;
-    left: 20px;
-    bottom: 4rem;
-    width: calc(100% - 40px);
-    height: 48px;
-
-    margin: 0 auto;
-    border-radius: 8px;
-
-    background-color: #2334cf;
-    color: #fff;
-
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
   }
 
   .set-next {

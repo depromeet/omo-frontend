@@ -1,59 +1,55 @@
-// 사진 수정 페이지
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import ModalLayout from '@components/Layout/ModalLayout';
+import ProfileImage from '@components/ProfileImage';
+import { UNDEF } from '@constants/shared';
+import { useUserState } from '@recoil/userState';
 
 const ChangePhoto = () => {
-  const onClick = () => alert('프로필사진 변경이 완료되었습니다.');
+  const [userState, setUserState] = useUserState();
+  const [thumbnail, setThumbnail] = useState<File | undefined>();
+  const router = useRouter();
+
+  useEffect(() => {
+    setThumbnail(userState.info?.profileImage);
+  }, [userState]);
+
+  const changeProfilePhoto = () => {
+    if (confirm('프로필 사진을 변경하시겠습니까?')) {
+      setUserState((prev) => ({ ...prev, info: { ...prev.info, profileImage: thumbnail } }));
+      alert('프로필사진 변경이 완료되었습니다.');
+      router.push('/mypage');
+    }
+  };
 
   return (
-    <ModalLayout title="프로필사진 변경" buttonContent="확인" clickHandler={onClick}>
-      <ChangePhotoPage>
-        <PhotoContainer>
-          <div className="photo-wrapper"></div>
-          <div className="photo-wrapper"></div>
-          <div className="photo-wrapper"></div>
-          <div className="photo-wrapper"></div>
-          <div className="photo-wrapper"></div>
-          <div className="photo-wrapper"></div>
-          <div className="photo-wrapper"></div>
-          <div className="photo-wrapper"></div>
-        </PhotoContainer>
-        <ChangeButton>내 사진으로 할래요</ChangeButton>
-      </ChangePhotoPage>
+    <ModalLayout
+      title=""
+      buttonContent="변경하기"
+      clickHandler={changeProfilePhoto}
+      disabled={thumbnail === UNDEF}
+    >
+      <NotifyParagraph>
+        <b>{userState.info?.nickname}</b>
+        님의 프로필사진
+      </NotifyParagraph>
+      <ProfileImage thumbnail={thumbnail} setThumbnail={setThumbnail} />
     </ModalLayout>
   );
 };
 
 export default ChangePhoto;
 
-const ChangePhotoPage = styled.section`
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-`;
+const NotifyParagraph = styled.p`
+  position: absolute;
+  width: 100%;
+  top: 20%;
+  ${({ theme }) => theme.fonts.header2_5};
+  text-align: center;
 
-const PhotoContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 15px;
-  margin-bottom: 1rem;
-
-  .photo-wrapper {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background-color: #c4c4c4;
+  b {
+    font-weight: bold;
   }
-`;
-const ChangeButton = styled.button`
-  padding: 15px;
-  background-color: #e1e1e1;
-  outline: none;
-  border: none;
-  border-radius: 8px;
-  color: #4b4b4b;
-  font-size: 16px;
 `;

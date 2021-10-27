@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+const DEFAULT_PROFILE_IMAGE_PATH = '/images/default_profile_image.png';
+
 export const MyProfileWrapper = styled.div`
   margin-bottom: 2rem;
 `;
@@ -16,7 +18,21 @@ export const MyProfileSection = styled.section`
 `;
 
 export const ImageWrapper = styled.div`
+  width: 64px;
+  height: 64px;
 `;
+
+export const ProfileImage = styled.img.attrs({
+  src: DEFAULT_PROFILE_IMAGE_PATH,
+  alt: 'profile',
+})`
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+  object-position: center center;
+`;
+
 export const ProfileInformationWrapper = styled.div`
   display: flex;
   justify-content: space-around;
