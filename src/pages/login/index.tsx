@@ -16,8 +16,12 @@ const Login: NextPage = () => {
     if (!(e.target instanceof Element)) return;
 
     if (e.target.closest('.oauth-button')) {
-      // TODO: 추후에 플랫폼에 맞게 처리
-      router.push('/login/nickname');
+      const targetClassName = e.target.closest('.oauth-button')?.className.split(' ');
+      if (!targetClassName) return;
+
+      const platForm = targetClassName[1];
+      const targetUrl = `${process.env.NEXT_PUBLIC_IP_ADDRESS}/oauth2/authorization/${platForm}`;
+      router.push(targetUrl);
     }
   };
 
