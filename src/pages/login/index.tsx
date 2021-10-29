@@ -20,7 +20,7 @@ const Login: NextPage = () => {
       if (!targetClassName) return;
 
       const platForm = targetClassName[1];
-      const targetUrl = `${process.env.NEXT_PUBLIC_IP_ADDRESS}/oauth2/authorization/${platForm}`;
+      const targetUrl = `${process.env.API_ENDPOINT}/oauth2/authorization/${platForm}`;
       router.push(targetUrl);
     }
   };

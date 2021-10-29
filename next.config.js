@@ -8,6 +8,9 @@ module.exports = {
 
     return config;
   },
+  env: {
+    API_ENDPOINT: process.env.IP_ADDRESS,
+  },
   reactStrictMode: true,
   images: {
     domains: ['c2.poing.co.kr'],
