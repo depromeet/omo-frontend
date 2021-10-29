@@ -21,6 +21,7 @@ const Login: NextPage = () => {
 
       const platForm = targetClassName[1];
       const targetUrl = `${process.env.API_ENDPOINT}/oauth2/authorization/${platForm}`;
+      console.log(targetUrl);
       router.push(targetUrl);
     }
   };
