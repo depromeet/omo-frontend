@@ -40,6 +40,7 @@ const InputHeader = ({ placeholder, searchHandler }: HeaderInputProps) => {
         value={text}
         onChange={(e) => handleOnChange(e)}
         placeholder={placeholder}
+        autoFocus={true}
       />
       <S.SearchButton onClick={handleOnSubmit}>검색</S.SearchButton>
     </S.Header>
