@@ -87,10 +87,12 @@ const ImageWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
+  background-color: #fff;
   position: fixed;
   bottom: 20px;
   width: 100%;
   padding: 0 20px;
+  padding-top: 10px;
   box-sizing: border-box;
   display: flex;
 `;
