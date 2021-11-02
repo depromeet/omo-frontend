@@ -51,6 +51,7 @@ export const SubTitles = styled.div`
     border-radius: 12px;
     color: #ffffff;
     margin-right: 8px;
+    background-color: rgba(0, 0, 0, 0.4);
   }
 `;
 
@@ -96,6 +97,7 @@ export const ListDescription = styled.div`
     span {
       color: #9a9a9a;
       padding: 0;
+      background-color: transparent;
     }
   }
 
