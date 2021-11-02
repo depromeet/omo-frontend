@@ -13,16 +13,6 @@ export const StoreDescription = styled.div`
   box-sizing: border-box;
   padding: 20px;
   margin-bottom: -14px;
-
-  .button-wrapper {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    padding: 0 20px;
-    margin: 0 -20px;
-    box-sizing: border-box;
-    display: flex;
-  }
 `;
 
 export const DescriptionHeader = styled.div`
@@ -69,9 +59,15 @@ export const DescriptionMain = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 16px;
+  margin-bottom: 76px;
   background-color: #fafafa;
   padding: 16px 20px;
   border-radius: 10px;
+
+  .contents-wrapper {
+    flex: 1;
+    margin-right: 10px;
+  }
 `;
 
 export const DescriptionList = styled.div`
@@ -97,24 +93,4 @@ export const DescriptionList = styled.div`
 export const ScrollArea = styled.div`
   overflow: auto;
   flex: 1;
-`;
-
-export const LikeButton = styled.button`
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  margin-right: 8px;
-  box-sizing: content-box;
-  background-color: ${({ theme }) => theme.colors.black100};
-  width: 54px;
-  height: 54px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  .count {
-    color: ${({ theme }) => theme.colors.pointRed};
-    ${({ theme }) => theme.fonts.contents3};
-  }
 `;

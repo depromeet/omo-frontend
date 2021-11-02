@@ -1,9 +1,5 @@
-import { useRouter } from 'next/router';
-
 import CopyIcon from '@assets/copy.svg';
-import FavoriteIcon from '@assets/favorite.svg';
 import TelIcon from '@assets/telephone.svg';
-import Button from '@components/Shared/Button';
 import { DetailPageProps } from '@pages/search/[id]';
 
 import * as S from './styles';
@@ -13,8 +9,6 @@ interface StoreDescriptionProps {
 }
 
 const StoreDescription = ({ store }: StoreDescriptionProps) => {
-  const router = useRouter();
-
   return (
     <S.StoreDescription>
       <S.DescriptionHeader>
@@ -55,19 +49,6 @@ const StoreDescription = ({ store }: StoreDescriptionProps) => {
           </div>
         </S.DescriptionList>
       </S.DescriptionMain>
-
-      <div className="button-wrapper">
-        <S.LikeButton onClick={() => alert('좋아요!')}>
-          <FavoriteIcon />
-          <span className="count">125</span>
-        </S.LikeButton>
-        <Button
-          clickListener={() => router.push('/certification')}
-          color="#fff"
-          bgColor="#293AD2"
-          text="이 가게 도장깨기"
-        />
-      </div>
     </S.StoreDescription>
   );
 };
