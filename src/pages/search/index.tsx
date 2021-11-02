@@ -173,13 +173,13 @@ const FixedArea = styled.div`
   top: 0;
   z-index: 100;
   background-color: #fff;
-  padding-bottom: 17.46px;
+  padding-bottom: 20px;
 
   .header-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 17.46px;
+    margin-top: 36px;
   }
 `;
 

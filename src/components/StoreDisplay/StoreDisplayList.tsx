@@ -10,6 +10,16 @@ const StoreDisplay = ({ id, image, types, name, location }: StoreDisplayProps) =
       <Link href={`/search/${id}`} passHref>
         <a>
           <S.ListDescriptionWrapper>
+            <S.ListDescription>
+              <S.SubTitles>
+                {types.map((type) => (
+                  <span key={type}>#{type}</span>
+                ))}
+              </S.SubTitles>
+              <h1 className="store-title">{name}</h1>
+              <p className="store-location">{location}</p>
+            </S.ListDescription>
+
             <S.StoreImageWrapper className="mode-list">
               <Image
                 src={image}
@@ -19,19 +29,6 @@ const StoreDisplay = ({ id, image, types, name, location }: StoreDisplayProps) =
                 layout="fixed"
               />
             </S.StoreImageWrapper>
-
-            <S.ListDescription>
-              <S.SubTitles>
-                {types.map((type) => (
-                  <span key={type}>#{type}</span>
-                ))}
-              </S.SubTitles>
-
-              <S.StoreDescriptionWrapper>
-                <h1 className="store-title">{name}</h1>
-                <p className="store-location">{location}</p>
-              </S.StoreDescriptionWrapper>
-            </S.ListDescription>
           </S.ListDescriptionWrapper>
         </a>
       </Link>
