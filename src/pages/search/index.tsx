@@ -20,7 +20,7 @@ const Search = () => {
   const menuMode = ISSERVER ? 'wide' : (localStorage.getItem('menu-mode') as Mode);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [mode, setMode] = useState<Mode>(menuMode);
-  const [tab, setTab] = useState('미들');
+  const [tab, setTab] = useState('엔트리');
   const [tempStores, setTempStores] = useState(dummys.filter((dummy) => dummy.types.includes(tab)));
 
   useEffect(() => {
@@ -63,9 +63,9 @@ const Search = () => {
       <SearchPage className="container">
         <FixedArea>
           <div className="tabs" onClick={(e) => handleClickOnTabs(e)}>
+            <span className={`tab ${tab === '엔트리' ? 'active' : ''}`}>엔트리</span>
             <span className={`tab ${tab === '미들' ? 'active' : ''}`}>미들</span>
             <span className={`tab ${tab === '하이엔드' ? 'active' : ''}`}>하이엔드</span>
-            <span className={`tab ${tab === '캐쥬얼' ? 'active' : ''}`}>캐쥬얼</span>
             <QuestionIcon className="float-right" onClick={toggleModal} />
           </div>
 
