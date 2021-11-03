@@ -19,9 +19,9 @@ export const StoreImageWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.black200};
 
   &.mode-list {
-    width: 79px;
-    min-width: 79px;
-    height: 79px;
+    width: 93px;
+    min-width: 93px;
+    height: 93px;
 
     img {
       transform: translate(-25%, -25%);
@@ -33,7 +33,6 @@ export const StoreImageWrapper = styled.div`
       height: 100%;
       left: 0;
       top: 0;
-      background: linear-gradient(0deg, rgba(0, 0, 0, 0.49), rgba(0, 0, 0, 0.49));
       content: '';
     }
   }
@@ -50,9 +49,9 @@ export const SubTitles = styled.div`
   span {
     padding: 4px 8px;
     border-radius: 12px;
-    background-color: rgba(0, 0, 0, 0.4);
     color: #ffffff;
     margin-right: 8px;
+    background-color: rgba(0, 0, 0, 0.4);
   }
 `;
 
@@ -82,35 +81,37 @@ export const StoreDescriptionWrapper = styled.div`
 
 export const ListDescriptionWrapper = styled.div`
   display: flex;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.black200};
+  padding-bottom: 16px;
 `;
 
 export const ListDescription = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin-left: 15px;
+  margin-right: 15px;
   flex: 1;
   min-width: 0;
 
   ${SubTitles} {
     position: static;
     span {
-      background-color: ${({ theme }) => theme.colors.black400};
+      color: #9a9a9a;
+      padding: 0;
+      background-color: transparent;
     }
   }
-  ${StoreDescriptionWrapper} {
-    position: static;
-    background-color: transparent;
-    padding: 0;
-    justify-content: flex-start;
-    height: auto;
 
-    .store-title {
-      color: ${({ theme }) => theme.colors.black900};
-      margin-bottom: 4px;
-    }
-    .store-location {
-      color: ${({ theme }) => theme.colors.black600};
-    }
+  .store-title {
+    margin-top: 10px;
+    ${({ theme }) => theme.fonts.subTitle1};
+    color: ${({ theme }) => theme.colors.black900};
+  }
+  .store-location {
+    margin-top: 10px;
+    overflow: hidden;
+    ${({ theme }) => theme.fonts.contents2};
+    color: ${({ theme }) => theme.colors.black600};
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;

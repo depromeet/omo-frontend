@@ -64,7 +64,7 @@ export const dummys: DetailPageProps[] = [
   {
     id: 6,
     image: `https://c2.poing.co.kr/place/image/thumbnail/MjAyMTA4/1629287736611cf5384adab.png`,
-    types: ['강서구', '캐쥬얼'],
+    types: ['강서구', '엔트리'],
     name: `스시왕어진`,
     desc: `오마카세 경력 25년의 셰프와 산지직송
 제철 식자재의 정성이 담긴 요리`,
@@ -76,7 +76,7 @@ export const dummys: DetailPageProps[] = [
   {
     id: 7,
     image: `https://c2.poing.co.kr/place/image/thumbnail/MjAyMTA5/16309991496137126d3c6fa.jpg`,
-    types: ['강동구', '캐쥬얼'],
+    types: ['강동구', '엔트리'],
     name: `조스시`,
     desc: `오마카세 경력 25년의 셰프와 산지직송
 제철 식자재의 정성이 담긴 요리`,
