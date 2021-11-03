@@ -1,11 +1,15 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import Header from '@components/Header';
 import Button from '@components/Shared/Button';
 
 const Certification = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleOnClickButton = () => fileInputRef?.current?.click();
+
   return (
     <CertificationPage>
       <Header title="인증하기" />
@@ -24,13 +28,15 @@ const Certification = () => {
 
         <div className="warning-message">필수 인증사항 누락은 기각사유가 될 수 있습니다</div>
 
-        <Button
-          clickListener={() => alert('찍기')}
-          color="#fff"
-          bgColor="#293AD2"
-          text="영수증 사진 찍기"
-        />
-        <FileInput type="file" accept="image/*" capture="camera" />
+        <ButtonArea>
+          <Button
+            clickListener={handleOnClickButton}
+            color="#fff"
+            bgColor="#293AD2"
+            text="영수증 사진 찍기"
+          />
+          <FileInput ref={fileInputRef} type="file" accept="image/*" capture="camera" />
+        </ButtonArea>
       </CertificationMain>
     </CertificationPage>
   );
@@ -78,6 +84,13 @@ const ReceiptImageWrapper = styled.div`
   margin: 0 auto;
 `;
 
+const ButtonArea = styled.div``;
+
 const FileInput = styled.input`
   color: blue;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
 `;
