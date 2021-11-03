@@ -30,7 +30,7 @@ const Certification = () => {
           bgColor="#293AD2"
           text="영수증 사진 찍기"
         />
-        <input type="file" accept="image/*" capture="camera" />
+        <input type="file" accept="image/*; capture=camera" />
       </CertificationMain>
     </CertificationPage>
   );
