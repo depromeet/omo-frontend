@@ -30,7 +30,7 @@ const Certification = () => {
           bgColor="#293AD2"
           text="영수증 사진 찍기"
         />
-        <input type="file" accept="image/*; capture=camera" />
+        <FileInput type="file" accept="image/*" capture="camera" />
       </CertificationMain>
     </CertificationPage>
   );
@@ -76,4 +76,8 @@ const ReceiptImageWrapper = styled.div`
   width: 205px;
   height: 322px;
   margin: 0 auto;
+`;
+
+const FileInput = styled.input`
+  color: blue;
 `;
