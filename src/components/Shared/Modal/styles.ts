@@ -150,3 +150,25 @@ export const RankingNotifyModalContent = styled.div`
     font-weight: bold;
   }
 `;
+
+export const CertificationModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  height: 350px;
+  box-sizing: border-box;
+  padding-top: 46px;
+
+  .store-message {
+    color: ${({ theme }) => theme.colors.black900};
+    ${({ theme }) => theme.fonts.subTitle1};
+    line-height: 28.8px;
+  }
+  .guide-message {
+    color: ${({ theme }) => theme.colors.black400};
+    ${({ theme }) => theme.fonts.contents2};
+    line-height: 22.4px;
+  }
+`;
