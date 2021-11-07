@@ -1,23 +1,38 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import { LocationChecker, ReceiptChecker } from '@components/Certification';
 import Header from '@components/Header';
+import Button from '@components/Shared/Button';
+import { CertificationModal } from '@components/Shared/Modal';
 
 const Certification = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
-    query: { blobUrl },
+    query: { blobUrl, image, location, name },
   } = useRouter();
 
   return (
     <CertificationPage>
       <Header title="인증확인" />
       <CertificationMain className="container">
-        <ImageWrapper>
-          <Image src={blobUrl as string} alt="영수증 미리보기" layout="fill" />
-        </ImageWrapper>
+        <LocationChecker
+          image={image as string}
+          location={location as string}
+          name={name as string}
+        />
+
+        <ReceiptChecker blobUrl={blobUrl as string} />
+
+        <Button
+          clickListener={() => setIsModalOpen(true)}
+          color="#fff"
+          bgColor="#293AD2"
+          text="도장깨기 접수하기"
+        />
       </CertificationMain>
+      {isModalOpen && <CertificationModal name={name as string} />}
     </CertificationPage>
   );
 };
@@ -35,12 +50,4 @@ const CertificationMain = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-`;
-
-const ImageWrapper = styled.div`
-  position: relative;
-  width: 335px;
-  height: 335px;
-  border-radius: 10px;
-  overflow: hidden;
 `;
