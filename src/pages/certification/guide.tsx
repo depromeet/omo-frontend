@@ -8,7 +8,8 @@ import Button from '@components/Shared/Button';
 import convertFileToBlobUrl from '@utils/convertFileToBlobUrl';
 
 const CertificationGuide = () => {
-  const { push } = useRouter();
+  const { query, push } = useRouter();
+  const { image, location, name } = query;
   const [receiptFile, setReceiptFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -29,10 +30,10 @@ const CertificationGuide = () => {
 
     if (receiptFile) {
       getPreviewReceipt(receiptFile).then((blobUrl) =>
-        push({ pathname: '/certification', query: { blobUrl } }),
+        push({ pathname: '/certification', query: { blobUrl, image, location, name } }),
       );
     }
-  }, [push, receiptFile]);
+  }, [push, receiptFile, image, location, name]);
 
   return (
     <CertificationPage>
