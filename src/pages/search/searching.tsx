@@ -31,10 +31,11 @@ const Searching = () => {
               <StoreDisplay
                 key={store.id}
                 id={store.id}
-                types={store.types}
-                image={store.image}
+                level={store.level}
+                county={store.county}
+                image_url={store.image_url}
                 name={store.name}
-                location={store.location}
+                address={store.address}
               />
             ))}
           </SearchingData>

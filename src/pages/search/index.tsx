@@ -1,5 +1,6 @@
 // 기본 찾기 페이지
 
+import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -11,17 +12,23 @@ import SearchIcon from '@assets/search.svg';
 import Layout from '@components/Layout';
 import { GradeDescriptionModal } from '@components/Shared/Modal';
 import { StoreDisplayList, StoreDisplayWide } from '@components/StoreDisplay';
+import { DetailPageProps } from '@pages/search/[id]';
 import { dummys } from '@temp/SearchListDummy';
 
 type Mode = 'wide' | 'list';
 const ISSERVER = typeof window === 'undefined';
+
+type Omakases = {
+  total_elements: number;
+  omakases: DetailPageProps[];
+};
 
 const Search = () => {
   const menuMode = ISSERVER ? 'wide' : (localStorage.getItem('menu-mode') as Mode);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [mode, setMode] = useState<Mode>(menuMode);
   const [tab, setTab] = useState('엔트리');
-  const [tempStores, setTempStores] = useState(dummys.filter((dummy) => dummy.types.includes(tab)));
+  const [tempStores, setTempStores] = useState<DetailPageProps[]>();
 
   useEffect(() => {
     const storage = localStorage.getItem('menu-mode') as Mode | null;
@@ -33,6 +40,17 @@ const Search = () => {
 
     setMode(storage);
   }, []);
+
+  useEffect(() => {
+    async function fetchAllStores() {
+      return await axios.get<Omakases>(`/api/omakases`);
+    }
+
+    fetchAllStores().then((res) => {
+      const { omakases } = res.data;
+      setTempStores(omakases.filter((omakase) => omakase.level === tab));
+    });
+  }, [tab, tempStores]);
 
   const toggleModal = () => {
     setIsOpenModal((prev) => !prev);
@@ -54,9 +72,11 @@ const Search = () => {
     const content = e.target.textContent as string;
     setTab(content);
 
-    const filteredDummys = dummys.filter((store) => store.types.includes(content));
+    const filteredDummys = dummys.filter((store) => store.level === content);
     setTempStores(filteredDummys);
   };
+
+  if (!tempStores?.length) return '...loading';
 
   return (
     <Layout title="오마카세 찾기">
@@ -94,19 +114,21 @@ const Search = () => {
               <StoreDisplayWide
                 key={dummy.id}
                 id={dummy.id}
-                image={dummy.image}
-                types={dummy.types}
+                image_url={dummy.image_url}
+                level={dummy.level}
+                county={dummy.county}
                 name={dummy.name}
-                location={dummy.location}
+                address={dummy.address}
               />
             ) : (
               <StoreDisplayList
                 key={dummy.id}
                 id={dummy.id}
-                image={dummy.image}
-                types={dummy.types}
+                image_url={dummy.image_url}
+                level={dummy.level}
+                county={dummy.county}
                 name={dummy.name}
-                location={dummy.location}
+                address={dummy.address}
               />
             ),
           )}

@@ -1,3 +1,4 @@
+import axios from 'axios';
 // 매장 상세페이지 관련
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -9,13 +10,15 @@ import Header from '@components/Header';
 import Button from '@components/Shared/Button';
 import StoreDescription from '@components/StoreDescription';
 import { StoreDisplayProps } from '@components/StoreDisplay';
-import { dummys } from '@temp/SearchListDummy';
 
 export interface DetailPageProps extends StoreDisplayProps {
-  desc: string;
-  tel: string;
-  price: string;
-  time: string;
+  description: string;
+  phone_number: string;
+  price_information: string;
+  business_hours: string;
+  recommendation_count: number;
+  is_certification: boolean | null;
+  is_recommendation: boolean;
 }
 
 const Detail = () => {
@@ -24,12 +27,11 @@ const Detail = () => {
   const [임시, 셋임시] = useState<DetailPageProps>();
 
   useEffect(() => {
-    function fetchSelectedData(id: string) {
-      return dummys.filter((dummy) => dummy.id === +id)[0];
+    async function fetchSelectedData(id: string) {
+      return await axios.get<DetailPageProps>(`/api/omakase/${id}`);
     }
 
-    const temp = fetchSelectedData(id as string);
-    셋임시(temp);
+    fetchSelectedData(id as string).then((res) => 셋임시(res.data));
   }, [id]);
 
   if (!임시) {
@@ -40,7 +42,7 @@ const Detail = () => {
     <DetailPage>
       <Header />
       <ImageWrapper>
-        <Image src={임시.image} alt="가게 이미지" layout="fill" />
+        <Image src={임시.image_url} alt="가게 이미지" layout="fill" />
       </ImageWrapper>
       <StoreDescription store={임시} />
 
@@ -54,9 +56,9 @@ const Detail = () => {
             router.push({
               pathname: '/certification/guide',
               query: {
-                image: 임시.image,
+                image: 임시.image_url,
                 name: 임시.name,
-                location: 임시.location,
+                location: 임시.address,
               },
             })
           }
