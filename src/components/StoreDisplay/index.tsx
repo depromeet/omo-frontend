@@ -1,9 +1,10 @@
 export interface StoreDisplayProps {
   id: number;
-  types: string[];
-  image: string;
+  level: string;
+  image_url: string;
   name: string;
-  location: string;
+  address: string;
+  county: string;
 }
 
 export { default } from './StoreDisplay';
