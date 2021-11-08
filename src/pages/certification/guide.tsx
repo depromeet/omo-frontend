@@ -5,7 +5,9 @@ import styled from 'styled-components';
 
 import Header from '@components/Header';
 import Button from '@components/Shared/Button';
-import convertFileToBlobUrl from '@utils/convertFileToBlobUrl';
+
+// FileReader로 이미지 URL 처리할 지 URL.createObjectURL로 처리할 지 고민중
+// import convertFileToBlobUrl from '@utils/convertFileToBlobUrl';
 
 const CertificationGuide = () => {
   const { query, push } = useRouter();
@@ -26,12 +28,16 @@ const CertificationGuide = () => {
   };
 
   useEffect(() => {
-    const getPreviewReceipt = async (file: File) => await convertFileToBlobUrl(file);
+    // const getPreviewReceipt = async (file: File) => await convertFileToBlobUrl(file);
 
     if (receiptFile) {
-      getPreviewReceipt(receiptFile).then((blobUrl) =>
-        push({ pathname: '/certification', query: { blobUrl, image, location, name } }),
-      );
+      const blobUrl = URL.createObjectURL(receiptFile);
+      push({ pathname: '/certification', query: { blobUrl, image, location, name } });
+      // getPreviewReceipt(receiptFile).then((blobUrl) =>
+      //   push({
+      //     pathname: '/certification', query: { blobUrl, image, location, name },
+      //   }),
+      // );
     }
   }, [push, receiptFile, image, location, name]);
 

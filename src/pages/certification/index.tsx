@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { LocationChecker, ReceiptChecker } from '@components/Certification';
@@ -12,6 +12,10 @@ const Certification = () => {
   const {
     query: { blobUrl, image, location, name },
   } = useRouter();
+
+  useEffect(() => {
+    return () => URL.revokeObjectURL(blobUrl as string);
+  }, [blobUrl]);
 
   return (
     <CertificationPage>

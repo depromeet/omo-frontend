@@ -3,9 +3,12 @@ import React, { useRef, useState } from 'react';
 
 import CloseBtnIcon from '@assets/close.svg';
 import QuestionIcon from '@assets/question.svg';
-import convertFileToBlobUrl from '@utils/convertFileToBlobUrl';
 
 import * as S from './styles';
+
+// FileReader로 이미지 URL 처리할 지 URL.createObjectURL로 처리할 지 고민중
+// import convertFileToBlobUrl from '@utils/convertFileToBlobUrl';
+
 
 type ReceiptCheckerProps = {
   blobUrl: string;
@@ -23,7 +26,8 @@ const ReceiptChecker = ({ blobUrl }: ReceiptCheckerProps) => {
 
     if (!files?.length) return;
 
-    const urlImage = await convertFileToBlobUrl(files[0]);
+    // const urlImage = await convertFileToBlobUrl(files[0]);
+    const urlImage = URL.createObjectURL(files[0]);
     setReceiptImage(urlImage);
   };
 
