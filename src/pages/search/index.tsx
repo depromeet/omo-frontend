@@ -50,7 +50,7 @@ const Search = () => {
       const { omakases } = res.data;
       setTempStores(omakases.filter((omakase) => omakase.level === tab));
     });
-  }, [tab, tempStores]);
+  }, [tab]);
 
   const toggleModal = () => {
     setIsOpenModal((prev) => !prev);
