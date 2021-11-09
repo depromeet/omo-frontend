@@ -144,3 +144,49 @@ export const ToggleDescription = styled.div`
     font-weight: bold;
   }
 `;
+
+export const SearchBottomActionSheet = styled.div`
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+  height: 87vh;
+  padding: 20px;
+  box-sizing: border-box;
+  transform: translateY(100%);
+  transition: transform 0.35s;
+  z-index: 100;
+`;
+
+export const SearchInputBar = styled.div`
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.black100};
+  padding: 12px 16px;
+
+  input {
+    flex: 1;
+    margin-right: 15px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    ${({ theme }) => theme.fonts.contents3};
+  }
+`;
+
+export const SearchResults = styled.div`
+  flex: 1;
+  overflow-y: scroll;
+`;
+
+export const SearchNoData = styled.div`
+  margin: 50% 25%;
+`;
