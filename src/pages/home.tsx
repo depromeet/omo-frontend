@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import HorizontalLogo from '@assets/horizontal-logo.svg';
@@ -5,15 +7,33 @@ import InfoCard from '@components/InfoCard';
 import Layout from '@components/Layout';
 import OmakaseStampCard from '@components/OmakaseStampCard';
 import RankingCard from '@components/Shared/RankingCard';
+import useLocalStorage from '@hooks/useLocalStorage';
 import { useUserValue } from '@recoil/userState';
+import { setTokenOnHeader } from '@request';
+import { getObjectFromQuery } from '@utils/getObjectFormQuery';
 
 const Home = () => {
+  const { query } = useRouter();
+  const { setStorageItem } = useLocalStorage('omo-refresh');
+
   const userValue = useUserValue();
   const top3Rankers = [
     { rank: 1, nickname: '오모마카세에대출', amount: 24 },
     { rank: 2, nickname: '지니지니', amount: 14 },
     { rank: 3, nickname: '오마카새우', amount: 8 },
   ];
+
+  useEffect(() => {
+    if (query.status) {
+      const urlQuery = query.status as string;
+      const essentialData = urlQuery.split('?').slice(1);
+      const tokenInfo = getObjectFromQuery(essentialData);
+      console.log(tokenInfo);
+
+      setTokenOnHeader(tokenInfo.access);
+      setStorageItem(tokenInfo.refresh);
+    }
+  }, [query, setStorageItem]);
 
   return (
     <Layout title="홈" noHeader>
