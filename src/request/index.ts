@@ -14,8 +14,8 @@ interface IRequestStampBody {
 
 const instance = axios.create({ baseURL: process.env.API_ENDPOINT });
 
-export const setTokenOnHeader = (value: string) => {
-  instance.defaults.headers.common['Authorization'] = value;
+export const setTokenOnHeader = (token: string) => {
+  instance.defaults.headers.common['Authorization'] = token;
 };
 
 export const requestSignup = (body: ISignupBody) => instance.post(`/user`, { body });
@@ -23,8 +23,9 @@ export const requestDeleteUser = () => instance.delete(`/user`);
 export const requestLogout = () => instance.delete(`/logout`);
 export const requestCheckDuplicateName = (name: string) =>
   instance.get(`/user/check?nickname=${name}`);
-export const requestOmakases = (query?: { [key: string]: string }) =>
-  instance.get(`/omakases?${query}`);
+export const requestOmakases = (param: { [key in 'level' | 'keyword']: string }) =>
+  instance.get(`/omakases?level=${param.level}&keyword=${param.keyword}`);
+
 export const requestSpecificOmakase = (id: number) => instance.get(`/omakases?/${id}`);
 export const requestLike = (id: number) => instance.patch(`/recommendation/${id}`);
 export const requestMyRanking = () => instance.get(`/my-ranking`);
