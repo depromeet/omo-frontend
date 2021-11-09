@@ -7,18 +7,22 @@ type LocationCheckerProps = {
   image: string;
   location: string;
   name: string;
+  handleClickOnReselectLocation: () => void;
 };
 
-const LocationChecker = ({ image, location, name }: LocationCheckerProps) => {
-  const handleClickOnReselectStore = () => alert('밑에서 부와앙');
-
+const LocationChecker = ({
+  image,
+  location,
+  name,
+  handleClickOnReselectLocation,
+}: LocationCheckerProps) => {
   return (
     <S.LocationChecker>
       <S.TitleWrapper>
         <S.Title>
           이 <strong>장소</strong>가 맞나요?
         </S.Title>
-        <S.ReselectBtn onClick={handleClickOnReselectStore}>다시 선택하기</S.ReselectBtn>
+        <S.ReselectBtn onClick={handleClickOnReselectLocation}>다시 선택하기</S.ReselectBtn>
       </S.TitleWrapper>
 
       <S.SelectedStorePreviewWrapper>
