@@ -11,7 +11,6 @@ import Button from '@components/Shared/Button';
 
 const CertificationGuide = () => {
   const { query, push } = useRouter();
-  const { image, location, name } = query;
   const [receiptFile, setReceiptFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -28,18 +27,13 @@ const CertificationGuide = () => {
   };
 
   useEffect(() => {
-    // const getPreviewReceipt = async (file: File) => await convertFileToBlobUrl(file);
+    const { image, location, name } = query;
 
     if (receiptFile) {
       const blobUrl = URL.createObjectURL(receiptFile);
       push({ pathname: '/certification', query: { blobUrl, image, location, name } });
-      // getPreviewReceipt(receiptFile).then((blobUrl) =>
-      //   push({
-      //     pathname: '/certification', query: { blobUrl, image, location, name },
-      //   }),
-      // );
     }
-  }, [push, receiptFile, image, location, name]);
+  }, [push, receiptFile, query]);
 
   return (
     <CertificationPage>
