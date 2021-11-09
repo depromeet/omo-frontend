@@ -50,7 +50,16 @@ const Detail = () => {
           <span className="count">125</span>
         </LikeButton>
         <Button
-          clickListener={() => router.push('/certification')}
+          clickListener={() =>
+            router.push({
+              pathname: '/certification/guide',
+              query: {
+                image: 임시.image,
+                name: 임시.name,
+                location: 임시.location,
+              },
+            })
+          }
           color="#fff"
           bgColor="#293AD2"
           text="이 가게 도장깨기"
