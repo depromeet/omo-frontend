@@ -6,9 +6,6 @@ import styled from 'styled-components';
 import Header from '@components/Header';
 import Button from '@components/Shared/Button';
 
-// FileReader로 이미지 URL 처리할 지 URL.createObjectURL로 처리할 지 고민중
-// import convertFileToBlobUrl from '@utils/convertFileToBlobUrl';
-
 const CertificationGuide = () => {
   const { query, push } = useRouter();
   const [receiptFile, setReceiptFile] = useState<File | null>(null);
