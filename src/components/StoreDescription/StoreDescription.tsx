@@ -13,11 +13,10 @@ const StoreDescription = ({ store }: StoreDescriptionProps) => {
     <S.StoreDescription>
       <S.DescriptionHeader>
         <h1 className="title">{store.name}</h1>
-        <pre className="desc">{store.desc}</pre>
+        <pre className="desc">{store.description}</pre>
         <div className="hashtag-wrapper">
-          {store.types.map((type) => (
-            <S.HashTag key={type}>#{type}</S.HashTag>
-          ))}
+          <S.HashTag>#{store.county}</S.HashTag>
+          <S.HashTag>#{store.level}</S.HashTag>
         </div>
       </S.DescriptionHeader>
 
@@ -25,27 +24,27 @@ const StoreDescription = ({ store }: StoreDescriptionProps) => {
         <S.DescriptionList>
           <div className="contents-wrapper">
             <p className="sub-title">주소</p>
-            <p className="contents">{store.location}</p>
+            <p className="contents">{store.address}</p>
           </div>
           <CopyIcon />
         </S.DescriptionList>
         <S.DescriptionList>
           <div className="contents-wrapper">
             <p className="sub-title">전화번호</p>
-            <p className="contents">{store.tel}</p>
+            <p className="contents">{store.phone_number}</p>
           </div>
           <TelIcon />
         </S.DescriptionList>
         <S.DescriptionList>
           <div className="contents-wrapper">
             <p className="sub-title">가격대</p>
-            <p className="contents">{store.price}</p>
+            <p className="contents">{store.price_information}</p>
           </div>
         </S.DescriptionList>
         <S.DescriptionList>
           <div className="contents-wrapper">
             <p className="sub-title">운영시간</p>
-            <p className="contents">{store.time}</p>
+            <p className="contents">{store.business_hours}</p>
           </div>
         </S.DescriptionList>
       </S.DescriptionMain>
