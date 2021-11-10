@@ -12,10 +12,10 @@ interface IRequestStampBody {
   receiptImage: File;
 }
 
-const instance = axios.create({ baseURL: process.env.API_ENDPOINT });
+const instance = axios.create({ baseURL: process.env.API_ENDPOINT, withCredentials: true });
 
 export const setTokenOnHeader = (token: string) => {
-  instance.defaults.headers.common['Authorization'] = token;
+  instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
 
 export const requestSignup = (body: ISignupBody) => instance.post(`/user`, { body });
