@@ -23,15 +23,21 @@ const Home = () => {
     { rank: 3, nickname: '오마카새우', amount: 8 },
   ];
 
+  const setRefreshOnCookie = (refresh: string) => {
+    const TWO_WEEKS = 2 * 7 * 24 * 60 * 60 * 1000;
+    const date = new Date();
+    date.setTime(date.getTime() + TWO_WEEKS);
+    document.cookie = `refresh=${refresh};secure;SameSite=Lax;expires=${date.toUTCString()}`;
+  };
+
   useEffect(() => {
     if (query.status) {
       const urlQuery = query.status as string;
       const essentialData = urlQuery.split('?').slice(1);
       const tokenInfo = getObjectFromQuery(essentialData);
-      console.log(tokenInfo);
 
       setTokenOnHeader(tokenInfo.access);
-      setStorageItem(tokenInfo.refresh);
+      setRefreshOnCookie(tokenInfo.refresh);
     }
   }, [query, setStorageItem]);
 
