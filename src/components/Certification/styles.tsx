@@ -50,7 +50,7 @@ export const SelectedStoreInfo = styled.div`
     margin-top: 6px;
     margin-bottom: 8px;
   }
-  .location {
+  .address {
     ${({ theme }) => theme.fonts.contents2};
     color: ${({ theme }) => theme.colors.black500};
     overflow: hidden;
