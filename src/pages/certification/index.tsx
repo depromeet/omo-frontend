@@ -11,8 +11,10 @@ import {
 import Header from '@components/Header';
 import Button from '@components/Shared/Button';
 import { CertificationModal } from '@components/Shared/Modal';
+import { DetailPageProps } from '@pages/search/[id]';
 
 const Certification = () => {
+  const [store, setStore] = useState<DetailPageProps>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActionSheetActive, setIsActionSheetActive] = useState(false);
   const {
@@ -32,8 +34,9 @@ const Certification = () => {
       <Header title="인증확인" />
       <CertificationMain className="container">
         <LocationChecker
+          store={store}
           image={image as string}
-          location={location as string}
+          address={location as string}
           name={name as string}
           handleClickOnReselectLocation={handleClickOnReselectLocation}
         />
@@ -49,7 +52,10 @@ const Certification = () => {
       </CertificationMain>
 
       {isModalOpen && <CertificationModal name={name as string} />}
-      <SearchBottomActionSheet handleClickOnReselectLocation={handleClickOnReselectLocation} />
+      <SearchBottomActionSheet
+        setStore={setStore}
+        handleClickOnReselectLocation={handleClickOnReselectLocation}
+      />
     </CertificationPage>
   );
 };
