@@ -12,6 +12,11 @@ interface IRequestStampBody {
   receiptImage: File;
 }
 
+interface IRequestOmakasesBody {
+  level: 'HIGH' | 'MIDDLE' | 'ENTRY';
+  keyword?: string;
+}
+
 const instance = axios.create({ baseURL: process.env.API_ENDPOINT, withCredentials: true });
 
 export const setTokenOnHeader = (token: string) => {
@@ -23,7 +28,7 @@ export const requestDeleteUser = () => instance.delete(`/user`);
 export const requestLogout = () => instance.delete(`/logout`);
 export const requestCheckDuplicateName = (name: string) =>
   instance.get(`/user/check?nickname=${name}`);
-export const requestOmakases = (param: { [key in 'level' | 'keyword']: string }) =>
+export const requestOmakases = (param: IRequestOmakasesBody) =>
   instance.get(`/omakases?level=${param.level}&keyword=${param.keyword}`);
 
 export const requestSpecificOmakase = (id: number) => instance.get(`/omakases?/${id}`);
