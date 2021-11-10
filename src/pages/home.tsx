@@ -27,7 +27,7 @@ const Home = () => {
     const TWO_WEEKS = 2 * 7 * 24 * 60 * 60 * 1000;
     const date = new Date();
     date.setTime(date.getTime() + TWO_WEEKS);
-    document.cookie = `refresh=${refresh};secure;SameSite=Lax;expires=${date.toUTCString()}`;
+    document.cookie = `refresh=${refresh};SameSite=Lax;expires=${date.toUTCString()}`;
   };
 
   useEffect(() => {
