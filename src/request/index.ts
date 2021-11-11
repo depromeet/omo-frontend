@@ -35,8 +35,8 @@ export const requestSpecificOmakase = (id: number) => instance.get(`/omakases?/$
 export const requestLike = (id: number) => instance.patch(`/recommendation/${id}`);
 export const requestMyRanking = () => instance.get(`/my-ranking`);
 export const requestRankers = (limit: number) => instance.get(`/rankers/?limit=${limit}`);
-export const requestUserInfo = (email: string) => instance.get(`/user/${email}`);
-export const requestMyOmakase = (email: string) => instance.get(`/my-omakase/${email}`);
+export const requestUserInfo = (email?: string) => instance.get(`/user/${email}`);
+export const requestMyOmakase = (email?: string) => instance.get(`/my-omakase/${email}`);
 export const requestChangeNickname = (name: string) => instance.patch(`/user/${name}`);
 export const requestStamp = (body: IRequestStampBody) => instance.post(`/stamp`, { body });
 export const requestUserProfile = () => instance.get(`/user/profile`);
