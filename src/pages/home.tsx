@@ -36,6 +36,7 @@ const Home = () => {
       const essentialData = urlQuery.split('?').slice(1);
       const tokenInfo = getObjectFromQuery(essentialData);
 
+      console.log(tokenInfo.access);
       setTokenOnHeader(tokenInfo.access);
       setRefreshOnCookie(tokenInfo.refresh);
     }
@@ -99,7 +100,7 @@ const CatchPhraseArea = styled.h1`
 const InfoCardArea = styled.div`
   width: 100%;
   display: flex;
-  gap: 13px;
+  justify-content: space-between;
 `;
 
 const RankingSection = styled(MyInfoSection)`

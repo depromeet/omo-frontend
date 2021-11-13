@@ -6,6 +6,10 @@ export const InfoCardWrapper = styled.div<{ type: string }>`
   height: 186px;
   border-radius: 16px;
   background-color: ${({ type }) => (type === 'visited' ? '#2a3ad2' : '#ffc737')};
+
+  svg {
+    width: 100%;
+  }
 `;
 
 export const Title = styled.p`
