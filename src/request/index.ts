@@ -17,7 +17,7 @@ interface IRequestOmakasesBody {
   keyword?: string;
 }
 
-const instance = axios.create({ baseURL: process.env.API_ENDPOINT, withCredentials: true });
+const instance = axios.create({ baseURL: process.env.API_ENDPOINT });
 
 export const setTokenOnHeader = (token: string) => {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -28,13 +28,15 @@ export const requestDeleteUser = () => instance.delete(`/user`);
 export const requestLogout = () => instance.delete(`/logout`);
 export const requestCheckDuplicateName = (name: string) =>
   instance.get(`/user/check?nickname=${name}`);
-export const requestOmakases = (param: IRequestOmakasesBody) =>
-  instance.get(`/omakases?level=${param.level}&keyword=${param.keyword}`);
+export const requestOmakases = (param: IRequestOmakasesBody) => {
+  const keywordURLSuffix = param.keyword ? `&keyword=${param.keyword}` : '';
+  instance.get(`/omakases?level=${param.level}${keywordURLSuffix}`);
+};
 
 export const requestSpecificOmakase = (id: number) => instance.get(`/omakases?/${id}`);
 export const requestLike = (id: number) => instance.patch(`/recommendation/${id}`);
 export const requestMyRanking = () => instance.get(`/my-ranking`);
-export const requestRankers = (limit: number) => instance.get(`/rankers/?limit=${limit}`);
+export const requestRankers = (limit?: number) => instance.get(`/rankers/?limit=${limit}`);
 export const requestUserInfo = (email?: string) => instance.get(`/user/${email}`);
 export const requestMyOmakase = (email?: string) => instance.get(`/my-omakase/${email}`);
 export const requestChangeNickname = (name: string) => instance.patch(`/user/${name}`);
