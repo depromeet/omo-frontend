@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
 import Setting from '@assets/setting.svg';
-import { useUserValue } from '@recoil/userState';
+import { useUserRecoilValue } from '@recoil/userState';
 
 import * as S from './styles';
 
 const MyPageHeader = () => {
-  const userValue = useUserValue();
+  const { contents: userValue } = useUserRecoilValue();
 
   return (
     <S.MyPageHeader className="container">

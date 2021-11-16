@@ -8,15 +8,17 @@ import Layout from '@components/Layout';
 import OmakaseStampCard from '@components/OmakaseStampCard';
 import RankingCard from '@components/Shared/RankingCard';
 import useLocalStorage from '@hooks/useLocalStorage';
-import { useUserValue } from '@recoil/userState';
+import { useSetTriggerState, useUserRecoilValue } from '@recoil/userState';
 import { setTokenOnHeader } from '@request';
 import { getObjectFromQuery } from '@utils/getObjectFormQuery';
 
 const Home = () => {
   const { query } = useRouter();
   const { setStorageItem } = useLocalStorage('omo-refresh');
+  const fetchUserInfo = useSetTriggerState();
 
-  const userValue = useUserValue();
+  const { contents: userValue } = useUserRecoilValue();
+
   const top3Rankers = [
     { rank: 1, nickname: '오모마카세에대출', amount: 24 },
     { rank: 2, nickname: '지니지니', amount: 14 },
@@ -31,16 +33,17 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (query.status) {
-      const urlQuery = query.status as string;
-      const essentialData = urlQuery.split('?').slice(1);
-      const tokenInfo = getObjectFromQuery(essentialData);
+    if (!query.status) return;
 
-      console.log(tokenInfo.access);
-      setTokenOnHeader(tokenInfo.access);
-      setRefreshOnCookie(tokenInfo.refresh);
-    }
-  }, [query, setStorageItem]);
+    const urlQuery = query.status as string;
+    const essentialData = urlQuery.split('?').slice(1);
+    const { access, refresh } = getObjectFromQuery(essentialData);
+
+    setTokenOnHeader(access);
+    setRefreshOnCookie(refresh);
+
+    if (access) fetchUserInfo();
+  }, [query, setStorageItem, fetchUserInfo]);
 
   return (
     <Layout title="홈" noHeader>
@@ -51,7 +54,7 @@ const Home = () => {
           </LogoArea>
           <CatchPhraseArea>{'오늘은\n오마카세 먹는날!'}</CatchPhraseArea>
           <InfoCardArea>
-            <InfoCard type="visited" value={userValue.info?.amount} />
+            <InfoCard type="visited" value={userValue.info?.stamp_count} />
             <InfoCard type="ranking" value={userValue.info?.ranking} />
           </InfoCardArea>
           <OmakaseStampCard nickname={userValue.info?.nickname} level={userValue.info?.level} />
