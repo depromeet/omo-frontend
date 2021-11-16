@@ -8,7 +8,7 @@ import NicknameInput from '@components/NicknameInput';
 import { NETWORK_ERROR, NICKNAME_ERROR, UNKNOWN_ERROR } from '@constants/error';
 import { useSetUserState } from '@recoil/userState';
 import { requestChangeNickname } from '@request';
-import { handleError } from '@utils/handleError';
+import { showAlertModal, showConfirmModal } from '@utils/modal';
 
 const ChangeNickName = () => {
   const [nickname, setNickname] = useState<string>('');
@@ -16,33 +16,31 @@ const ChangeNickName = () => {
   const setUserState = useSetUserState();
   const router = useRouter();
 
-  const request = async () => {
+  const handleChangeNickname = async () => {
+    if (errorStatus !== 'usable') return;
+    if (!showConfirmModal('닉네임을 변경하시겠습니까?')) return;
+
     try {
       await requestChangeNickname(nickname);
+
       setUserState((prev) => ({ ...prev, info: { ...prev.info, nickname } }));
-      alert('닉네임이 변경되었습니다.');
+      showAlertModal('닉네임이 변경되었습니다.');
       router.push('/mypage');
     } catch (error) {
       const { response } = error as requestError;
-      if (!response) return handleError(NETWORK_ERROR);
+      if (!response) return showAlertModal(NETWORK_ERROR);
 
       const { status } = response;
-      if (NICKNAME_ERROR[status]) handleError(NICKNAME_ERROR[status]);
-      return handleError(UNKNOWN_ERROR);
+      if (NICKNAME_ERROR[status]) return showAlertModal(NICKNAME_ERROR[status]);
+      return showAlertModal(UNKNOWN_ERROR);
     }
-  };
-
-  const onClick = () => {
-    if (errorStatus !== 'usable') return;
-
-    if (confirm('닉네임을 변경하시겠습니까?')) request();
   };
 
   return (
     <ModalLayout
       title="닉네임변경"
       buttonContent="확인"
-      clickHandler={onClick}
+      clickHandler={handleChangeNickname}
       disabled={errorStatus !== 'usable'}
     >
       <ChangeNickNamePage>
