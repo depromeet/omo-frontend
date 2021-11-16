@@ -10,7 +10,6 @@ export const MyProfileSection = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
   padding: 0 16px;
   height: 6rem;
   background: #f8f8fc;
@@ -20,6 +19,7 @@ export const MyProfileSection = styled.section`
 export const ImageWrapper = styled.div`
   width: 64px;
   height: 64px;
+  margin-right: 27px;
 `;
 
 export const ProfileImage = styled.img.attrs({
@@ -43,11 +43,11 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  gap: 6px;
 
   .main {
     ${({ theme }) => theme.fonts.subTitle2};
     color: ${({ theme }) => theme.colors.black900};
+    margin-bottom: 6px;
   }
   .sub {
     ${({ theme }) => theme.fonts.contents3};

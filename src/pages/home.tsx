@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import HorizontalLogo from '@assets/horizontal-logo.svg';
@@ -5,15 +7,40 @@ import InfoCard from '@components/InfoCard';
 import Layout from '@components/Layout';
 import OmakaseStampCard from '@components/OmakaseStampCard';
 import RankingCard from '@components/Shared/RankingCard';
+import useLocalStorage from '@hooks/useLocalStorage';
 import { useUserValue } from '@recoil/userState';
+import { setTokenOnHeader } from '@request';
+import { getObjectFromQuery } from '@utils/getObjectFormQuery';
 
 const Home = () => {
+  const { query } = useRouter();
+  const { setStorageItem } = useLocalStorage('omo-refresh');
+
   const userValue = useUserValue();
   const top3Rankers = [
     { rank: 1, nickname: '오모마카세에대출', amount: 24 },
     { rank: 2, nickname: '지니지니', amount: 14 },
     { rank: 3, nickname: '오마카새우', amount: 8 },
   ];
+
+  const setRefreshOnCookie = (refresh: string) => {
+    const TWO_WEEKS = 2 * 7 * 24 * 60 * 60 * 1000;
+    const date = new Date();
+    date.setTime(date.getTime() + TWO_WEEKS);
+    document.cookie = `refresh=${refresh};SameSite=Lax;expires=${date.toUTCString()}`;
+  };
+
+  useEffect(() => {
+    if (query.status) {
+      const urlQuery = query.status as string;
+      const essentialData = urlQuery.split('?').slice(1);
+      const tokenInfo = getObjectFromQuery(essentialData);
+
+      console.log(tokenInfo.access);
+      setTokenOnHeader(tokenInfo.access);
+      setRefreshOnCookie(tokenInfo.refresh);
+    }
+  }, [query, setStorageItem]);
 
   return (
     <Layout title="홈" noHeader>
@@ -73,7 +100,7 @@ const CatchPhraseArea = styled.h1`
 const InfoCardArea = styled.div`
   width: 100%;
   display: flex;
-  gap: 13px;
+  justify-content: space-between;
 `;
 
 const RankingSection = styled(MyInfoSection)`
