@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { NicknameInputErrorType, requestError } from '@@types/shared';
@@ -8,6 +8,7 @@ import NicknameInput from '@components/NicknameInput';
 import { NETWORK_ERROR, NICKNAME_ERROR, UNKNOWN_ERROR } from '@constants/error';
 import { useSetUserState } from '@recoil/userState';
 import { requestChangeNickname } from '@request';
+import debounce from '@utils/debounce';
 import { showAlertModal, showConfirmModal } from '@utils/modal';
 
 const ChangeNickName = () => {
