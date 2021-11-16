@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import MyPageLayout from '@components/Layout/MyPageLayout';
 import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
-import { useUserValue } from '@recoil/userState';
+import { useUserRecoilValue } from '@recoil/userState';
 import { dummys } from '@temp/VisitedStoreDummy';
 
 const MyPage = () => {
-  const userValue = useUserValue();
+  const { contents: userValue } = useUserRecoilValue();
 
   return (
     <MyPageLayout>

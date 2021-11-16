@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { NicknameInputErrorType } from '@@types/shared';
@@ -7,9 +7,10 @@ import LoginLayout from '@components/Layout/LoginLayout';
 import NicknameInput from '@components/NicknameInput';
 import Button from '@components/Shared/Button';
 import { useSetSignupFormState } from '@recoil/signupFormState';
+import { getObjectFromQuery } from '@utils/getObjectFormQuery';
 
 const Nickname = () => {
-  const router = useRouter();
+  const { push, query } = useRouter();
   const [nickname, setNickname] = useState<string>('');
   const [errorStatus, setErrorStatus] = useState<NicknameInputErrorType>('default');
   const setSignupFormState = useSetSignupFormState();
@@ -21,8 +22,17 @@ const Nickname = () => {
   const onClickNextButton = () => {
     if (errorStatus !== 'usable') return;
     setSignupFormState((state) => ({ ...state, nickname }));
-    router.push('/login/profile');
+    push('/login/profile');
   };
+
+  useEffect(() => {
+    if (!query.status) return;
+
+    const urlQuery = query.status as string;
+    const essentialData = urlQuery.split('?').slice(1);
+    const { email } = getObjectFromQuery(essentialData);
+    setSignupFormState((state) => ({ ...state, email }));
+  }, [query, setSignupFormState]);
 
   return (
     <LoginLayout>

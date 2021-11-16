@@ -1,24 +1,26 @@
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, atomFamily, selector, useRecoilValueLoadable, useResetRecoilState } from 'recoil';
+
+import { requestMyInfo } from '@request';
 
 export interface IUserState {
   isLoggedIn: boolean;
   info?: {
     nickname?: string;
-    amount?: number;
+    stamp_count?: number;
     level?: number;
     ranking?: number;
     profileImage?: File;
+    power?: number;
   };
 }
 
-// FIXME: 유저 로그인 로직이 연결되면 해당 부분을 수정해주세요!
-const defaultUserState = {
+const defaultUserState: IUserState = {
   isLoggedIn: false,
   info: {
-    nickname: '지니지니지니지니',
-    amount: 12,
-    level: 2,
-    ranking: 2,
+    nickname: '',
+    stamp_count: 0,
+    power: 0,
+    ranking: 0,
   },
 };
 
@@ -27,6 +29,26 @@ export const userState = atom<IUserState>({
   default: defaultUserState,
 });
 
-export const useUserValue = () => useRecoilValue(userState);
-export const useSetUserState = () => useSetRecoilState(userState);
-export const useUserState = () => useRecoilState(userState);
+const triggerState = atomFamily({
+  key: 'triggerState',
+  default: Date.now(),
+});
+
+const userSelector = selector({
+  key: 'userSelector',
+  get: async ({ get }) => {
+    get(triggerState('userSelector'));
+
+    try {
+      const { data } = await requestMyInfo();
+      return { isLoggedIn: true, info: data };
+    } catch (error) {
+      if (!(error instanceof Error)) return;
+      throw new Error(error.message);
+    }
+  },
+  set: ({ set }) => set(triggerState('userSelector'), Date.now()),
+});
+
+export const useUserRecoilValue = () => useRecoilValueLoadable(userSelector);
+export const useSetTriggerState = () => useResetRecoilState(userSelector);
