@@ -9,10 +9,10 @@ import { RankingNotifyModal } from '@components/Shared/Modal';
 import RankingCard from '@components/Shared/RankingCard';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
-import { useUserValue } from '@recoil/userState';
+import { useUserRecoilValue } from '@recoil/userState';
 
 const Ranking = () => {
-  const userValue = useUserValue();
+  const { contents: userValue } = useUserRecoilValue();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
@@ -62,7 +62,7 @@ const Ranking = () => {
         <RankingSectionArea>
           <h1>도장 깬 횟수</h1>
           <h2>
-            {userValue.info?.amount}
+            {userValue.info?.stamp_count}
             {STAMP_AMOUNT_SUFFIX}
           </h2>
         </RankingSectionArea>

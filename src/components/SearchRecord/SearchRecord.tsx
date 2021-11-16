@@ -12,8 +12,6 @@ const SearchRecord = () => {
     removeStorageItem(recent);
   };
 
-  console.log(recentsKeyword);
-
   return (
     <S.SearchRecord>
       <S.RecordArticle>

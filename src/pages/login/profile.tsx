@@ -2,26 +2,40 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
+import { requestError } from '@@types/shared';
 import LoginLayout from '@components/Layout/LoginLayout';
 import ProfileImage from '@components/ProfileImage';
 import Button from '@components/Shared/Button';
+import { NETWORK_ERROR, UNKNOWN_ERROR } from '@constants/error';
 import { UNDEF } from '@constants/shared';
 import { useSignupFormState } from '@recoil/signupFormState';
-import { useSetUserState } from '@recoil/userState';
+import { requestSignup } from '@request';
+import { showAlertModal } from '@utils/modal';
 
 const Profile = () => {
   const router = useRouter();
-  const setUserState = useSetUserState();
-  const [signupFormState, setSignupFormState] = useSignupFormState();
-  const [thumbnail, setThumbnail] = useState<File | undefined>();
+  const [signupFormState] = useSignupFormState();
+  const [thumbnail, setThumbnail] = useState<File>();
 
-  const successLoggedIn = () => {
-    setSignupFormState((prev) => ({ ...prev, profileImage: thumbnail }));
-    setUserState({
-      isLoggedIn: true,
-      info: { ...signupFormState, profileImage: thumbnail },
-    });
-    router.push('/home');
+  const handleSignup = async () => {
+    if (!thumbnail) return;
+
+    const { email, nickname } = signupFormState;
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('nickname', nickname);
+    formData.append('image', thumbnail);
+
+    try {
+      await requestSignup(formData);
+      showAlertModal('회원가입에 성공하였습니다.');
+      router.push('/');
+    } catch (error) {
+      const { response } = error as requestError;
+      if (!response) return showAlertModal(NETWORK_ERROR);
+
+      return showAlertModal(UNKNOWN_ERROR);
+    }
   };
 
   return (
@@ -42,9 +56,9 @@ const Profile = () => {
           left="20px"
           bottom="4rem"
           disabled={thumbnail === UNDEF}
-          clickListener={successLoggedIn}
+          clickListener={handleSignup}
         />
-        <div className="set-next" onClick={successLoggedIn}>
+        <div className="set-next" onClick={handleSignup}>
           다음에 할래요
         </div>
       </Content>

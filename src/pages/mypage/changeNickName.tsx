@@ -2,24 +2,37 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import { NicknameInputErrorType } from '@@types/shared';
+import { NicknameInputErrorType, requestError } from '@@types/shared';
 import ModalLayout from '@components/Layout/ModalLayout';
 import NicknameInput from '@components/NicknameInput';
-import { useSetUserState } from '@recoil/userState';
+import { NETWORK_ERROR, NICKNAME_ERROR, UNKNOWN_ERROR } from '@constants/error';
+import { useSetTriggerState } from '@recoil/userState';
+import { requestChangeNickname } from '@request';
+import { showAlertModal, showConfirmModal } from '@utils/modal';
 
 const ChangeNickName = () => {
   const [nickname, setNickname] = useState<string>('');
   const [errorStatus, setErrorStatus] = useState<NicknameInputErrorType>('default');
-  const setUserState = useSetUserState();
   const router = useRouter();
 
-  const onClick = () => {
-    if (errorStatus !== 'usable') return;
+  const refreshUserInfo = useSetTriggerState();
 
-    if (confirm('닉네임을 변경하시겠습니까?')) {
-      setUserState((prev) => ({ ...prev, info: { ...prev.info, nickname } }));
-      alert('닉네임이 변경되었습니다.');
+  const handleChangeNickname = async () => {
+    if (errorStatus !== 'usable') return;
+    if (!showConfirmModal('닉네임을 변경하시겠습니까?')) return;
+
+    try {
+      await requestChangeNickname(nickname);
+      refreshUserInfo();
+      showAlertModal('닉네임이 변경되었습니다.');
       router.push('/mypage');
+    } catch (error) {
+      const { response } = error as requestError;
+      if (!response) return showAlertModal(NETWORK_ERROR);
+
+      const { status } = response;
+      if (NICKNAME_ERROR[status]) return showAlertModal(NICKNAME_ERROR[status]);
+      return showAlertModal(UNKNOWN_ERROR);
     }
   };
 
@@ -27,7 +40,7 @@ const ChangeNickName = () => {
     <ModalLayout
       title="닉네임변경"
       buttonContent="확인"
-      clickHandler={onClick}
+      clickHandler={handleChangeNickname}
       disabled={errorStatus !== 'usable'}
     >
       <ChangeNickNamePage>
