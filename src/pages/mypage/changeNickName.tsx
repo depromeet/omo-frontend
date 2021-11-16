@@ -2,10 +2,13 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import { NicknameInputErrorType } from '@@types/shared';
+import { NicknameInputErrorType, requestError } from '@@types/shared';
 import ModalLayout from '@components/Layout/ModalLayout';
 import NicknameInput from '@components/NicknameInput';
+import { NETWORK_ERROR, NICKNAME_ERROR, UNKNOWN_ERROR } from '@constants/error';
 import { useSetUserState } from '@recoil/userState';
+import { requestChangeNickname } from '@request';
+import { handleError } from '@utils/handleError';
 
 const ChangeNickName = () => {
   const [nickname, setNickname] = useState<string>('');
@@ -13,14 +16,26 @@ const ChangeNickName = () => {
   const setUserState = useSetUserState();
   const router = useRouter();
 
-  const onClick = () => {
-    if (errorStatus !== 'usable') return;
-
-    if (confirm('닉네임을 변경하시겠습니까?')) {
+  const request = async () => {
+    try {
+      await requestChangeNickname(nickname);
       setUserState((prev) => ({ ...prev, info: { ...prev.info, nickname } }));
       alert('닉네임이 변경되었습니다.');
       router.push('/mypage');
+    } catch (error) {
+      const { response } = error as requestError;
+      if (!response) return handleError(NETWORK_ERROR);
+
+      const { status } = response;
+      if (NICKNAME_ERROR[status]) handleError(NICKNAME_ERROR[status]);
+      return handleError(UNKNOWN_ERROR);
     }
+  };
+
+  const onClick = () => {
+    if (errorStatus !== 'usable') return;
+
+    if (confirm('닉네임을 변경하시겠습니까?')) request();
   };
 
   return (
