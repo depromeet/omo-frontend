@@ -1,11 +1,5 @@
 import axios from 'axios';
 
-interface ISignupBody {
-  email: string;
-  nickname: string;
-  image: File;
-}
-
 interface IRequestStampBody {
   omakaseId: number;
   receiptIssuaranceData: string;
@@ -23,7 +17,7 @@ export const setTokenOnHeader = (token: string) => {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
 
-export const requestSignup = (body: ISignupBody) => instance.post(`/user`, { body });
+export const requestSignup = (form: FormData) => instance.post(`/user`, form);
 export const requestDeleteUser = () => instance.delete(`/user`);
 export const requestLogout = () => instance.delete(`/logout`);
 export const requestCheckDuplicateName = (name: string) =>

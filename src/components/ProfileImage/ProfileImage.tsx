@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { Dispatch, useEffect, useRef } from 'react';
+import React, { Dispatch } from 'react';
 
 import ProfileEraseImage from '@assets/profile-erase-image.svg';
 import { UNDEF } from '@constants/shared';
