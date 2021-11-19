@@ -1,14 +1,33 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-// 개인정보 설정 페이지
+import { requestError } from '@@types/shared';
 import Header from '@components/Header';
+import { NETWORK_ERROR, UNKNOWN_ERROR } from '@constants/error';
+import { requestLogout } from '@request';
+import { showAlertModal } from '@utils/modal';
 
 const Settings = () => {
+  const router = useRouter();
+
+  const handleLogOut = async () => {
+    try {
+      await requestLogout();
+      showAlertModal('로그아웃 되었습니다.');
+      router.push('/');
+    } catch (error) {
+      const { response } = error as requestError;
+      if (!response) return showAlertModal(NETWORK_ERROR);
+
+      return showAlertModal(UNKNOWN_ERROR);
+    }
+  };
+
   return (
     <>
       <Header title="개인정보 설정" />
-      <SettingSection onClick={() => alert('로그아웃이 완료되었습니다.')}>로그아웃</SettingSection>
+      <SettingSection onClick={handleLogOut}>로그아웃</SettingSection>
       <SettingSection>
         <Link href="/mypage/signout" passHref>
           <a className="setting-link">회원 탈퇴</a>
