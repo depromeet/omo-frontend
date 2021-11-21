@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import MessageBubble from '@assets/message-bubble.svg';
 import RightButton from '@assets/ranking-card-right-button.svg';
@@ -10,7 +11,13 @@ import * as S from './styles';
 /**
  * @usage Home, Ranking Page
  */
-const RankingCard = ({ ranker }: { ranker: IRankerState }) => {
+const RankingCard = ({
+  ranker,
+  handleBottomActionSheet,
+}: {
+  ranker: IRankerState;
+  handleBottomActionSheet: () => void;
+}) => {
   const { ranking, nickname, stampCount, profileUrl } = ranker;
   const isRanker = [1, 2, 3].includes(ranking);
 
@@ -62,7 +69,9 @@ const RankingCard = ({ ranker }: { ranker: IRankerState }) => {
         )}
       </S.InfoArea>
       <S.RightButton>
-        <RightButton />
+        <Link href="/ranking/[id]" passHref>
+          <RightButton onClick={handleBottomActionSheet} />
+        </Link>
       </S.RightButton>
     </S.RankingCardWrapper>
   );
