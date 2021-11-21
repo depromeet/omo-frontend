@@ -8,7 +8,7 @@ import Layout from '@components/Layout';
 import OmakaseStampCard from '@components/OmakaseStampCard';
 import RankingCard from '@components/Shared/RankingCard';
 import { useFetchUserValue, useRefetchUserValue } from '@recoil/userState';
-import { setTokenOnHeader } from '@request';
+import { setAccessTokenOnHeader } from '@request';
 import getObjectFromQuery from '@utils/getObjectFormQuery';
 import setRefreshTokenOnCookie from '@utils/setRefreshTokenOnCookie';
 
@@ -24,7 +24,7 @@ const Home = () => {
     const essentialData = urlQuery.split('?').slice(1);
     const { access, refresh } = getObjectFromQuery(essentialData);
 
-    setTokenOnHeader(access);
+    setAccessTokenOnHeader(access);
     setRefreshTokenOnCookie(refresh);
 
     if (access) refetchUserValue(Date.now);

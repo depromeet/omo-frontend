@@ -22,7 +22,7 @@ interface IRequestOmakasesBody {
 const instance = axios.create({ baseURL: process.env.API_ENDPOINT });
 
 export let isTokenOnHeader = false;
-export const setTokenOnHeader = (token: string) => {
+export const setAccessTokenOnHeader = (token: string) => {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   isTokenOnHeader = true;
 };
