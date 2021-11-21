@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -10,29 +11,34 @@ import RankingCard from '@components/Shared/RankingCard';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
 import { IRankerState, useRankerRecoilValue } from '@recoil/rankerState';
-import { useUserRecoilValue } from '@recoil/userState';
+import { useFetchUserValue } from '@recoil/userState';
 
 const Ranking = () => {
-  const { contents: userValue } = useUserRecoilValue();
+  const { contents: userState } = useFetchUserValue();
   const { contents: rankerValue, state } = useRankerRecoilValue();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
+  const [isActionSheetActive, setIsActionSheetActive] = useState(false);
 
   const rankingList = [
-    { rank: 1, nickname: '오마카세에대출땡', amount: 24 },
-    { rank: 2, nickname: '지니지니', amount: 14 },
-    { rank: 3, nickname: '오마카새우', amount: 8 },
-    { rank: 4, nickname: '오마카사위', amount: 3 },
-    { rank: 5, nickname: '오마카사위', amount: 3 },
-    { rank: 6, nickname: '오마카사위', amount: 3 },
-    { rank: 7, nickname: '오마카사위', amount: 3 },
-    { rank: 8, nickname: '오마카사위', amount: 3 },
-    { rank: 9, nickname: '오마카사위', amount: 3 },
-    { rank: 10, nickname: '오마카사위', amount: 3 },
+    { ranking: 1, nickname: '오마카세에대출땡', stampCount: 24, profileUrl: null },
+    { ranking: 2, nickname: '지니지니', stampCount: 14, profileUrl: null },
+    { ranking: 3, nickname: '오마카새우', stampCount: 8, profileUrl: null },
+    { ranking: 4, nickname: '오마카사위', stampCount: 3, profileUrl: null },
+    { ranking: 5, nickname: '오마카사위', stampCount: 3, profileUrl: null },
+    { ranking: 6, nickname: '오마카사위', stampCount: 3, profileUrl: null },
+    { ranking: 7, nickname: '오마카사위', stampCount: 3, profileUrl: null },
+    { ranking: 8, nickname: '오마카사위', stampCount: 3, profileUrl: null },
+    { ranking: 9, nickname: '오마카사위', stampCount: 3, profileUrl: null },
+    { ranking: 10, nickname: '오마카사위', stampCount: 3, profileUrl: null },
   ];
   if (state === 'loading') return 'dd';
-  console.log(rankerValue);
+
+  const handleBottomActionSheet = () => {
+    setIsActionSheetActive((prev) => !prev);
+  };
+
   return (
     <Layout title="Ranking" noHeader>
       <OmakasePioneerSection>
@@ -51,13 +57,19 @@ const Ranking = () => {
         {/* {rankerValue.map((ranker: IRankerState) => (
           <RankingCard ranker={ranker} key={ranker.ranking} />
         ))} */}
+        {rankingList.map((ranker: IRankerState) => (
+          <RankingCard
+            ranker={ranker}
+            key={ranker.ranking}
+            handleBottomActionSheet={handleBottomActionSheet}
+          />
+        ))}
       </RankingSection>
-
       <MyRankingSection>
         <RankingSectionArea>
           <h1>내 순위</h1>
           <RankBlock>
-            {userValue.info?.ranking ?? '-'}
+            {userState.ranking ?? '-'}
             {RANK_SUFFIX}
           </RankBlock>
         </RankingSectionArea>
@@ -65,7 +77,7 @@ const Ranking = () => {
         <RankingSectionArea>
           <h1>도장 깬 횟수</h1>
           <h2>
-            {userValue.info?.stamp_count}
+            {userState.stamp_count}
             {STAMP_AMOUNT_SUFFIX}
           </h2>
         </RankingSectionArea>
