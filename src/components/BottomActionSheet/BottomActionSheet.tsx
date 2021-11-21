@@ -10,7 +10,7 @@ import { DetailPageProps } from '@pages/search/[id]';
 import * as S from './styles';
 
 const BottomActionSheet = () => {
-  return <S.SearchBottomActionSheet></S.SearchBottomActionSheet>;
+  return <S.SearchBottomActionSheet>{}</S.SearchBottomActionSheet>;
 };
 
 export default BottomActionSheet;
