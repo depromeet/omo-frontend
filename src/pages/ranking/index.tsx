@@ -9,10 +9,12 @@ import { RankingNotifyModal } from '@components/Shared/Modal';
 import RankingCard from '@components/Shared/RankingCard';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
+import { IRankerState, useRankerRecoilValue } from '@recoil/rankerState';
 import { useUserRecoilValue } from '@recoil/userState';
 
 const Ranking = () => {
   const { contents: userValue } = useUserRecoilValue();
+  const { contents: rankerValue, state } = useRankerRecoilValue();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
@@ -29,14 +31,15 @@ const Ranking = () => {
     { rank: 9, nickname: '오마카사위', amount: 3 },
     { rank: 10, nickname: '오마카사위', amount: 3 },
   ];
-
+  if (state === 'loading') return 'dd';
+  console.log(rankerValue);
   return (
     <Layout title="Ranking" noHeader>
       <OmakasePioneerSection>
         <h1>명예의 전당 ✨</h1>
         <OmakasePioneerWrapper>
           <p>{PIONEER_PHRASE}</p>
-          <p>{rankingList[0].nickname}</p>
+          <p>{rankerValue[0]?.nickname}</p>
           <BackgroundPattern className="pattern" />
           <Earth className="earth" />
         </OmakasePioneerWrapper>
@@ -45,9 +48,9 @@ const Ranking = () => {
         <h1>전체랭킹</h1>
         <h2>랭킹은 매일 24시에 갱신됩니다.</h2>
         <Guidance className="guidance" onClick={toggleModal} />
-        {rankingList.map((props) => (
-          <RankingCard props={props} key={props.rank} />
-        ))}
+        {/* {rankerValue.map((ranker: IRankerState) => (
+          <RankingCard ranker={ranker} key={ranker.ranking} />
+        ))} */}
       </RankingSection>
 
       <MyRankingSection>
