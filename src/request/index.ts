@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { IRankerState } from '@recoil/rankerState';
+
 interface IRequestStampBody {
   omakaseId: number;
   receiptIssuaranceData: string;
