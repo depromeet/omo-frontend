@@ -3,29 +3,24 @@ import Image from 'next/image';
 import MessageBubble from '@assets/message-bubble.svg';
 import RightButton from '@assets/ranking-card-right-button.svg';
 import { RANK_SUFFIX, STAMP_AMOUNT_PREFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
+import { IRankerState } from '@recoil/rankerState';
 
 import * as S from './styles';
-
-interface IRankingCard {
-  rank: number;
-  nickname: string;
-  amount: number;
-}
 
 /**
  * @usage Home, Ranking Page
  */
-const RankingCard = ({ props }: { props: IRankingCard }) => {
-  const { rank, nickname, amount } = props;
-  const isRanker = [1, 2, 3].includes(rank);
+const RankingCard = ({ ranker }: { ranker: IRankerState }) => {
+  const { ranking, nickname, stampCount, profileUrl } = ranker;
+  const isRanker = [1, 2, 3].includes(ranking);
 
   return (
-    <S.RankingCardWrapper className="ranking-card" rank={rank}>
-      <S.ProfileArea rank={rank}>
+    <S.RankingCardWrapper className="ranking-card" rank={ranking}>
+      <S.ProfileArea rank={ranking}>
         {!isRanker && (
           <S.RankIndicator>
             <span>
-              {rank}
+              {ranking}
               {RANK_SUFFIX}
             </span>
           </S.RankIndicator>
@@ -35,11 +30,16 @@ const RankingCard = ({ props }: { props: IRankingCard }) => {
             <S.ProfileBubble>
               <MessageBubble />
               <span>
-                {rank}
+                {ranking}
                 {RANK_SUFFIX}
               </span>
             </S.ProfileBubble>
-            <Image src="/images/default-profile.png" width={55} height={55} alt="default-profile" />
+            <Image
+              src={profileUrl || '/images/default-profile.png'}
+              width={55}
+              height={55}
+              alt="default-profile"
+            />
           </>
         )}
       </S.ProfileArea>
@@ -48,7 +48,7 @@ const RankingCard = ({ props }: { props: IRankingCard }) => {
           {nickname}
           {!isRanker && (
             <span>
-              ({amount}
+              ({stampCount}
               {STAMP_AMOUNT_SUFFIX})
             </span>
           )}
@@ -56,7 +56,7 @@ const RankingCard = ({ props }: { props: IRankingCard }) => {
         {isRanker && (
           <S.StampAmount>
             {STAMP_AMOUNT_PREFIX}
-            {amount}
+            {stampCount}
             {STAMP_AMOUNT_SUFFIX}
           </S.StampAmount>
         )}
@@ -66,6 +66,14 @@ const RankingCard = ({ props }: { props: IRankingCard }) => {
       </S.RightButton>
     </S.RankingCardWrapper>
   );
+};
+
+RankingCard.defaultProps = {
+  ranker: {
+    ranking: 0,
+    nickname: '',
+    stampCount: 0,
+  },
 };
 
 export default RankingCard;
