@@ -17,15 +17,28 @@ const MyPage = () => {
           <span>{userValue.nickname}</span>님의 오마카세 리스트
         </div>
         <div className="store-list-layout">
-          {dummys.map((dummy) => (
+          {dummys.map((user) => (
             <VisitedStore
-              key={dummy.id}
-              id={dummy.id}
-              image={dummy.image}
-              name={dummy.name}
-              date={dummy.date}
+              key={user.id}
+              id={user.id}
+              name={user.name}
+              photo_url={user.photo_url}
+              county={user.county}
+              create_date={user.create_date}
+              is_certificated={user.is_certificated}
             />
           ))}
+          {/* {userValue.map((user) => (
+            <VisitedStore
+              key={user.id}
+              id={user.id}
+              name={user.name}
+              photo_url={user.photo_url}
+              county={user.county}
+              create_date={user.create_date}
+              is_certificated={user.is_certificated}
+            />
+          ))} */}
         </div>
       </MyPagePage>
     </MyPageLayout>
