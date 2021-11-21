@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import HorizontalLogo from '@assets/horizontal-logo.svg';
@@ -16,8 +16,7 @@ const Home = () => {
   const { query } = useRouter();
   const { contents: userState } = useFetchUserValue();
   const refetchUserValue = useRefetchUserValue();
-
-  const { contents: userValue } = useUserRecoilValue();
+  const [isActionSheetActive, setIsActionSheetActive] = useState(false);
 
   const top3Rankers = [
     {
@@ -55,12 +54,9 @@ const Home = () => {
     if (access) refetchUserValue(Date.now);
   }, [query, refetchUserValue]);
 
-  const top3Rankers = [
-    { rank: 1, nickname: '오모마카세에대출', amount: 24 },
-    { rank: 2, nickname: '지니지니', amount: 14 },
-    { rank: 3, nickname: '오마카새우', amount: 8 },
-  ];
-
+  const handleBottomActionSheet = () => {
+    setIsActionSheetActive((prev) => !prev);
+  };
   return (
     <Layout title="홈" noHeader>
       <HomePage>
@@ -80,7 +76,11 @@ const Home = () => {
           <p>{'상위 랭킹 고수들의 오마카세 리스트를 참고해 보세요!'}</p>
           <RankingCardArea>
             {top3Rankers.map((props) => (
-              <RankingCard key={props.ranking} ranker={props} />
+              <RankingCard
+                key={props.ranking}
+                ranker={props}
+                handleBottomActionSheet={handleBottomActionSheet}
+              />
             ))}
           </RankingCardArea>
         </RankingSection>
