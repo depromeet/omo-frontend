@@ -20,9 +20,19 @@ const Home = () => {
   const { contents: userValue } = useUserRecoilValue();
 
   const top3Rankers = [
-    { rank: 1, nickname: '오모마카세에대출', amount: 24 },
-    { rank: 2, nickname: '지니지니', amount: 14 },
-    { rank: 3, nickname: '오마카새우', amount: 8 },
+    {
+      ranking: 1,
+      nickname: '오모마카세에대출',
+      stampCount: 24,
+      profileUrl: null,
+    },
+    { ranking: 2, nickname: '지니지니', stampCount: 14, profileUrl: null },
+    {
+      ranking: 3,
+      nickname: '오마카새우',
+      stampCount: 8,
+      profileUrl: null,
+    },
   ];
 
   const setRefreshOnCookie = (refresh: string) => {
@@ -64,7 +74,7 @@ const Home = () => {
           <p>{'상위 랭킹 고수들의 오마카세 리스트를 참고해 보세요!'}</p>
           <RankingCardArea>
             {top3Rankers.map((props) => (
-              <RankingCard key={props.rank} props={props} />
+              <RankingCard key={props.ranking} ranker={props} />
             ))}
           </RankingCardArea>
         </RankingSection>
