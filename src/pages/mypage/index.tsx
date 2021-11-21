@@ -3,18 +3,18 @@ import styled from 'styled-components';
 import MyPageLayout from '@components/Layout/MyPageLayout';
 import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
-import { useUserRecoilValue } from '@recoil/userState';
+import { useFetchUserValue } from '@recoil/userState';
 import { dummys } from '@temp/VisitedStoreDummy';
 
 const MyPage = () => {
-  const { contents: userValue } = useUserRecoilValue();
+  const { contents: userValue } = useFetchUserValue();
 
   return (
     <MyPageLayout>
       <MyProfile userValue={userValue} />
       <MyPagePage className="container">
         <div className="store-list-title">
-          <span>{userValue.info?.nickname}</span>님의 오마카세 리스트
+          <span>{userValue.nickname}</span>님의 오마카세 리스트
         </div>
         <div className="store-list-layout">
           {dummys.map((dummy) => (

@@ -41,6 +41,7 @@ const Home = () => {
     { rank: 2, nickname: '지니지니', amount: 14 },
     { rank: 3, nickname: '오마카새우', amount: 8 },
   ];
+
   return (
     <Layout title="홈" noHeader>
       <HomePage>

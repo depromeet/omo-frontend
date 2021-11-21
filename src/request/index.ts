@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-interface IUserReturnType {
+export interface IUserReturnType {
   nickname: string;
   profile_url: string;
   stamp_count: number;
