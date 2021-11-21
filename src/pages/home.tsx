@@ -9,19 +9,13 @@ import OmakaseStampCard from '@components/OmakaseStampCard';
 import RankingCard from '@components/Shared/RankingCard';
 import { useFetchUserValue, useRefetchUserValue } from '@recoil/userState';
 import { setTokenOnHeader } from '@request';
-import { getObjectFromQuery } from '@utils/getObjectFormQuery';
+import getObjectFromQuery from '@utils/getObjectFormQuery';
+import setRefreshTokenOnCookie from '@utils/setRefreshTokenOnCookie';
 
 const Home = () => {
   const { query } = useRouter();
-  const refetchUserValue = useRefetchUserValue();
   const { contents: userState } = useFetchUserValue();
-
-  const setRefreshOnCookie = (refresh: string) => {
-    const TWO_WEEKS = 2 * 7 * 24 * 60 * 60 * 1000;
-    const date = new Date();
-    date.setTime(date.getTime() + TWO_WEEKS);
-    document.cookie = `refresh=${refresh};SameSite=Lax;expires=${date.toUTCString()}`;
-  };
+  const refetchUserValue = useRefetchUserValue();
 
   useEffect(() => {
     if (!query.status) return;
@@ -31,7 +25,7 @@ const Home = () => {
     const { access, refresh } = getObjectFromQuery(essentialData);
 
     setTokenOnHeader(access);
-    setRefreshOnCookie(refresh);
+    setRefreshTokenOnCookie(refresh);
 
     if (access) refetchUserValue(Date.now);
   }, [query, refetchUserValue]);

@@ -24,7 +24,7 @@ const ChangePhoto = () => {
   }, [userValue.profile_url]);
 
   const changeProfilePhoto = () => {
-    if (!showConfirmModal('닉네임을 변경하시겠습니까?')) return;
+    if (!showConfirmModal('프로필사진을 변경하시겠습니까?')) return;
 
     try {
       // TODO: 프로필 사진 변경 API 연결
