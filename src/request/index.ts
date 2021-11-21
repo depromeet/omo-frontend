@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { IRankerState } from '@recoil/rankerState';
+
 interface IRequestStampBody {
   omakaseId: number;
   receiptIssuaranceData: string;
@@ -30,7 +32,8 @@ export const requestOmakases = (param: IRequestOmakasesBody) => {
 export const requestSpecificOmakase = (id: number) => instance.get(`/omakases?/${id}`);
 export const requestLike = (id: number) => instance.patch(`/recommendation/${id}`);
 export const requestMyRanking = () => instance.get(`/my-ranking`);
-export const requestRankers = (limit?: number) => instance.get(`/rankers/?limit=${limit}`);
+export const requestRankers = (limit?: number) =>
+  instance.get<IRankerState[]>(`/rankers?limit=${limit}`);
 export const requestMyInfo = () => instance.get(`/user`);
 export const requestUserInfo = (email?: string) => instance.get(`/user/${email}`);
 export const requestMyOmakase = (email?: string) => instance.get(`/my-omakase/${email}`);
