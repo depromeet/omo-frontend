@@ -7,23 +7,14 @@ import InfoCard from '@components/InfoCard';
 import Layout from '@components/Layout';
 import OmakaseStampCard from '@components/OmakaseStampCard';
 import RankingCard from '@components/Shared/RankingCard';
-import useLocalStorage from '@hooks/useLocalStorage';
-import { useSetTriggerState, useUserRecoilValue } from '@recoil/userState';
+import { useFetchUserValue, useRefetchUserValue } from '@recoil/userState';
 import { setTokenOnHeader } from '@request';
 import { getObjectFromQuery } from '@utils/getObjectFormQuery';
 
 const Home = () => {
   const { query } = useRouter();
-  const { setStorageItem } = useLocalStorage('omo-refresh');
-  const fetchUserInfo = useSetTriggerState();
-
-  const { contents: userValue } = useUserRecoilValue();
-
-  const top3Rankers = [
-    { rank: 1, nickname: '오모마카세에대출', amount: 24 },
-    { rank: 2, nickname: '지니지니', amount: 14 },
-    { rank: 3, nickname: '오마카새우', amount: 8 },
-  ];
+  const refetchUserValue = useRefetchUserValue();
+  const { contents: userState } = useFetchUserValue();
 
   const setRefreshOnCookie = (refresh: string) => {
     const TWO_WEEKS = 2 * 7 * 24 * 60 * 60 * 1000;
@@ -42,9 +33,14 @@ const Home = () => {
     setTokenOnHeader(access);
     setRefreshOnCookie(refresh);
 
-    if (access) fetchUserInfo();
-  }, [query, setStorageItem, fetchUserInfo]);
+    if (access) refetchUserValue(Date.now);
+  }, [query, refetchUserValue]);
 
+  const top3Rankers = [
+    { rank: 1, nickname: '오모마카세에대출', amount: 24 },
+    { rank: 2, nickname: '지니지니', amount: 14 },
+    { rank: 3, nickname: '오마카새우', amount: 8 },
+  ];
   return (
     <Layout title="홈" noHeader>
       <HomePage>
@@ -54,10 +50,10 @@ const Home = () => {
           </LogoArea>
           <CatchPhraseArea>{'오늘은\n오마카세 먹는날!'}</CatchPhraseArea>
           <InfoCardArea>
-            <InfoCard type="visited" value={userValue.info?.stamp_count} />
-            <InfoCard type="ranking" value={userValue.info?.ranking} />
+            <InfoCard type="visited" value={userState.stamp_count} />
+            <InfoCard type="ranking" value={userState.ranking} />
           </InfoCardArea>
-          <OmakaseStampCard nickname={userValue.info?.nickname} level={userValue.info?.level} />
+          <OmakaseStampCard nickname={userState.nickname} level={userState.level} />
         </MyInfoSection>
         <RankingSection>
           <RankingSectionTitle>{'진짜들의 오마카세 엿보기 👀'}</RankingSectionTitle>
