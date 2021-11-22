@@ -14,30 +14,14 @@ import { IRankerState, useRankerRecoilValue } from '@recoil/rankerState';
 import { useFetchUserValue } from '@recoil/userState';
 
 const Ranking = () => {
-  const { contents: userState } = useFetchUserValue();
-  const { contents: rankerValue, state } = useRankerRecoilValue();
+  const { contents: userValue } = useUserRecoilValue();
+  const { contents, state } = useRankerRecoilValue();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
-  const [isActionSheetActive, setIsActionSheetActive] = useState(false);
+  const rankerValue = contents as IRankerState[];
 
-  const rankingList = [
-    { ranking: 1, nickname: '오마카세에대출땡', stampCount: 24, profileUrl: null },
-    { ranking: 2, nickname: '지니지니', stampCount: 14, profileUrl: null },
-    { ranking: 3, nickname: '오마카새우', stampCount: 8, profileUrl: null },
-    { ranking: 4, nickname: '오마카사위', stampCount: 3, profileUrl: null },
-    { ranking: 5, nickname: '오마카사위', stampCount: 3, profileUrl: null },
-    { ranking: 6, nickname: '오마카사위', stampCount: 3, profileUrl: null },
-    { ranking: 7, nickname: '오마카사위', stampCount: 3, profileUrl: null },
-    { ranking: 8, nickname: '오마카사위', stampCount: 3, profileUrl: null },
-    { ranking: 9, nickname: '오마카사위', stampCount: 3, profileUrl: null },
-    { ranking: 10, nickname: '오마카사위', stampCount: 3, profileUrl: null },
-  ];
-  if (state === 'loading') return 'dd';
-
-  const handleBottomActionSheet = () => {
-    setIsActionSheetActive((prev) => !prev);
-  };
+  if (state === 'loading') return '랭킹 불러오는중..';
 
   return (
     <Layout title="Ranking" noHeader>
@@ -54,15 +38,8 @@ const Ranking = () => {
         <h1>전체랭킹</h1>
         <h2>랭킹은 매일 24시에 갱신됩니다.</h2>
         <Guidance className="guidance" onClick={toggleModal} />
-        {/* {rankerValue.map((ranker: IRankerState) => (
+        {rankerValue.map((ranker) => (
           <RankingCard ranker={ranker} key={ranker.ranking} />
-        ))} */}
-        {rankingList.map((ranker: IRankerState) => (
-          <RankingCard
-            ranker={ranker}
-            key={ranker.ranking}
-            handleBottomActionSheet={handleBottomActionSheet}
-          />
         ))}
       </RankingSection>
       <MyRankingSection>
