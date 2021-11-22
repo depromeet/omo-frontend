@@ -3,12 +3,15 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import CloseIcon from '@assets/close.svg';
 import Earth from '@assets/earth.svg';
 import Guidance from '@assets/guidance.svg';
 import BackgroundPattern from '@assets/pattern-one.svg';
 import Layout from '@components/Layout';
+import MyProfile from '@components/MyProfile';
 import { RankingNotifyModal } from '@components/Shared/Modal';
 import RankingCard from '@components/Shared/RankingCard';
+import VisitedStore from '@components/VisitedStore';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
 import { IRankerState, useRankerRecoilValue } from '@recoil/rankerState';
@@ -50,14 +53,20 @@ const Ranking = () => {
         <h2>랭킹은 매일 24시에 갱신됩니다.</h2>
         <Guidance className="guidance" onClick={toggleModal} />
         {rankerValue.map((ranker) => (
-          <RankingCard ranker={ranker} rankerInfoClickHandler={handleOpen} key={ranker.ranking} />
+          <>
+            <RankingCard ranker={ranker} rankerInfoClickHandler={handleOpen} key={ranker.ranking} />
+            <ActionSheet ref={ref}>
+              <BottomActionSheetStyle>
+                <TitleWrapper>
+                  <Title>{ranker.nickname}님</Title>
+                  <CloseIcon onClick={handleClose} />
+                </TitleWrapper>
+                {/* <MyProfile></MyProfile>
+            <VisitedStore></VisitedStore> */}
+              </BottomActionSheetStyle>
+            </ActionSheet>
+          </>
         ))}
-        <ActionSheet ref={ref}>
-          <BottomActionSheetStyle>
-            <h4>🙂 Hi React Devs!</h4>
-            <button onClick={handleClose}>Close</button>
-          </BottomActionSheetStyle>
-        </ActionSheet>
       </RankingSection>
       <MyRankingSection>
         <RankingSectionArea>
@@ -206,4 +215,19 @@ const BottomActionSheetStyle = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const Title = styled.h1`
+  ${({ theme }) => theme.fonts.header3_5};
+
+  strong {
+    font-weight: bold;
+  }
 `;
