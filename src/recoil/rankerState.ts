@@ -9,6 +9,8 @@ export interface IRankerState {
   nickname: string;
   stampCount: number;
   profileUrl: string | null;
+  power: number;
+  email: string;
 }
 
 const defaultRankerState: IRankerState = {
@@ -16,6 +18,8 @@ const defaultRankerState: IRankerState = {
   nickname: '',
   stampCount: 0,
   profileUrl: null,
+  power: 1,
+  email: '',
 };
 
 export const rankerState = atom<IRankerState>({
