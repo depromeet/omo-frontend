@@ -20,20 +20,8 @@ const Ranking = () => {
   const toggleModal = () => setIsOpenModal((prev) => !prev);
   const rankerValue = contents as IRankerState[];
 
-  const rankingList = [
-    { rank: 1, nickname: '오마카세에대출땡', amount: 24 },
-    { rank: 2, nickname: '지니지니', amount: 14 },
-    { rank: 3, nickname: '오마카새우', amount: 8 },
-    { rank: 4, nickname: '오마카사위', amount: 3 },
-    { rank: 5, nickname: '오마카사위', amount: 3 },
-    { rank: 6, nickname: '오마카사위', amount: 3 },
-    { rank: 7, nickname: '오마카사위', amount: 3 },
-    { rank: 8, nickname: '오마카사위', amount: 3 },
-    { rank: 9, nickname: '오마카사위', amount: 3 },
-    { rank: 10, nickname: '오마카사위', amount: 3 },
-  ];
-  if (state === 'loading') return 'dd';
-  console.log(rankerValue);
+  if (state === 'loading') return '랭킹 불러오는중..';
+
   return (
     <Layout title="Ranking" noHeader>
       <OmakasePioneerSection>
