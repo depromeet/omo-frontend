@@ -13,10 +13,10 @@ import * as S from './styles';
  */
 const RankingCard = ({
   ranker,
-  handleBottomActionSheet,
+  rankerInfoClickHandler,
 }: {
   ranker: IRankerState;
-  handleBottomActionSheet: () => void;
+  rankerInfoClickHandler: () => void;
 }) => {
   const { ranking, nickname, stampCount, profileUrl } = ranker;
   const isRanker = [1, 2, 3].includes(ranking);
@@ -69,9 +69,7 @@ const RankingCard = ({
         )}
       </S.InfoArea>
       <S.RightButton>
-        <Link href="/ranking/[id]" passHref>
-          <RightButton onClick={handleBottomActionSheet} />
-        </Link>
+        <RightButton onClick={rankerInfoClickHandler} />
       </S.RightButton>
     </S.RankingCardWrapper>
   );
