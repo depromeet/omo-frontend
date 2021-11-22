@@ -1,5 +1,6 @@
+import ActionSheet, { ActionSheetRef } from 'actionsheet-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import Earth from '@assets/earth.svg';
@@ -14,12 +15,22 @@ import { IRankerState, useRankerRecoilValue } from '@recoil/rankerState';
 import { useFetchUserValue } from '@recoil/userState';
 
 const Ranking = () => {
-  const { contents: userValue } = useUserRecoilValue();
+  const { contents: userValue } = useFetchUserValue();
   const { contents, state } = useRankerRecoilValue();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
   const rankerValue = contents as IRankerState[];
+
+  const ref = useRef<ActionSheetRef>();
+
+  const handleOpen = () => {
+    ref.current.open();
+  };
+
+  const handleClose = () => {
+    ref.current.close();
+  };
 
   if (state === 'loading') return '랭킹 불러오는중..';
 
@@ -39,14 +50,20 @@ const Ranking = () => {
         <h2>랭킹은 매일 24시에 갱신됩니다.</h2>
         <Guidance className="guidance" onClick={toggleModal} />
         {rankerValue.map((ranker) => (
-          <RankingCard ranker={ranker} key={ranker.ranking} />
+          <RankingCard ranker={ranker} rankerInfoClickHandler={handleOpen} key={ranker.ranking} />
         ))}
+        <ActionSheet ref={ref}>
+          <BottomActionSheetStyle>
+            <h4>🙂 Hi React Devs!</h4>
+            <button onClick={handleClose}>Close</button>
+          </BottomActionSheetStyle>
+        </ActionSheet>
       </RankingSection>
       <MyRankingSection>
         <RankingSectionArea>
           <h1>내 순위</h1>
           <RankBlock>
-            {userState.ranking ?? '-'}
+            {userValue.ranking ?? '-'}
             {RANK_SUFFIX}
           </RankBlock>
         </RankingSectionArea>
@@ -54,7 +71,7 @@ const Ranking = () => {
         <RankingSectionArea>
           <h1>도장 깬 횟수</h1>
           <h2>
-            {userState.stamp_count}
+            {userValue.stamp_count}
             {STAMP_AMOUNT_SUFFIX}
           </h2>
         </RankingSectionArea>
@@ -181,4 +198,12 @@ const Divider = styled.div.attrs({
   width: 1px;
   height: 32px;
   background-color: #e7e7e7;
+`;
+
+const BottomActionSheetStyle = styled.div`
+  height: 91.33vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
