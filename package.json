@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "actionsheet-react": "^1.0.14",
     "axios": "^0.24.0",
     "next": "11.1.2",
     "react": "17.0.2",
