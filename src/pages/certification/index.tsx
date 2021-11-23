@@ -26,7 +26,7 @@ const Certification = () => {
   const [isActionSheetActive, setIsActionSheetActive] = useState(false);
   const receipt = useRecoilValue(selectedReceipt);
   const [blobUrl, setBlobUrl] = useState('/images/receipt.png');
-  const { state, contents } = useRecoilValueLoadable(currentOmakaseState(id as unknown as number));
+  const { state, contents } = useRecoilValueLoadable(currentOmakaseState(Number(id)));
 
   const handleClickOnReselectLocation = () => {
     setIsActionSheetActive((prev) => !prev);
@@ -45,7 +45,7 @@ const Certification = () => {
 
   const handleSubmitReceipt = () => {
     const formData = new FormData();
-    formData.append('omakaseId', id as unknown as string);
+    formData.append('omakaseId', String(id));
     formData.append('receiptIssuaranceData', dayjs().format('YYYY-MM-DD'));
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     formData.append('receiptImage', receipt!);
