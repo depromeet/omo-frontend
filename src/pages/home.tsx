@@ -7,6 +7,7 @@ import InfoCard from '@components/InfoCard';
 import Layout from '@components/Layout';
 import OmakaseStampCard from '@components/OmakaseStampCard';
 import RankingCard from '@components/Shared/RankingCard';
+import { IRankerState } from '@recoil/rankerState';
 import { useFetchUserValue, useRefetchUserValue } from '@recoil/userState';
 import { setAccessTokenOnHeader } from '@request';
 import getObjectFromQuery from '@utils/getObjectFormQuery';
@@ -18,21 +19,32 @@ const Home = () => {
   const refetchUserValue = useRefetchUserValue();
   const [isActionSheetActive, setIsActionSheetActive] = useState(false);
 
-  const top3Rankers = [
-    {
-      ranking: 1,
-      nickname: '오모마카세에대출',
-      stampCount: 24,
-      profileUrl: null,
-    },
-    { ranking: 2, nickname: '지니지니', stampCount: 14, profileUrl: null },
-    {
-      ranking: 3,
-      nickname: '오마카새우',
-      stampCount: 8,
-      profileUrl: null,
-    },
-  ];
+  // const top3Rankers: IRankerState[] = [
+  //   {
+  //     ranking: 1,
+  //     nickname: '오모마카세에대출',
+  //     stamp_count: 24,
+  //     profile_url: 'images/default-profile.png',
+  //     power: 1,
+  //     email: 'codud2006@naver.com',
+  //   },
+  //   {
+  //     ranking: 2,
+  //     nickname: '오모마카세',
+  //     stamp_count: 24,
+  //     profile_url: 'images/default-profile.png',
+  //     power: 1,
+  //     email: 'codud2006@naver.com',
+  //   },
+  //   {
+  //     ranking: 3,
+  //     nickname: '오마카새우',
+  //     stamp_count: 8,
+  //     profile_url: 'images/default-profile.png',
+  //     power: 1,
+  //     email: 'codud2006@naver.com',
+  //   },
+  // ];
 
   const setRefreshOnCookie = (refresh: string) => {
     const TWO_WEEKS = 2 * 7 * 24 * 60 * 60 * 1000;
@@ -40,7 +52,9 @@ const Home = () => {
     date.setTime(date.getTime() + TWO_WEEKS);
     document.cookie = `refresh=${refresh};SameSite=Lax;expires=${date.toUTCString()}`;
   };
-
+  const handleBottomActionSheet = () => {
+    setIsActionSheetActive((prev) => !prev);
+  };
   useEffect(() => {
     if (!query.status) return;
 
@@ -54,9 +68,6 @@ const Home = () => {
     if (access) refetchUserValue(Date.now);
   }, [query, refetchUserValue]);
 
-  const handleBottomActionSheet = () => {
-    setIsActionSheetActive((prev) => !prev);
-  };
   return (
     <Layout title="홈" noHeader>
       <HomePage>
@@ -75,13 +86,13 @@ const Home = () => {
           <RankingSectionTitle>진짜들의 오마카세 엿보기 👀</RankingSectionTitle>
           <p>상위 랭킹 고수들의 오마카세 리스트를 참고해 보세요!</p>
           <RankingCardArea>
-            {top3Rankers.map((props) => (
+            {/* {top3Rankers.map((props) => (
               <RankingCard
                 key={props.ranking}
                 ranker={props}
-                handleBottomActionSheet={handleBottomActionSheet}
+                rankerInfoClickHandler={handleBottomActionSheet}
               />
-            ))}
+            ))} */}
           </RankingCardArea>
         </RankingSection>
       </HomePage>
