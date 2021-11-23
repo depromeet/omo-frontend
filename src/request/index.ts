@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+import { Omakases } from '@recoil/omakaseState';
+import { IRankerState } from '@recoil/rankerState';
+
 export interface IUserReturnType {
   nickname: string;
   profile_url: string;
