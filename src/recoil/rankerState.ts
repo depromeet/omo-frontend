@@ -1,4 +1,4 @@
-import { atom, selector, useRecoilValueLoadable } from 'recoil';
+import { selector, useRecoilValueLoadable } from 'recoil';
 
 import { requestRankers } from '@request';
 
@@ -12,20 +12,6 @@ export interface IRankerState {
   power: number;
   email: string;
 }
-
-const defaultRankerState: IRankerState = {
-  ranking: 0,
-  nickname: '',
-  stampCount: 0,
-  profileUrl: null,
-  power: 1,
-  email: '',
-};
-
-const rankerState = atom<IRankerState>({
-  key: 'rankerState',
-  default: defaultRankerState,
-});
 
 const rankerValue = selector({
   key: 'rankerValue',
