@@ -27,8 +27,8 @@ const rankerState = atom<IRankerState>({
   default: defaultRankerState,
 });
 
-const rankerAsyncState = selector({
-  key: 'rankerAsyncState',
+const rankerValue = selector({
+  key: 'rankerValue',
   get: async () => {
     try {
       const response = await requestRankers(rankingLimit);
@@ -40,4 +40,4 @@ const rankerAsyncState = selector({
   },
 });
 
-export const useRankerRecoilValue = () => useRecoilValueLoadable(rankerAsyncState);
+export const useRankerRecoilValue = () => useRecoilValueLoadable(rankerValue);
