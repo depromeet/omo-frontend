@@ -56,7 +56,11 @@ const Ranking = () => {
         <Guidance className="guidance" onClick={toggleModal} />
         {rankerValue.map((ranker) => (
           <>
-            <RankingCard ranker={ranker} rankerInfoClickHandler={handleOpen} key={ranker.ranking} />
+            <RankingCard
+              ranker={ranker}
+              rankerInfoClickHandler={() => handleOpen(ranker)}
+              key={ranker.ranking}
+            />
             <ActionSheet ref={ref}>
               <BottomActionSheetStyle>
                 <TitleWrapper>
