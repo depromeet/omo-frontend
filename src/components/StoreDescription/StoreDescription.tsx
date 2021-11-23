@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import CopyIcon from '@assets/copy.svg';
 import TelIcon from '@assets/telephone.svg';
 import { DetailPageProps } from '@pages/search/[id]';
@@ -8,17 +10,31 @@ interface StoreDescriptionProps {
   store: DetailPageProps;
 }
 
+const checkIsCertificatedState = (state: boolean) =>
+  state ? '/images/reviewed_certification.png' : '/images/reviewing_certification.png';
+
 const StoreDescription = ({ store }: StoreDescriptionProps) => {
   return (
     <S.StoreDescription>
-      <S.DescriptionHeader>
-        <h1 className="title">{store.name}</h1>
-        <pre className="desc">{store.description}</pre>
-        <div className="hashtag-wrapper">
-          <S.HashTag>#{store.county}</S.HashTag>
-          <S.HashTag>#{store.level}</S.HashTag>
-        </div>
-      </S.DescriptionHeader>
+      <S.DescriptionHeaderWrapper>
+        <S.DescriptionHeader>
+          <h1 className="title">{store.name}</h1>
+          <pre className="desc">{store.description}</pre>
+          <div className="hashtag-wrapper">
+            <S.HashTag>#{store.county}</S.HashTag>
+            <S.HashTag>#{store.level}</S.HashTag>
+          </div>
+        </S.DescriptionHeader>
+        {store.is_certification !== null && (
+          <S.CertificationMark>
+            <Image
+              src={checkIsCertificatedState(store.is_certification)}
+              alt="인증도장"
+              layout="fill"
+            />
+          </S.CertificationMark>
+        )}
+      </S.DescriptionHeaderWrapper>
 
       <S.DescriptionMain>
         <S.DescriptionList>

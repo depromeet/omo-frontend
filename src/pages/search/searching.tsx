@@ -1,41 +1,42 @@
 import { useState } from 'react';
+import { useRecoilValueLoadable } from 'recoil';
 import styled from 'styled-components';
 
 import { HeaderInput } from '@components/Header';
 import SearchNoData from '@components/SearchNoData';
 import SearchRecord from '@components/SearchRecord';
 import StoreDisplay from '@components/StoreDisplay';
-import { dummys } from '@temp/SearchListDummy';
-
-import { DetailPageProps } from './[id]';
+import { Omakases, currentOmakasesListQuery } from '@recoil/omakaseState';
 
 const Searching = () => {
   const [isSearched, setIsSearched] = useState<boolean>(false);
   const [keyword, setKeyword] = useState('');
-  const [stores, setStores] = useState<DetailPageProps[]>([]);
+  const { state, contents } = useRecoilValueLoadable(currentOmakasesListQuery({ keyword }));
 
-  const tempGetStoresByText = (text: string) => {
-    const stores = dummys.filter((dummy) => dummy.name.includes(text));
+  const searchStoresByText = (text: string) => {
     setIsSearched(true);
     setKeyword(text);
-    setStores(stores);
   };
+
+  if (state === 'loading') return '...loading';
+
+  const omakases = contents as Omakases[];
 
   return (
     <SearchingPage>
-      <HeaderInput placeholder="위치/가게명을 검색해주세요." searchHandler={tempGetStoresByText} />
+      <HeaderInput placeholder="위치/가게명을 검색해주세요." searchHandler={searchStoresByText} />
       <SearchingResult className="container">
-        {stores?.length ? (
+        {omakases?.length ? (
           <SearchingData>
-            {stores.map((store) => (
+            {omakases.map((omakase) => (
               <StoreDisplay
-                key={store.id}
-                id={store.id}
-                level={store.level}
-                county={store.county}
-                image_url={store.image_url}
-                name={store.name}
-                address={store.address}
+                key={omakase.id}
+                id={omakase.id}
+                level={omakase.level}
+                county={omakase.county}
+                image_url={omakase.image_url}
+                name={omakase.name}
+                address={omakase.address}
               />
             ))}
           </SearchingData>

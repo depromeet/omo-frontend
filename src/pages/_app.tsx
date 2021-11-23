@@ -12,7 +12,7 @@ function App({ Component, pageProps }: AppProps) {
       <Head>
         <meta
           name="viewport"
-          content="viewport-fit=cover, width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, minimum-scale=1, target-densityDpi=device-dpi, user-scalable=0"
+          content="viewport-fit=cover, width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0, minimum-scale=1, user-scalable=0"
         />
       </Head>
       <RecoilRoot>

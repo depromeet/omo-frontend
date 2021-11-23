@@ -1,15 +1,18 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import Header from '@components/Header';
 import Button from '@components/Shared/Button';
+import { selectedReceipt } from '@recoil/certificationState';
 
 const CertificationGuide = () => {
   const { query, push } = useRouter();
-  const [receiptFile, setReceiptFile] = useState<File | null>(null);
+  const { id } = query;
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [receipt, setReceipt] = useRecoilState(selectedReceipt);
 
   const handleOnClickButton = () => fileInputRef?.current?.click();
 
@@ -20,17 +23,14 @@ const CertificationGuide = () => {
 
     if (!files?.length) return;
 
-    setReceiptFile(files[0]);
+    setReceipt(files[0]);
   };
 
   useEffect(() => {
-    const { image, location, name } = query;
-
-    if (receiptFile) {
-      const blobUrl = URL.createObjectURL(receiptFile);
-      push({ pathname: '/certification', query: { blobUrl, image, location, name } });
+    if (receipt) {
+      push({ pathname: `/certification`, query: { id } });
     }
-  }, [push, receiptFile, query]);
+  }, [receipt, id]);
 
   return (
     <CertificationPage>
