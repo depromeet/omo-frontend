@@ -24,7 +24,6 @@ const Ranking = () => {
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
-  const rankerValue = contents as IRankerState[];
   const [selectedRanker, setSelectedRanker] = useState<IRankerState | null>(null);
   const ref = useRef<ActionSheetRef>();
 
@@ -38,6 +37,9 @@ const Ranking = () => {
   };
 
   if (state === 'loading') return '랭킹 불러오는중..';
+  const rankerValue = contents as IRankerState[];
+
+  console.log(rankerValue);
 
   return (
     <Layout title="Ranking" noHeader>
@@ -55,33 +57,11 @@ const Ranking = () => {
         <h2>랭킹은 매일 24시에 갱신됩니다.</h2>
         <Guidance className="guidance" onClick={toggleModal} />
         {rankerValue.map((ranker) => (
-          <>
-            <RankingCard
-              ranker={ranker}
-              rankerInfoClickHandler={() => handleOpen(ranker)}
-              key={ranker.ranking}
-            />
-            <ActionSheet ref={ref}>
-              <BottomActionSheetStyle>
-                <TitleWrapper>
-                  <Title>{ranker.nickname}님</Title>
-                  <CloseIcon onClick={handleClose} />
-                </TitleWrapper>
-                <MyProfile userValue={ranker}></MyProfile>
-                {dummys.map((user) => (
-                  <VisitedStore
-                    key={user.id}
-                    id={user.id}
-                    name={user.name}
-                    photo_url={user.photo_url}
-                    county={user.county}
-                    create_date={user.create_date}
-                    is_certificated={user.is_certificated}
-                  />
-                ))}
-              </BottomActionSheetStyle>
-            </ActionSheet>
-          </>
+          <RankingCard
+            ranker={ranker}
+            rankerInfoClickHandler={() => handleOpen(ranker)}
+            key={ranker.ranking}
+          />
         ))}
       </RankingSection>
       <MyRankingSection>
@@ -108,7 +88,7 @@ const Ranking = () => {
             <Title>{selectedRanker?.nickname}님</Title>
             <CloseIcon onClick={handleClose} />
           </TitleWrapper>
-          <MyProfile userValue={selectedRanker}></MyProfile>
+          {selectedRanker !== null && <MyProfile userValue={selectedRanker} />}
           {dummys.map((user) => (
             <VisitedStore
               key={user.id}
@@ -249,8 +229,6 @@ const BottomActionSheetStyle = styled.div`
   height: 91.33vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 const TitleWrapper = styled.div`
