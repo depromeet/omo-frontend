@@ -92,9 +92,9 @@ const CertificationPage = styled.section<{ isActionSheetActive: boolean }>`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden;
   ${StyledSearchBottomActionSheet} {
-    visibility: hidden;
-    transform: translateY(0);
+    transform: translateY(100%);
   }
 
   ${({ isActionSheetActive }) =>
@@ -102,7 +102,6 @@ const CertificationPage = styled.section<{ isActionSheetActive: boolean }>`
     css`
       ${StyledSearchBottomActionSheet} {
         transform: translateY(0);
-        visibility: visible;
       }
 
       &::after {
