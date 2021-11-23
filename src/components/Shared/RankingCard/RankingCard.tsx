@@ -18,8 +18,9 @@ const RankingCard = ({
   ranker: IRankerState;
   rankerInfoClickHandler: () => void;
 }) => {
-  const { ranking, nickname, stampCount, profileUrl } = ranker;
+  const { ranking, nickname, stamp_count, profile_url } = ranker;
   const isRanker = [1, 2, 3].includes(ranking);
+  const imageURL = `${process.env.API_ENDPOINT}${profile_url}`;
 
   return (
     <S.RankingCardWrapper className="ranking-card" rank={ranking}>
@@ -42,7 +43,7 @@ const RankingCard = ({
               </span>
             </S.ProfileBubble>
             <Image
-              src={profileUrl || '/images/default-profile.png'}
+              src={imageURL || '/images/default-profile.png'}
               width={55}
               height={55}
               alt="default-profile"
@@ -55,7 +56,7 @@ const RankingCard = ({
           {nickname}
           {!isRanker && (
             <span>
-              ({stampCount}
+              ({stamp_count}
               {STAMP_AMOUNT_SUFFIX})
             </span>
           )}
@@ -63,7 +64,7 @@ const RankingCard = ({
         {isRanker && (
           <S.StampAmount>
             {STAMP_AMOUNT_PREFIX}
-            {stampCount}
+            {stamp_count}
             {STAMP_AMOUNT_SUFFIX}
           </S.StampAmount>
         )}
