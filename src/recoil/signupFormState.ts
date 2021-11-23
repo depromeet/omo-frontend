@@ -10,7 +10,7 @@ const DEFAULT_SIGNUP_FORM = {
   nickname: '',
 };
 
-export const signupFormState = atom<ISignupFormState>({
+const signupFormState = atom<ISignupFormState>({
   key: 'signupFormState',
   default: DEFAULT_SIGNUP_FORM,
 });

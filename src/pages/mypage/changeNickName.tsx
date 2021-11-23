@@ -6,7 +6,7 @@ import { NicknameInputErrorType, requestError } from '@@types/shared';
 import ModalLayout from '@components/Layout/ModalLayout';
 import NicknameInput from '@components/NicknameInput';
 import { NETWORK_ERROR, NICKNAME_ERROR, UNKNOWN_ERROR } from '@constants/error';
-import { useSetTriggerState } from '@recoil/userState';
+import { useRefetchUserValue } from '@recoil/userState';
 import { requestChangeNickname } from '@request';
 import { showAlertModal, showConfirmModal } from '@utils/modal';
 
@@ -15,7 +15,7 @@ const ChangeNickName = () => {
   const [errorStatus, setErrorStatus] = useState<NicknameInputErrorType>('default');
   const router = useRouter();
 
-  const refreshUserInfo = useSetTriggerState();
+  const refreshUserInfo = useRefetchUserValue();
 
   const handleChangeNickname = async () => {
     if (errorStatus !== 'usable') return;
@@ -23,7 +23,7 @@ const ChangeNickName = () => {
 
     try {
       await requestChangeNickname(nickname);
-      refreshUserInfo();
+      refreshUserInfo(Date.now());
       showAlertModal('닉네임이 변경되었습니다.');
       router.push('/mypage');
     } catch (error) {
