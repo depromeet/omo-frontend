@@ -15,7 +15,6 @@ const MyProfile = ({ userValue }: Props) => {
         <S.ImageWrapper>
           <S.ProfileImage src={imageURL} />
         </S.ImageWrapper>
-
         <S.ProfileInformationWrapper>
           <S.Content>
             <span className="main">

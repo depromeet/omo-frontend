@@ -16,6 +16,7 @@ import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
 import { IRankerState, useRankerRecoilValue } from '@recoil/rankerState';
 import { useFetchUserValue } from '@recoil/userState';
+import { dummys } from '@temp/VisitedStoreDummy';
 
 const Ranking = () => {
   const { contents: userValue } = useFetchUserValue();
@@ -61,8 +62,18 @@ const Ranking = () => {
                   <Title>{ranker.nickname}님</Title>
                   <CloseIcon onClick={handleClose} />
                 </TitleWrapper>
-                {/* <MyProfile></MyProfile>
-            <VisitedStore></VisitedStore> */}
+                <MyProfile userValue={ranker}></MyProfile>
+                {dummys.map((user) => (
+                  <VisitedStore
+                    key={user.id}
+                    id={user.id}
+                    name={user.name}
+                    photo_url={user.photo_url}
+                    county={user.county}
+                    create_date={user.create_date}
+                    is_certificated={user.is_certificated}
+                  />
+                ))}
               </BottomActionSheetStyle>
             </ActionSheet>
           </>
