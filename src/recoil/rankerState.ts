@@ -1,23 +1,19 @@
 import { atom, selector, useRecoilValueLoadable } from 'recoil';
 
 import { requestRankers } from '@request';
+import { IUserReturnType } from '@request/index';
 
 const rankingLimit = 10;
 
-export interface IRankerState {
-  ranking: number;
-  nickname: string;
-  stampCount: number;
-  profileUrl: string | null;
-  power: number;
+export interface IRankerState extends IUserReturnType {
   email: string;
 }
 
 const defaultRankerState: IRankerState = {
   ranking: 0,
   nickname: '',
-  stampCount: 0,
-  profileUrl: null,
+  stamp_count: 0,
+  profile_url: '/images/default-profile.png',
   power: 1,
   email: '',
 };
