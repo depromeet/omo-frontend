@@ -11,7 +11,7 @@ import { showAlertModal } from '@utils/modal';
 const Settings = () => {
   const router = useRouter();
 
-  const handleLogOut = async () => {
+  const handleLogout = async () => {
     try {
       await requestLogout();
       //TODO: access token 날려야함
@@ -28,7 +28,7 @@ const Settings = () => {
   return (
     <>
       <Header title="개인정보 설정" />
-      <SettingSection onClick={handleLogOut}>
+      <SettingSection onClick={handleLogout}>
         <Link href="/" passHref>
           <a className="setting-link">로그아웃</a>
         </Link>
