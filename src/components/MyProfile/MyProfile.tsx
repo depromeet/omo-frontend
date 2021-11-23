@@ -7,7 +7,7 @@ type Props = {
   userValue: IUserReturnType;
 };
 const MyProfile = ({ userValue }: Props) => {
-  const imageURL = `${process.env.API_ENDPOINT?.slice(0, -1)}${userValue.profile_url}`;
+  const imageURL = `${process.env.API_ENDPOINT}${userValue.profile_url}`;
 
   return (
     <S.MyProfileWrapper className="container">
