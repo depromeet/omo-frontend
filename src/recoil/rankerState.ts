@@ -22,12 +22,12 @@ const defaultRankerState: IRankerState = {
   email: '',
 };
 
-export const rankerState = atom<IRankerState>({
+const rankerState = atom<IRankerState>({
   key: 'rankerState',
   default: defaultRankerState,
 });
 
-export const rankerAsyncState = selector({
+const rankerAsyncState = selector({
   key: 'rankerAsyncState',
   get: async () => {
     try {
