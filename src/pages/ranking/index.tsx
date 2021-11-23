@@ -25,11 +25,12 @@ const Ranking = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
   const rankerValue = contents as IRankerState[];
-
+  const [selectedRanker, setSelectedRanker] = useState<IRankerState | null>(null);
   const ref = useRef<ActionSheetRef>();
 
-  const handleOpen = () => {
+  const handleOpen = (ranker: IRankerState) => {
     ref.current.open();
+    setSelectedRanker(ranker);
   };
 
   const handleClose = () => {
@@ -97,6 +98,26 @@ const Ranking = () => {
         </RankingSectionArea>
       </MyRankingSection>
       {isOpenModal && <RankingNotifyModal toggleModal={toggleModal} />}
+      <ActionSheet ref={ref}>
+        <BottomActionSheetStyle>
+          <TitleWrapper>
+            <Title>{selectedRanker?.nickname}님</Title>
+            <CloseIcon onClick={handleClose} />
+          </TitleWrapper>
+          <MyProfile userValue={selectedRanker}></MyProfile>
+          {dummys.map((user) => (
+            <VisitedStore
+              key={user.id}
+              id={user.id}
+              name={user.name}
+              photo_url={user.photo_url}
+              county={user.county}
+              create_date={user.create_date}
+              is_certificated={user.is_certificated}
+            />
+          ))}
+        </BottomActionSheetStyle>
+      </ActionSheet>
     </Layout>
   );
 };
