@@ -1,15 +1,18 @@
-import axios from 'axios';
-// 매장 상세페이지 관련
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRecoilValueLoadable, useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import FavoriteIcon from '@assets/favorite.svg';
+import FavoriteFilledIcon from '@assets/favorite.svg';
+import FavoriteOutlineIcon from '@assets/favorite_border.svg';
 import Header from '@components/Header';
 import Button from '@components/Shared/Button';
+import { PageLoading } from '@components/Shared/Loading';
 import StoreDescription from '@components/StoreDescription';
 import { StoreDisplayProps } from '@components/StoreDisplay';
+import { Omakase, currentOmakaseQuery } from '@recoil/omakaseState';
+import { requestLike } from '@request';
 
 export interface DetailPageProps extends StoreDisplayProps {
   description: string;
@@ -24,42 +27,54 @@ export interface DetailPageProps extends StoreDisplayProps {
 const Detail = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [임시, 셋임시] = useState<DetailPageProps>();
+  const { state, contents } = useRecoilValueLoadable(currentOmakaseQuery(Number(id)));
+  const [isLiked, setIsLiked] = useState<boolean>(contents?.is_recommendation);
+  const [likeCount, setLikeCount] = useState<number>(contents?.recommendation_count ?? 0);
+  const refresh = useResetRecoilState(currentOmakaseQuery(Number(id)));
 
   useEffect(() => {
-    async function fetchSelectedData(id: string) {
-      return await axios.get<DetailPageProps>(`/api/omakase/${id}`);
+    return () => refresh();
+  }, [refresh]);
+
+  useEffect(() => {
+    if (state === 'hasValue') {
+      setIsLiked(contents.is_recommendation);
+      setLikeCount(contents.recommendation_count);
     }
+  }, [state]);
 
-    fetchSelectedData(id as string).then((res) => 셋임시(res.data));
-  }, [id]);
+  if (state === 'loading') return <PageLoading />;
 
-  if (!임시) {
-    return 'loading...';
-  }
+  const omakase = contents as Omakase;
+
+  const handleClickOnLikeBtn = () => {
+    if (isLiked) {
+      setLikeCount((prev) => prev - 1);
+    } else {
+      setLikeCount((prev) => prev + 1);
+    }
+    setIsLiked((prev) => !prev);
+    requestLike(Number(id));
+  };
 
   return (
     <DetailPage>
       <Header />
       <ImageWrapper>
-        <Image src={임시.image_url} alt="가게 이미지" layout="fill" />
+        <Image src={omakase.image_url} alt="가게 이미지" layout="fill" />
       </ImageWrapper>
-      <StoreDescription store={임시} />
+      <StoreDescription store={omakase} />
 
       <ButtonWrapper>
-        <LikeButton onClick={() => alert('좋아요!')}>
-          <FavoriteIcon />
-          <span className="count">125</span>
+        <LikeButton onClick={handleClickOnLikeBtn}>
+          {isLiked ? <FavoriteFilledIcon /> : <FavoriteOutlineIcon />}
+          <span className="count">{likeCount}</span>
         </LikeButton>
         <Button
           clickListener={() =>
             router.push({
               pathname: '/certification/guide',
-              query: {
-                image: 임시.image_url,
-                name: 임시.name,
-                location: 임시.address,
-              },
+              query: { id },
             })
           }
           color="#fff"
