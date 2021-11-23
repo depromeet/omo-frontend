@@ -32,7 +32,6 @@ export const rankerAsyncState = selector({
   get: async () => {
     try {
       const response = await requestRankers(rankingLimit);
-      console.dir(response);
       return response.data;
     } catch (error) {
       if (!(error instanceof Error)) return;
