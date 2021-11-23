@@ -72,8 +72,8 @@ const Home = () => {
           <OmakaseStampCard nickname={userState.nickname} level={userState.level} />
         </MyInfoSection>
         <RankingSection>
-          <RankingSectionTitle>{'진짜들의 오마카세 엿보기 👀'}</RankingSectionTitle>
-          <p>{'상위 랭킹 고수들의 오마카세 리스트를 참고해 보세요!'}</p>
+          <RankingSectionTitle>진짜들의 오마카세 엿보기 👀</RankingSectionTitle>
+          <p>상위 랭킹 고수들의 오마카세 리스트를 참고해 보세요!</p>
           <RankingCardArea>
             {top3Rankers.map((props) => (
               <RankingCard
