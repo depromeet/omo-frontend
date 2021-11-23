@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import CloseBtnIcon from '@assets/close.svg';
 import QuestionIcon from '@assets/question.svg';
+import { selectedReceipt } from '@recoil/certificationState';
 
 import * as S from './styles';
 
@@ -13,6 +15,7 @@ type ReceiptCheckerProps = {
 const ReceiptChecker = ({ blobUrl }: ReceiptCheckerProps) => {
   const [isToggleDialogOpen, setIsToggleDialogOpen] = useState(false);
   const [receiptImage, setReceiptImage] = useState(blobUrl);
+  const setReceipt = useSetRecoilState(selectedReceipt);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleOnChangeFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +26,7 @@ const ReceiptChecker = ({ blobUrl }: ReceiptCheckerProps) => {
     if (!files?.length) return;
 
     const urlImage = URL.createObjectURL(files[0]);
+    setReceipt(files[0]);
     setReceiptImage(urlImage);
   };
 
