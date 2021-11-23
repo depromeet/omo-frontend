@@ -15,10 +15,16 @@ export const StoreDescription = styled.div`
   margin-bottom: -14px;
 `;
 
+export const DescriptionHeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const DescriptionHeader = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 10px;
+  flex: 1;
 
   .title {
     ${({ theme }) => theme.fonts.header3};
@@ -27,11 +33,19 @@ export const DescriptionHeader = styled.div`
   .desc {
     ${({ theme }) => theme.fonts.contents2};
     color: ${({ theme }) => theme.colors.black800};
+    white-space: pre-wrap;
   }
   .hashtag-wrapper {
     margin-top: 12px;
     display: flex;
   }
+`;
+
+export const CertificationMark = styled.div`
+  margin-left: 20px;
+  position: relative;
+  width: 70px;
+  height: 70px;
 `;
 
 export const HashTag = styled.span`

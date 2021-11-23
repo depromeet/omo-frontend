@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * useRef를 사용해 지정한 DOM이 화면에 보이게 되면,
@@ -17,20 +17,21 @@ import { MutableRefObject, useEffect, useState } from 'react';
  * }, [entry]);
  */
 const useIntersection = (
-  ref: MutableRefObject<HTMLElement>,
-  { threshold = 1 }: IntersectionObserverInit,
+  node: HTMLElement | undefined,
+  { threshold = 0, root = null, rootMargin = '0%' }: IntersectionObserverInit,
 ) => {
   const [entry, setEntry] = useState<IntersectionObserverEntry>();
 
   useEffect(() => {
     const updateEntry = ([entry]: IntersectionObserverEntry[]) => setEntry(entry);
 
-    const node = ref.current;
-    const observer = new IntersectionObserver(updateEntry, { threshold });
+    if (!node) return;
 
+    const observer = new IntersectionObserver(updateEntry, { threshold, root, rootMargin });
     observer.observe(node);
+
     return () => observer.disconnect();
-  }, [ref, threshold]);
+  }, [node, threshold, root, rootMargin]);
 
   return entry;
 };
