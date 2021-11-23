@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-const DEFAULT_PROFILE_IMAGE_PATH = '/images/default_profile_image.png';
-
 export const MyProfileWrapper = styled.div`
   margin-bottom: 2rem;
 `;
@@ -23,7 +21,6 @@ export const ImageWrapper = styled.div`
 `;
 
 export const ProfileImage = styled.img.attrs({
-  src: DEFAULT_PROFILE_IMAGE_PATH,
   alt: 'profile',
 })`
   width: 100%;

@@ -7,18 +7,14 @@ import LoginLayout from '@components/Layout/LoginLayout';
 import NicknameInput from '@components/NicknameInput';
 import Button from '@components/Shared/Button';
 import { useSetSignupFormState } from '@recoil/signupFormState';
-import { getObjectFromQuery } from '@utils/getObjectFormQuery';
+import getObjectFromQuery from '@utils/getObjectFormQuery';
 
 const Nickname = () => {
   const { push, query } = useRouter();
+  const setSignupFormState = useSetSignupFormState();
   const [nickname, setNickname] = useState<string>('');
   const [errorStatus, setErrorStatus] = useState<NicknameInputErrorType>('default');
-  const setSignupFormState = useSetSignupFormState();
 
-  /**
-   * errorStatus가 usable 일 경우,
-   * recoil에 닉네임 상태를 반영하고 profile 설정 페이지로 이동합니다.
-   */
   const onClickNextButton = () => {
     if (errorStatus !== 'usable') return;
     setSignupFormState((state) => ({ ...state, nickname }));
@@ -39,7 +35,6 @@ const Nickname = () => {
       <Content>
         <div className="welcome-letter">어서오세요!</div>
         <div className="welcome-sub-letter">닉네임을 정해주세요 (최대 8자)</div>
-
         <NicknameInput
           errorStatus={errorStatus}
           setNickname={setNickname}
