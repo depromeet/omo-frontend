@@ -15,10 +15,10 @@ const triggerState = atomFamily({
   default: Date.now(),
 });
 
-export const userSelector = selector({
-  key: 'userSelector',
+const userValue = selector({
+  key: 'userValue',
   get: async ({ get }) => {
-    get(triggerState('userSelector'));
+    get(triggerState('userValue'));
     if (!isTokenOnHeader) return DEFAULT_USER_STATE;
 
     const { data } = await requestMyInfo();
@@ -26,5 +26,5 @@ export const userSelector = selector({
   },
 });
 
-export const useFetchUserValue = () => useRecoilValueLoadable(userSelector);
-export const useRefetchUserValue = () => useSetRecoilState(triggerState('userSelector'));
+export const useFetchUserValue = () => useRecoilValueLoadable(userValue);
+export const useRefetchUserValue = () => useSetRecoilState(triggerState('userValue'));
