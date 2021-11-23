@@ -45,5 +45,10 @@ export const requestMyInfo = () => instance.get<IUserReturnType>(`/user`);
 export const requestUserInfo = (email?: string) => instance.get(`/user/${email}`);
 export const requestMyOmakase = (email?: string) => instance.get(`/my-omakase/${email}`);
 export const requestChangeNickname = (nickname: string) => instance.patch(`/user`, { nickname });
+export const requestChangeProfilePhoto = (image: File) => {
+  const formData = new FormData();
+  formData.append('image', image);
+  return instance.patch(`/user/profile`, formData);
+};
 export const requestStamp = (body: IRequestStampBody) => instance.post(`/stamp`, { body });
 export const requestUserProfile = () => instance.get(`/user/profile`);
