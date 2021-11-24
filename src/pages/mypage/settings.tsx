@@ -27,7 +27,7 @@ const Settings = () => {
   return (
     <>
       <Header title="개인정보 설정" />
-      <SettingSection onClick={handleLogOut}>
+      <SettingSection onClick={handleLogout}>
         <a className="setting-link">로그아웃</a>
       </SettingSection>
       <SettingSection>
