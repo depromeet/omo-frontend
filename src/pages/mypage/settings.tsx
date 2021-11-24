@@ -14,9 +14,8 @@ const Settings = () => {
   const handleLogout = async () => {
     try {
       await requestLogout();
-      //TODO: access token 날려야함
-      //TODO: 새로고침할 때도 token 정보를 유지하도록 수정해야함 -> localStorage?
       showAlertModal('로그아웃 되었습니다.');
+      location.href = '/';
     } catch (error) {
       const { response } = error as requestError;
       if (!response) return showAlertModal(NETWORK_ERROR);
@@ -28,10 +27,8 @@ const Settings = () => {
   return (
     <>
       <Header title="개인정보 설정" />
-      <SettingSection onClick={handleLogout}>
-        <Link href="/" passHref>
-          <a className="setting-link">로그아웃</a>
-        </Link>
+      <SettingSection onClick={handleLogOut}>
+        <a className="setting-link">로그아웃</a>
       </SettingSection>
       <SettingSection>
         <Link href="/mypage/signout" passHref>
