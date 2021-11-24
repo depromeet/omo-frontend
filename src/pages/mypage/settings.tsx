@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { requestError } from '@@types/shared';
@@ -9,8 +8,6 @@ import { requestLogout } from '@request';
 import { showAlertModal } from '@utils/modal';
 
 const Settings = () => {
-  const router = useRouter();
-
   const handleLogout = async () => {
     try {
       await requestLogout();
@@ -27,7 +24,7 @@ const Settings = () => {
   return (
     <>
       <Header title="개인정보 설정" />
-      <SettingSection onClick={handleLogOut}>
+      <SettingSection onClick={handleLogout}>
         <a className="setting-link">로그아웃</a>
       </SettingSection>
       <SettingSection>
