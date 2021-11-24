@@ -84,22 +84,26 @@ const Ranking = () => {
       {isOpenModal && <RankingNotifyModal toggleModal={toggleModal} />}
       <ActionSheet ref={ref}>
         <BottomActionSheetStyle>
-          <TitleWrapper>
-            <Title>{selectedRanker?.nickname}님</Title>
-            <CloseIcon onClick={handleClose} />
-          </TitleWrapper>
-          {selectedRanker !== null && <MyProfile userValue={selectedRanker} />}
-          {dummys.map((user) => (
-            <VisitedStore
-              key={user.id}
-              id={user.id}
-              name={user.name}
-              photo_url={user.photo_url}
-              county={user.county}
-              create_date={user.create_date}
-              is_certificated={user.is_certificated}
-            />
-          ))}
+          <RankerPage>
+            <TitleWrapper>
+              <Title className="store-list-title">{selectedRanker?.nickname}님</Title>
+              <CloseIcon onClick={handleClose} />
+            </TitleWrapper>
+            {selectedRanker !== null && <MyProfile userValue={selectedRanker} />}
+            <div className="store-list-layout">
+              {dummys.map((user) => (
+                <VisitedStore
+                  key={user.id}
+                  id={user.id}
+                  name={user.name}
+                  photo_url={user.photo_url}
+                  county={user.county}
+                  create_date={user.create_date}
+                  is_certificated={user.is_certificated}
+                />
+              ))}
+            </div>
+          </RankerPage>
         </BottomActionSheetStyle>
       </ActionSheet>
     </Layout>
@@ -243,5 +247,18 @@ const Title = styled.h1`
 
   strong {
     font-weight: bold;
+  }
+`;
+
+const RankerPage = styled.div`
+  .store-list-title {
+    ${({ theme }) => theme.fonts.subTitle1};
+    margin-bottom: 1.5rem;
+  }
+  .store-list-layout {
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px 15px;
   }
 `;
