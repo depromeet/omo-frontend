@@ -46,7 +46,7 @@ const Certification = () => {
   const handleSubmitReceipt = () => {
     const formData = new FormData();
     formData.append('omakaseId', String(id));
-    formData.append('receiptIssuaranceData', dayjs().format('YYYY-MM-DD'));
+    formData.append('receiptIssuanceDate', dayjs().format('YYYY-MM-DD'));
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     formData.append('receiptImage', receipt!);
 
