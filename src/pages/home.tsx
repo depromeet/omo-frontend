@@ -14,11 +14,9 @@ import setRefreshTokenOnCookie from '@utils/setRefreshTokenOnCookie';
 
 const Home = () => {
   const { query } = useRouter();
-
-  const { setStorageItem } = useLocalStorage('omo-refresh');
-  const { contents: userValue } = useFetchUserValue();
+  const { contents: userState } = useFetchUserValue();
   const refetchUserValue = useRefetchUserValue();
-        
+
   // const top3Rankers = [
   //   {
   //     ranking: 1,
@@ -54,12 +52,6 @@ const Home = () => {
 
     if (access) refetchUserValue(Date.now);
   }, [query, refetchUserValue]);
-
-  const top3Rankers = [
-    { rank: 1, nickname: '오모마카세에대출', amount: 24 },
-    { rank: 2, nickname: '지니지니', amount: 14 },
-    { rank: 3, nickname: '오마카새우', amount: 8 },
-  ];
 
   return (
     <Layout title="홈" noHeader>
