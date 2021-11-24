@@ -10,10 +10,10 @@ import RankingCard from '@components/Shared/RankingCard';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
 import { IRankerState, useRankerRecoilValue } from '@recoil/rankerState';
-import { useUserRecoilValue } from '@recoil/userState';
+import { useFetchUserValue } from '@recoil/userState';
 
 const Ranking = () => {
-  const { contents: userValue } = useUserRecoilValue();
+  const { contents: userValue } = useFetchUserValue();
   const { contents, state } = useRankerRecoilValue();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
