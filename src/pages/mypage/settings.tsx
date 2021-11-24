@@ -11,7 +11,7 @@ import { showAlertModal } from '@utils/modal';
 const Settings = () => {
   const router = useRouter();
 
-  const handleLogOut = async () => {
+  const handleLogout = async () => {
     try {
       await requestLogout();
       showAlertModal('로그아웃 되었습니다.');

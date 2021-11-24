@@ -1,7 +1,12 @@
 import axios from 'axios';
-
-import { Omakases } from '@recoil/omakaseState';
 import { IRankerState } from '@recoil/rankerState';
+import { Omakases } from '@recoil/omakaseState';
+
+interface IRequestStampBody {
+  omakaseId: number;
+  receiptIssuaranceData: string;
+  receiptImage: File;
+}
 
 export interface IUserReturnType {
   nickname: string;

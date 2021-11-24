@@ -1,4 +1,4 @@
-import { atom, selector, useRecoilValueLoadable } from 'recoil';
+import { selector, useRecoilValueLoadable } from 'recoil';
 
 import { requestRankers } from '@request';
 import { IUserReturnType } from '@request/index';
@@ -9,26 +9,11 @@ export interface IRankerState extends IUserReturnType {
   email: string;
 }
 
-const defaultRankerState: IRankerState = {
-  ranking: 0,
-  nickname: '',
-  stamp_count: 0,
-  profile_url: '/images/default-profile.png',
-  power: 1,
-  email: '',
-};
-
-export const rankerState = atom<IRankerState>({
-  key: 'rankerState',
-  default: defaultRankerState,
-});
-
-export const rankerAsyncState = selector({
-  key: 'rankerAsyncState',
+const rankerValue = selector({
+  key: 'rankerValue',
   get: async () => {
     try {
       const response = await requestRankers(rankingLimit);
-      console.dir(response);
       return response.data;
     } catch (error) {
       if (!(error instanceof Error)) return;
@@ -37,4 +22,4 @@ export const rankerAsyncState = selector({
   },
 });
 
-export const useRankerRecoilValue = () => useRecoilValueLoadable(rankerAsyncState);
+export const useRankerRecoilValue = () => useRecoilValueLoadable(rankerValue);
