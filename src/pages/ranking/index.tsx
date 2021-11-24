@@ -39,8 +39,6 @@ const Ranking = () => {
   if (state === 'loading') return '랭킹 불러오는중..';
   const rankerValue = contents as IRankerState[];
 
-  console.log(rankerValue);
-
   return (
     <Layout title="Ranking" noHeader>
       <OmakasePioneerSection>
