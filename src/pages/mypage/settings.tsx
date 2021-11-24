@@ -1,14 +1,38 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-// 개인정보 설정 페이지
+import { requestError } from '@@types/shared';
 import Header from '@components/Header';
+import { NETWORK_ERROR, UNKNOWN_ERROR } from '@constants/error';
+import { requestLogout } from '@request';
+import { showAlertModal } from '@utils/modal';
 
 const Settings = () => {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await requestLogout();
+      //TODO: access token 날려야함
+      //TODO: 새로고침할 때도 token 정보를 유지하도록 수정해야함 -> localStorage?
+      showAlertModal('로그아웃 되었습니다.');
+    } catch (error) {
+      const { response } = error as requestError;
+      if (!response) return showAlertModal(NETWORK_ERROR);
+
+      return showAlertModal(UNKNOWN_ERROR);
+    }
+  };
+
   return (
     <>
       <Header title="개인정보 설정" />
-      <SettingSection onClick={() => alert('로그아웃이 완료되었습니다.')}>로그아웃</SettingSection>
+      <SettingSection onClick={handleLogout}>
+        <Link href="/" passHref>
+          <a className="setting-link">로그아웃</a>
+        </Link>
+      </SettingSection>
       <SettingSection>
         <Link href="/mypage/signout" passHref>
           <a className="setting-link">회원 탈퇴</a>
@@ -30,7 +54,7 @@ const Settings = () => {
 
 export default Settings;
 
-const SettingSection = styled.div`
+const SettingSection = styled.section`
   display: flex;
   align-items: center;
   font-size: 18px;
