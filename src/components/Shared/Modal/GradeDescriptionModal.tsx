@@ -20,15 +20,15 @@ const GradeDescriptionModal = ({ toggleModal }: GradeDescriptionModalProps) => {
           <S.GradeDescriptionWrapper>
             <S.GradeDescription>
               <span className="grade">하이엔드</span>
-              <span className="price">200,000원</span>
+              <span className="price">120,000원</span>
             </S.GradeDescription>
             <S.GradeDescription>
               <span className="grade">미들</span>
-              <span className="price">100,000원 ~ 199,000원</span>
+              <span className="price">50,000원 ~ 119,000원</span>
             </S.GradeDescription>
             <S.GradeDescription>
-              <span className="grade">클래식</span>
-              <span className="price">~99,000원</span>
+              <span className="grade">엔트리</span>
+              <span className="price">~49,000원</span>
             </S.GradeDescription>
           </S.GradeDescriptionWrapper>
 

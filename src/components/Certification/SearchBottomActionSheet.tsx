@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import CloseIcon from '@assets/close.svg';
 import SearchIcon from '@assets/search.svg';
 import { StoreDisplayList } from '@components/StoreDisplay';
-import PreventLinkAction from '@lib/preventLinkAction';
+import PreventLinkAction from '@lib/PreventLinkAction';
 import { DetailPageProps } from '@pages/search/[id]';
 
 import * as S from './styles';

@@ -1,8 +1,8 @@
 // 기본 찾기 페이지
 
-import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import DisplayListIcon from '@assets/display-list.svg';
@@ -10,25 +10,19 @@ import DisplayWideIcon from '@assets/display-wide.svg';
 import QuestionIcon from '@assets/question.svg';
 import SearchIcon from '@assets/search.svg';
 import Layout from '@components/Layout';
+import SearchResults from '@components/SearchResults';
 import { GradeDescriptionModal } from '@components/Shared/Modal';
-import { StoreDisplayList, StoreDisplayWide } from '@components/StoreDisplay';
-import { DetailPageProps } from '@pages/search/[id]';
-import { dummys } from '@temp/SearchListDummy';
+import { LEVEL } from '@recoil/omakaseState';
+import { omakaseLevelState } from '@recoil/omakaseState';
 
 type Mode = 'wide' | 'list';
 const ISSERVER = typeof window === 'undefined';
-
-type Omakases = {
-  total_elements: number;
-  omakases: DetailPageProps[];
-};
 
 const Search = () => {
   const menuMode = ISSERVER ? 'wide' : (localStorage.getItem('menu-mode') as Mode);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [mode, setMode] = useState<Mode>(menuMode);
-  const [tab, setTab] = useState('엔트리');
-  const [tempStores, setTempStores] = useState<DetailPageProps[]>();
+  const [tab, setTab] = useRecoilState(omakaseLevelState);
 
   useEffect(() => {
     const storage = localStorage.getItem('menu-mode') as Mode | null;
@@ -40,17 +34,6 @@ const Search = () => {
 
     setMode(storage);
   }, []);
-
-  useEffect(() => {
-    async function fetchAllStores() {
-      return await axios.get<Omakases>(`/api/omakases`);
-    }
-
-    fetchAllStores().then((res) => {
-      const { omakases } = res.data;
-      setTempStores(omakases.filter((omakase) => omakase.level === tab));
-    });
-  }, [tab]);
 
   const toggleModal = () => {
     setIsOpenModal((prev) => !prev);
@@ -69,23 +52,24 @@ const Search = () => {
   const handleClickOnTabs = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (!(e.target instanceof HTMLSpanElement)) return;
 
-    const content = e.target.textContent as string;
-    setTab(content);
-
-    const filteredDummys = dummys.filter((store) => store.level === content);
-    setTempStores(filteredDummys);
+    const level = e.target.id as LEVEL;
+    setTab(level);
   };
-
-  if (!tempStores?.length) return '...loading';
 
   return (
     <Layout title="오마카세 찾기">
       <SearchPage className="container">
         <FixedArea>
           <div className="tabs" onClick={(e) => handleClickOnTabs(e)}>
-            <span className={`tab ${tab === '엔트리' ? 'active' : ''}`}>엔트리</span>
-            <span className={`tab ${tab === '미들' ? 'active' : ''}`}>미들</span>
-            <span className={`tab ${tab === '하이엔드' ? 'active' : ''}`}>하이엔드</span>
+            <span id="ENTRY" className={`tab ${tab === 'ENTRY' ? 'active' : ''}`}>
+              엔트리
+            </span>
+            <span id="MIDDLE" className={`tab ${tab === 'MIDDLE' ? 'active' : ''}`}>
+              미들
+            </span>
+            <span id="HIGH" className={`tab ${tab === 'HIGH' ? 'active' : ''}`}>
+              하이엔드
+            </span>
             <QuestionIcon className="float-right" onClick={toggleModal} />
           </div>
 
@@ -108,31 +92,7 @@ const Search = () => {
           </div>
         </FixedArea>
 
-        <SearchResults>
-          {tempStores.map((dummy) =>
-            mode === 'wide' ? (
-              <StoreDisplayWide
-                key={dummy.id}
-                id={dummy.id}
-                image_url={dummy.image_url}
-                level={dummy.level}
-                county={dummy.county}
-                name={dummy.name}
-                address={dummy.address}
-              />
-            ) : (
-              <StoreDisplayList
-                key={dummy.id}
-                id={dummy.id}
-                image_url={dummy.image_url}
-                level={dummy.level}
-                county={dummy.county}
-                name={dummy.name}
-                address={dummy.address}
-              />
-            ),
-          )}
-        </SearchResults>
+        <SearchResults />
       </SearchPage>
       {isOpenModal && <GradeDescriptionModal toggleModal={toggleModal} />}
     </Layout>
@@ -203,9 +163,4 @@ const FixedArea = styled.div`
     align-items: center;
     margin-top: 36px;
   }
-`;
-
-const SearchResults = styled.article`
-  display: flex;
-  flex-direction: column;
 `;

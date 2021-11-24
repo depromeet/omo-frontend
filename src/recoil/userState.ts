@@ -1,54 +1,30 @@
-import { atom, atomFamily, selector, useRecoilValueLoadable, useResetRecoilState } from 'recoil';
+import { atomFamily, selector, useRecoilValueLoadable, useSetRecoilState } from 'recoil';
 
-import { requestMyInfo } from '@request';
+import { isTokenOnHeader, requestMyInfo } from '@request';
 
-export interface IUserState {
-  isLoggedIn: boolean;
-  info?: {
-    nickname?: string;
-    stamp_count?: number;
-    level?: number;
-    ranking?: number;
-    profileImage?: File;
-    power?: number;
-  };
-}
-
-const defaultUserState: IUserState = {
-  isLoggedIn: false,
-  info: {
-    nickname: '',
-    stamp_count: 0,
-    power: 0,
-    ranking: 0,
-  },
+const DEFAULT_USER_STATE = {
+  nickname: '',
+  profile_url: '',
+  stamp_count: 0,
+  ranking: 0,
+  power: 0,
 };
-
-export const userState = atom<IUserState>({
-  key: 'userState',
-  default: defaultUserState,
-});
 
 const triggerState = atomFamily({
   key: 'triggerState',
   default: Date.now(),
 });
 
-const userSelector = selector({
-  key: 'userSelector',
+const userValue = selector({
+  key: 'userValue',
   get: async ({ get }) => {
-    get(triggerState('userSelector'));
+    get(triggerState('userValue'));
+    if (!isTokenOnHeader) return DEFAULT_USER_STATE;
 
-    try {
-      const { data } = await requestMyInfo();
-      return { isLoggedIn: true, info: data };
-    } catch (error) {
-      if (!(error instanceof Error)) return;
-      throw new Error(error.message);
-    }
+    const { data } = await requestMyInfo();
+    return data;
   },
-  set: ({ set }) => set(triggerState('userSelector'), Date.now()),
 });
 
-export const useUserRecoilValue = () => useRecoilValueLoadable(userSelector);
-export const useSetTriggerState = () => useResetRecoilState(userSelector);
+export const useFetchUserValue = () => useRecoilValueLoadable(userValue);
+export const useRefetchUserValue = () => useSetRecoilState(triggerState('userValue'));
