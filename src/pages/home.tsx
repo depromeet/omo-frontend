@@ -19,21 +19,21 @@ const Home = () => {
 
   const { contents: userValue } = useUserRecoilValue();
 
-  const top3Rankers = [
-    {
-      ranking: 1,
-      nickname: '오모마카세에대출',
-      stampCount: 24,
-      profileUrl: null,
-    },
-    { ranking: 2, nickname: '지니지니', stampCount: 14, profileUrl: null },
-    {
-      ranking: 3,
-      nickname: '오마카새우',
-      stampCount: 8,
-      profileUrl: null,
-    },
-  ];
+  // const top3Rankers = [
+  //   {
+  //     ranking: 1,
+  //     nickname: '오모마카세에대출',
+  //     stampCount: 24,
+  //     profileUrl: null,
+  //   },
+  //   { ranking: 2, nickname: '지니지니', stampCount: 14, profileUrl: null },
+  //   {
+  //     ranking: 3,
+  //     nickname: '오마카새우',
+  //     stampCount: 8,
+  //     profileUrl: null,
+  //   },
+  // ];
 
   const setRefreshOnCookie = (refresh: string) => {
     const TWO_WEEKS = 2 * 7 * 24 * 60 * 60 * 1000;
@@ -73,9 +73,9 @@ const Home = () => {
           <RankingSectionTitle>{'진짜들의 오마카세 엿보기 👀'}</RankingSectionTitle>
           <p>{'상위 랭킹 고수들의 오마카세 리스트를 참고해 보세요!'}</p>
           <RankingCardArea>
-            {top3Rankers.map((props) => (
+            {/* {top3Rankers.map((props) => (
               <RankingCard key={props.ranking} ranker={props} />
-            ))}
+            ))} */}
           </RankingCardArea>
         </RankingSection>
       </HomePage>
