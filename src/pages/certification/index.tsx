@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { useRecoilValue, useRecoilValueLoadable, useResetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { SearchBottomActionSheet as StyledSearchBottomActionSheet } from '@/components/Certification/styles';
@@ -13,20 +13,19 @@ import {
 import Header from '@components/Header';
 import Button from '@components/Shared/Button';
 import { CertificationModal } from '@components/Shared/Modal';
-import { DetailPageProps } from '@pages/search/[id]';
 import { selectedReceipt } from '@recoil/certificationState';
-import { Omakase, currentOmakaseState } from '@recoil/omakaseState';
+import { Omakase, currentOmakaseQuery, currentOmakaseState } from '@recoil/omakaseState';
 import { requestStamp } from '@request';
 
 const Certification = () => {
   const { query } = useRouter();
   const { id } = query;
-  const [store, setStore] = useState<DetailPageProps>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActionSheetActive, setIsActionSheetActive] = useState(false);
   const receipt = useRecoilValue(selectedReceipt);
   const [blobUrl, setBlobUrl] = useState('/images/receipt.png');
   const { state, contents } = useRecoilValueLoadable(currentOmakaseState(Number(id)));
+  const refresh = useResetRecoilState(currentOmakaseQuery(Number(id)));
 
   const handleClickOnReselectLocation = () => {
     setIsActionSheetActive((prev) => !prev);
@@ -38,6 +37,10 @@ const Certification = () => {
     setBlobUrl(transformedBlobUrl);
     return () => URL.revokeObjectURL(transformedBlobUrl);
   }, [receipt]);
+
+  useEffect(() => {
+    return () => refresh();
+  }, [refresh]);
 
   if (state === 'loading') return '...loading';
 
@@ -59,7 +62,6 @@ const Certification = () => {
       <Header title="인증확인" />
       <CertificationMain className="container">
         <LocationChecker
-          store={store}
           image={omakase.image_url}
           address={omakase.address}
           name={omakase.name}
@@ -78,7 +80,7 @@ const Certification = () => {
 
       {isModalOpen && <CertificationModal name={omakase.name} />}
       <SearchBottomActionSheet
-        setStore={setStore}
+        isActionSheetActive={isActionSheetActive}
         handleClickOnReselectLocation={handleClickOnReselectLocation}
       />
     </CertificationPage>
