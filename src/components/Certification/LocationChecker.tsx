@@ -1,12 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { DetailPageProps } from '@pages/search/[id]';
-
 import * as S from './styles';
 
 type LocationCheckerProps = {
-  store?: DetailPageProps;
   image: string;
   address: string;
   name: string;
@@ -14,7 +11,6 @@ type LocationCheckerProps = {
 };
 
 const LocationChecker = ({
-  store,
   image,
   address,
   name,
@@ -31,17 +27,11 @@ const LocationChecker = ({
 
       <S.SelectedStorePreviewWrapper>
         <S.SelectedStoreInfo>
-          <h1 className="title">{store?.name ?? name}</h1>
-          <p className="address">{store?.address ?? address}</p>
+          <h1 className="title">{name}</h1>
+          <p className="address">{address}</p>
         </S.SelectedStoreInfo>
         <S.SelectedStoreImageWrapper>
-          <Image
-            src={store?.image_url ?? image}
-            alt="매장 프리뷰 이미지"
-            layout="fixed"
-            width={200}
-            height={160}
-          />
+          <Image src={image} alt="매장 프리뷰 이미지" layout="fixed" width={200} height={160} />
         </S.SelectedStoreImageWrapper>
       </S.SelectedStorePreviewWrapper>
     </S.LocationChecker>
