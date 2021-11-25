@@ -1,50 +1,27 @@
-import { useState } from 'react';
-import { useRecoilValueLoadable } from 'recoil';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { HeaderInput } from '@components/Header';
-import SearchNoData from '@components/SearchNoData';
 import SearchRecord from '@components/SearchRecord';
-import StoreDisplay from '@components/StoreDisplay';
-import { Omakases, currentOmakasesListQuery } from '@recoil/omakaseState';
+import { omakaseEachPageState, omakaseKeywordState } from '@recoil/omakaseState';
 
 const Searching = () => {
-  const [isSearched, setIsSearched] = useState<boolean>(false);
-  const [keyword, setKeyword] = useState('');
-  const { state, contents } = useRecoilValueLoadable(currentOmakasesListQuery({ keyword }));
+  const { push } = useRouter();
+  const setKeyword = useSetRecoilState(omakaseKeywordState);
+  const setPages = useSetRecoilState(omakaseEachPageState);
 
   const searchStoresByText = (text: string) => {
-    setIsSearched(true);
     setKeyword(text);
+    setPages({ ENTRY: 0, MIDDLE: 0, HIGH: 0 });
+    push('/search');
   };
-
-  if (state === 'loading') return '...loading';
-
-  const omakases = contents as Omakases[];
 
   return (
     <SearchingPage>
       <HeaderInput placeholder="위치/가게명을 검색해주세요." searchHandler={searchStoresByText} />
       <SearchingResult className="container">
-        {omakases?.length ? (
-          <SearchingData>
-            {omakases.map((omakase) => (
-              <StoreDisplay
-                key={omakase.id}
-                id={omakase.id}
-                level={omakase.level}
-                county={omakase.county}
-                image_url={omakase.image_url}
-                name={omakase.name}
-                address={omakase.address}
-              />
-            ))}
-          </SearchingData>
-        ) : isSearched ? (
-          <SearchNoData keyword={keyword} />
-        ) : (
-          <SearchRecord />
-        )}
+        <SearchRecord searchStoresByText={searchStoresByText} />
       </SearchingResult>
     </SearchingPage>
   );
@@ -61,8 +38,4 @@ const SearchingPage = styled.section`
 const SearchingResult = styled.div`
   flex: 1;
   overflow: auto;
-`;
-
-const SearchingData = styled.div`
-  margin-top: 20px;
 `;

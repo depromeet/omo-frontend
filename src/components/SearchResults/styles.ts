@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const SearchResults = styled.article`
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
 
 export const LoadingSection = styled.div`
@@ -10,4 +11,12 @@ export const LoadingSection = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
+`;
+
+export const NoDataWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 `;

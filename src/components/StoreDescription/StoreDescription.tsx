@@ -2,12 +2,12 @@ import Image from 'next/image';
 
 import CopyIcon from '@assets/copy.svg';
 import TelIcon from '@assets/telephone.svg';
-import { DetailPageProps } from '@pages/search/[id]';
+import { Omakase } from '@recoil/omakaseState';
 
 import * as S from './styles';
 
 interface StoreDescriptionProps {
-  store: DetailPageProps;
+  store: Omakase;
 }
 
 const checkIsCertificatedState = (state: boolean) =>

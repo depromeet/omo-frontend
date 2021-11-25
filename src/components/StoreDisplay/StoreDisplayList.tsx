@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import * as S from './styles';
-import { StoreDisplayProps } from '.';
+import { Omakases } from '@recoil/omakaseState';
 
-const StoreDisplay = ({ id, image_url, level, county, name, address }: StoreDisplayProps) => {
+import * as S from './styles';
+
+const StoreDisplay = ({ id, image_url, level, county, name, address }: Omakases) => {
   return (
     <S.StoreDisplay>
       <Link href={`/search/${id}`} passHref>

@@ -12,8 +12,7 @@ import SearchIcon from '@assets/search.svg';
 import Layout from '@components/Layout';
 import SearchResults from '@components/SearchResults';
 import { GradeDescriptionModal } from '@components/Shared/Modal';
-import { LEVEL } from '@recoil/omakaseState';
-import { omakaseLevelState } from '@recoil/omakaseState';
+import { LEVEL, omakaseKeywordState, omakaseLevelState } from '@recoil/omakaseState';
 
 type Mode = 'wide' | 'list';
 const ISSERVER = typeof window === 'undefined';
@@ -23,6 +22,7 @@ const Search = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [mode, setMode] = useState<Mode>(menuMode);
   const [tab, setTab] = useRecoilState(omakaseLevelState);
+  const [keyword, setKeyword] = useRecoilState(omakaseKeywordState);
 
   useEffect(() => {
     const storage = localStorage.getItem('menu-mode') as Mode | null;
@@ -33,7 +33,9 @@ const Search = () => {
     }
 
     setMode(storage);
-  }, []);
+
+    return () => setKeyword('');
+  }, [setKeyword]);
 
   const toggleModal = () => {
     setIsOpenModal((prev) => !prev);
@@ -76,7 +78,7 @@ const Search = () => {
           <Link href="/search/searching" passHref>
             <a>
               <SearchBar>
-                <span>이름/지역구를 검색해주세요</span>
+                <span>{keyword || '이름/지역구를 검색해주세요'}</span>
                 <SearchIcon />
               </SearchBar>
             </a>
@@ -102,7 +104,11 @@ const Search = () => {
 export default Search;
 
 const SearchPage = styled.section`
+  min-height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+
   a {
     text-decoration: none;
   }
