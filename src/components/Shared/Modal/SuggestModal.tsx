@@ -3,9 +3,10 @@ import { useState } from 'react';
 import CloseIcon from '@assets/close.svg';
 import ErrorIcon from '@assets/error_outline.svg';
 import Button from '@components/Shared/Button';
-import { HashTag } from '@components/StoreDescription/styles';
 
 import * as S from './styles';
+
+// import { HashTag } from '@components/StoreDescription/styles';
 
 interface SuggestModalProps {
   toggleModal: (isOpen: boolean) => void;
@@ -14,14 +15,14 @@ interface SuggestModalProps {
 const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
   const [location, setLocation] = useState('');
   const [name, setName] = useState('');
-  const [hashtag, setHashtag] = useState('');
+  // const [hashtag, setHashtag] = useState('');
 
-  const handleClickOnHashTag = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-    if (!(e.target instanceof HTMLSpanElement)) return;
+  // const handleClickOnHashTag = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+  //   if (!(e.target instanceof HTMLSpanElement)) return;
 
-    const content = e.target.textContent as string;
-    setHashtag(content);
-  };
+  //   const content = e.target.textContent as string;
+  //   setHashtag(content);
+  // };
 
   const handleChangeOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
@@ -50,7 +51,7 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
             <CloseIcon className="close-btn" onClick={toggleModal} />
           </S.ModalTitle>
 
-          <div className="guide-message-wrapper small-text">
+          <div style={{ marginTop: '20px' }} className="guide-message-wrapper small-text">
             <p className="guide-message">원하는 오마카세를 찾지 못하셨나요?</p>
             <p className="guide-message">제보해주시면 오모에 추가해둘게요!</p>
           </div>
@@ -66,7 +67,7 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
             />
           </S.InputWrapper>
 
-          <S.GradeWrapper>
+          {/* <S.GradeWrapper>
             <div className="sub-title2">등급</div>
             <div className="hashtag-wrapper">
               <HashTag
@@ -88,7 +89,7 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
                 #미들급
               </HashTag>
             </div>
-          </S.GradeWrapper>
+          </S.GradeWrapper> */}
 
           <S.InputWrapper>
             <label className="sub-title2">이름</label>
@@ -114,7 +115,7 @@ const SuggestModal = ({ toggleModal }: SuggestModalProps) => {
             text="완료"
             bgColor="#293AD2"
             color="#fff"
-            disabled={!location || !name || !hashtag}
+            disabled={!location || !name /* || !hashtag */}
           />
         </S.ModalInner>
       </S.ModalBox>

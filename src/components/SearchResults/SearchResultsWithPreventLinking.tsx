@@ -1,34 +1,24 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilStateLoadable, useRecoilValue } from 'recoil';
+import { useRecoilStateLoadable, useRecoilValue } from 'recoil';
 
 import useIntersection from '@/hooks/useIntersection';
 import SearchNoData from '@components/SearchNoData';
 import { LoadingSpinner } from '@components/Shared/Loading';
-import { StoreDisplayList, StoreDisplayWide } from '@components/StoreDisplay';
+import { StoreDisplayList } from '@components/StoreDisplay';
 import { OMAKASE_SIZE } from '@constants/omakase';
-import {
-  Omakases,
-  currentOmakaseList,
-  omakaseEachPageState,
-  omakaseKeywordState,
-  omakaseLevelState,
-} from '@recoil/omakaseState';
+import PreventLinkAction from '@lib/PreventLinkAction';
+import { Omakases, currentOmakaseList, omakaseKeywordState } from '@recoil/omakaseState';
 import { requestOmakases } from '@request';
 
 import * as S from './styles';
 
-type Mode = 'wide' | 'list';
-const ISSERVER = typeof window === 'undefined';
-
-const SearchResults = () => {
-  const menuMode = ISSERVER ? 'wide' : (localStorage.getItem('menu-mode') as Mode);
+const SearchResultsWithPreventLinking = () => {
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(0);
   const [intersectingSection, setIntersectingSection] = useState<HTMLDivElement>();
-  const level = useRecoilValue(omakaseLevelState);
   const keyword = useRecoilValue(omakaseKeywordState);
-  const [pages, setPages] = useRecoilState(omakaseEachPageState);
   const [omakaseList, setOmakaseList] = useRecoilStateLoadable(
-    currentOmakaseList({ page: 0, size: OMAKASE_SIZE, level }),
+    currentOmakaseList({ page, size: OMAKASE_SIZE }),
   );
   const [stopApiCall, setStopApiCall] = useState(false);
   const entry = useIntersection(intersectingSection, { rootMargin: '10px' });
@@ -41,21 +31,19 @@ const SearchResults = () => {
   const handleFetchMoreData = async () => {
     if (stopApiCall) return;
 
-    const page = pages[level];
     setLoading(true);
 
     try {
       const response = await requestOmakases({
         page: page + 1,
         size: OMAKASE_SIZE,
-        level,
         keyword,
       });
       const { omakases } = response.data;
 
       if (omakases.length < OMAKASE_SIZE) setStopApiCall(true);
 
-      setPages((prev) => ({ ...prev, [level]: page + 1 }));
+      setPage((prev) => prev + 1);
       setOmakaseList((prev) => [...prev, ...omakases]);
     } catch (error) {
       throw error;
@@ -70,35 +58,15 @@ const SearchResults = () => {
     }
   }, [isIntersecting]);
 
-  useEffect(() => {
-    const searchWithKeyword = async () => {
-      const response = await requestOmakases({ page: 0, size: OMAKASE_SIZE, level, keyword });
-      const { omakases } = response.data;
-      setOmakaseList(omakases);
-    };
-    searchWithKeyword();
-  }, [keyword, level]);
-
   if (omakaseList.state === 'loading') return <LoadingSpinner />;
 
   return (
     <S.SearchResults>
       {omakaseList.contents.length > 0 ? (
         <>
-          {omakaseList.contents.map((omakase: Omakases) =>
-            menuMode === 'wide' ? (
-              <StoreDisplayWide
-                key={omakase.id}
-                id={omakase.id}
-                image_url={omakase.image_url}
-                level={omakase.level}
-                county={omakase.county}
-                name={omakase.name}
-                address={omakase.address}
-              />
-            ) : (
+          {omakaseList.contents.map((omakase: Omakases) => (
+            <PreventLinkAction key={omakase.id}>
               <StoreDisplayList
-                key={omakase.id}
                 id={omakase.id}
                 image_url={omakase.image_url}
                 level={omakase.level}
@@ -106,8 +74,8 @@ const SearchResults = () => {
                 name={omakase.name}
                 address={omakase.address}
               />
-            ),
-          )}
+            </PreventLinkAction>
+          ))}
           <S.LoadingSection ref={handleCallbackIntersectingRef}>
             {loading && <LoadingSpinner />}
           </S.LoadingSection>
@@ -121,4 +89,4 @@ const SearchResults = () => {
   );
 };
 
-export default SearchResults;
+export default SearchResultsWithPreventLinking;
