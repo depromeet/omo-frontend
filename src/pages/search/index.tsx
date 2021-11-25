@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import DisplayListIcon from '@assets/display-list.svg';
@@ -22,7 +22,7 @@ const Search = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [mode, setMode] = useState<Mode>(menuMode);
   const [tab, setTab] = useRecoilState(omakaseLevelState);
-  const keyword = useRecoilValue(omakaseKeywordState);
+  const [keyword, setKeyword] = useRecoilState(omakaseKeywordState);
 
   useEffect(() => {
     const storage = localStorage.getItem('menu-mode') as Mode | null;
@@ -33,7 +33,9 @@ const Search = () => {
     }
 
     setMode(storage);
-  }, []);
+
+    return () => setKeyword('');
+  }, [setKeyword]);
 
   const toggleModal = () => {
     setIsOpenModal((prev) => !prev);

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -17,10 +16,6 @@ const Searching = () => {
     setPages({ ENTRY: 0, MIDDLE: 0, HIGH: 0 });
     push('/search');
   };
-
-  useEffect(() => {
-    return () => setKeyword('');
-  }, [setKeyword]);
 
   return (
     <SearchingPage>
