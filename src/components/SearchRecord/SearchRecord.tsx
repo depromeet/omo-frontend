@@ -4,12 +4,20 @@ import useLocalStorage from '@hooks/useLocalStorage';
 
 import * as S from './styles';
 
-const SearchRecord = () => {
+type SearchRecordProps = {
+  searchStoresByText: (keyword: string) => void;
+};
+
+const SearchRecord = ({ searchStoresByText }: SearchRecordProps) => {
   const { items: recentsKeyword, removeStorageItem } = useLocalStorage('recents-keyword');
 
   const handleClickOnHashTag = (recent: string) => {
     alert('해당 태그를 최근 검색어 목록에서 제거합니다.');
     removeStorageItem(recent);
+  };
+
+  const handleClickForSearching = (keyword: string) => {
+    searchStoresByText(keyword.replace('#', ''));
   };
 
   return (
@@ -18,9 +26,9 @@ const SearchRecord = () => {
         <h1 className="sub-title">최근검색어</h1>
         <S.RecentRecords>
           {recentsKeyword.map((recent) => (
-            <HashTag key={recent}>
+            <HashTag key={recent} onClick={() => handleClickForSearching(recent)}>
               <span>{recent}</span>
-              <span className="close" onClick={() => handleClickOnHashTag(recent)}>
+              <span className="close" onClickCapture={() => handleClickOnHashTag(recent)}>
                 <CloseIcon />
               </span>
             </HashTag>
