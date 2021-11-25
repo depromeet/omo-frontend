@@ -1,57 +1,50 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import CloseIcon from '@assets/close.svg';
 import SearchIcon from '@assets/search.svg';
-import { StoreDisplayList } from '@components/StoreDisplay';
-import PreventLinkAction from '@lib/PreventLinkAction';
-import { DetailPageProps } from '@pages/search/[id]';
+import { SearchResultsWithPreventLinking } from '@components/SearchResults';
+import { omakaseKeywordState } from '@recoil/omakaseState';
 
 import * as S from './styles';
 
 type SearchBottomActionSheetProps = {
-  setStore: React.Dispatch<React.SetStateAction<DetailPageProps | undefined>>;
+  isActionSheetActive: boolean;
   handleClickOnReselectLocation: () => void;
 };
 
-type Omakases = {
-  total_elements: number;
-  omakases: DetailPageProps[];
-};
-
 const SearchBottomActionSheet = ({
+  isActionSheetActive,
   handleClickOnReselectLocation,
-  setStore,
 }: SearchBottomActionSheetProps) => {
-  const [searchWord, setSearchWord] = useState('');
-  const [stores, setStores] = useState<DetailPageProps[]>([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const setKeyword = useSetRecoilState(omakaseKeywordState);
 
   const handleChangeOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = e;
-    setSearchWord(value);
+    setSearchKeyword(value);
   };
 
-  const handleClickOnSearchIcon = async (keyword: string) => {
-    const {
-      data: { omakases },
-    } = await axios.get<Omakases>(`/api/omakases`);
-
-    const searchingOmakases = omakases.filter((omakase) => omakase.name.includes(keyword));
-    setStores(searchingOmakases);
+  const handleClickOnSearchIcon = () => {
+    setKeyword(searchKeyword);
   };
 
   const handleClickOnCloseBtn = () => {
-    setSearchWord('');
-    setStores([]);
+    setKeyword('');
     handleClickOnReselectLocation();
   };
 
-  const handleClickOnNewStoreDisplay = (selectedStore: DetailPageProps) => {
-    setStore(selectedStore);
+  const handleClickOnNewStoreDisplay = () => {
     handleClickOnCloseBtn();
   };
+
+  useEffect(() => {
+    if (isActionSheetActive) {
+      // api call
+    }
+  }, [isActionSheetActive]);
 
   return (
     <S.SearchBottomActionSheet>
@@ -61,30 +54,16 @@ const SearchBottomActionSheet = ({
       </S.TitleWrapper>
 
       <S.SearchInputBar>
-        <input value={searchWord} onChange={handleChangeOnInput} />
-        <SearchIcon onClick={() => handleClickOnSearchIcon(searchWord)} />
+        <input
+          placeholder="위치/가게명을 검색해주세요."
+          value={searchKeyword}
+          onChange={handleChangeOnInput}
+        />
+        <SearchIcon onClick={() => handleClickOnSearchIcon()} />
       </S.SearchInputBar>
 
       <S.SearchResults>
-        {!stores.length ? (
-          <S.SearchNoData>데이터가 없을땐 무엇을 보여주어야 하지?</S.SearchNoData>
-        ) : (
-          stores.map((store) => (
-            <PreventLinkAction
-              key={store.id}
-              onClickHandler={() => handleClickOnNewStoreDisplay(store)}
-            >
-              <StoreDisplayList
-                id={store.id}
-                image_url={store.image_url}
-                level={store.level}
-                county={store.county}
-                name={store.name}
-                address={store.address}
-              />
-            </PreventLinkAction>
-          ))
-        )}
+        <SearchResultsWithPreventLinking />
       </S.SearchResults>
     </S.SearchBottomActionSheet>
   );
