@@ -13,6 +13,6 @@ module.exports = {
   },
   reactStrictMode: true,
   images: {
-    domains: ['c2.poing.co.kr', '101.101.209.153:8080'],
+    domains: ['c2.poing.co.kr', '101.101.209.153'],
   },
 };
