@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const NoData = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
 
   .guide-message-wrapper {
@@ -32,4 +34,16 @@ export const Divider = styled.div`
   width: calc(100% + 40px);
   height: 8px;
   background-color: ${({ theme }) => theme.colors.black100};
+`;
+
+export const ImageWrapper = styled.div`
+  position: relative;
+  width: 160px;
+  height: 160px;
+`;
+
+export const NoDataMessage = styled.p`
+  color: ${({ theme }) => theme.colors.black400};
+  ${({ theme }) => theme.fonts.subTitle1};
+  margin-top: 18px;
 `;

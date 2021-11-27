@@ -16,25 +16,6 @@ type PARAMS = {
   keyword?: string;
 };
 
-export interface StoreDisplayProps {
-  id: number;
-  level: string;
-  image_url: string;
-  name: string;
-  address: string;
-  county: string;
-}
-
-export interface DetailPageProps extends StoreDisplayProps {
-  description: string;
-  phone_number: string;
-  price_information: string;
-  business_hours: string;
-  recommendation_count: number;
-  is_certification: boolean | null;
-  is_recommendation: boolean;
-}
-
 export interface Omakases {
   id: number;
   address: string;
@@ -69,8 +50,13 @@ export const omakaseEachPageState = atom<EACH_PAGE>({
   default: { ENTRY: 0, MIDDLE: 0, HIGH: 0 },
 });
 
+export const omakaseKeywordState = atom<string>({
+  key: 'omakaseKeywordState',
+  default: '',
+});
+
 export const currentOmakasesListQuery = selectorFamily<Omakases[], PARAMS>({
-  key: 'current-omakases-list',
+  key: 'currentOmakasesListQuery',
   get: (params: PARAMS) => async () => {
     try {
       const response = await requestOmakases(params);
@@ -86,6 +72,20 @@ export const currentOmakaseList = atomFamily<Omakases[], PARAMS>({
   key: 'currentOmakaseList',
   default: currentOmakasesListQuery,
 });
+
+// is_certification => omakases 에도 적용되어 가져올 수 있어야 함
+// export const certificationAvailableOmakaseList = selectorFamily<Omakases[], PARAMS>({
+//   key: 'certificationAvailableOmakaseList',
+//   get: (params: PARAMS) => async () => {
+//     try {
+//       const response = await requestOmakases(params);
+//       const { omakases } = response.data;
+//       return omakases.filter(omakase => omakase.)
+//     } catch (error) {
+//       throw(error);
+//     }
+//   }
+// })
 
 export const currentOmakaseQuery = selectorFamily<Omakase, number>({
   key: 'currentOmakaseQuery',

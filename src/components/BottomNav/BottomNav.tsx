@@ -10,31 +10,32 @@ import * as S from './styles';
 
 const BottomNav = () => {
   const router = useRouter();
+
   return (
     <S.BottomNav className="container">
       <Link href="/home" passHref>
-        <a className={`nav-link ${router.asPath === '/home' ? 'active' : ''}`}>
+        <a className={`nav-link ${router.pathname === '/home' ? 'active' : ''}`}>
           <HomeIcon className="svg-path" />
           <span>홈</span>
         </a>
       </Link>
 
       <Link href="/search" passHref>
-        <a className={`nav-link ${router.asPath === '/search' ? 'active' : ''}`}>
+        <a className={`nav-link ${router.pathname === '/search' ? 'active' : ''}`}>
           <SearchIcon className="svg-complicated" />
           <span>오마카세 찾기</span>
         </a>
       </Link>
 
       <Link href="/ranking" passHref>
-        <a className={`nav-link ${router.asPath === '/ranking' ? 'active' : ''}`}>
+        <a className={`nav-link ${router.pathname === '/ranking' ? 'active' : ''}`}>
           <RankingIcon className="svg-paths" />
           <span>랭킹</span>
         </a>
       </Link>
 
       <Link href="/mypage" passHref>
-        <a className={`nav-link ${router.asPath === '/mypage' ? 'active' : ''}`}>
+        <a className={`nav-link ${router.pathname === '/mypage' ? 'active' : ''}`}>
           <MyPageIcon className="svg-paths" />
           <span>MY 오모</span>
         </a>

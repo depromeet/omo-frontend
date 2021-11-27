@@ -10,19 +10,8 @@ import Header from '@components/Header';
 import Button from '@components/Shared/Button';
 import { PageLoading } from '@components/Shared/Loading';
 import StoreDescription from '@components/StoreDescription';
-import { StoreDisplayProps } from '@components/StoreDisplay';
 import { Omakase, currentOmakaseQuery } from '@recoil/omakaseState';
 import { requestLike } from '@request';
-
-export interface DetailPageProps extends StoreDisplayProps {
-  description: string;
-  phone_number: string;
-  price_information: string;
-  business_hours: string;
-  recommendation_count: number;
-  is_certification: boolean | null;
-  is_recommendation: boolean;
-}
 
 const Detail = () => {
   const router = useRouter();
@@ -78,8 +67,15 @@ const Detail = () => {
             })
           }
           color="#fff"
-          bgColor="#293AD2"
-          text="이 가게 도장깨기"
+          disabled={omakase.is_certification !== null}
+          bgColor={omakase.is_certification === null ? '#293AD2' : '#D0D0DB'}
+          text={
+            omakase.is_certification === null
+              ? '이 가게 도장깨기'
+              : omakase.is_certification
+              ? '이미 도장 깬 오마카세에요!'
+              : '도장깨기가 진행중이에요!'
+          }
         />
       </ButtonWrapper>
     </DetailPage>
