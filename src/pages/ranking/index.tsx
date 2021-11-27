@@ -83,12 +83,12 @@ const Ranking = () => {
       <ActionSheet ref={ref}>
         <BottomActionSheetStyle>
           <RankerPage>
-            <TitleWrapper>
+            <TitleWrapper className="container">
               <Title className="store-list-title">{selectedRanker?.nickname}님</Title>
               <CloseIcon onClick={handleClose} />
             </TitleWrapper>
             {selectedRanker !== null && <MyProfile userValue={selectedRanker} />}
-            <div className="store-list-layout">
+            <div className="store-list-layout container">
               {dummys.map((user) => (
                 <VisitedStore
                   key={user.id}
@@ -237,7 +237,7 @@ const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin: 18px 0 10px 0;
 `;
 
 const Title = styled.h1`
