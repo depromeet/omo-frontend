@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilStateLoadable, useRecoilValue } from 'recoil';
 
@@ -12,13 +13,21 @@ import { requestOmakases } from '@request';
 
 import * as S from './styles';
 
-const SearchResultsWithPreventLinking = () => {
+type Props = {
+  handleClickOnReselectLocation: () => void;
+};
+
+const SearchResultsWithPreventLinking = ({ handleClickOnReselectLocation }: Props) => {
+  const {
+    push,
+    query: { id },
+  } = useRouter();
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [intersectingSection, setIntersectingSection] = useState<HTMLDivElement>();
   const keyword = useRecoilValue(omakaseKeywordState);
   const [omakaseList, setOmakaseList] = useRecoilStateLoadable(
-    currentOmakaseList({ page, size: OMAKASE_SIZE }),
+    currentOmakaseList({ page: 0, size: OMAKASE_SIZE }),
   );
   const [stopApiCall, setStopApiCall] = useState(false);
   const entry = useIntersection(intersectingSection, { rootMargin: '10px' });
@@ -52,11 +61,31 @@ const SearchResultsWithPreventLinking = () => {
     }
   };
 
+  const selectAnotherOmakase = (id: number) => {
+    push({ pathname: `/certification`, query: { id } });
+    handleClickOnReselectLocation();
+  };
+
   useEffect(() => {
     if (isIntersecting) {
       handleFetchMoreData();
     }
   }, [isIntersecting]);
+
+  useEffect(() => {
+    const searchWithKeyword = async () => {
+      const response = await requestOmakases({ page: 0, size: OMAKASE_SIZE, keyword });
+      const { omakases } = response.data;
+
+      if (omakases.length >= OMAKASE_SIZE) {
+        setStopApiCall(false);
+      }
+
+      setPage(0);
+      setOmakaseList(omakases);
+    };
+    searchWithKeyword();
+  }, [keyword]);
 
   if (omakaseList.state === 'loading') return <LoadingSpinner />;
 
@@ -65,7 +94,10 @@ const SearchResultsWithPreventLinking = () => {
       {omakaseList.contents.length > 0 ? (
         <>
           {omakaseList.contents.map((omakase: Omakases) => (
-            <PreventLinkAction key={omakase.id}>
+            <PreventLinkAction
+              key={omakase.id}
+              onClickHandler={() => selectAnotherOmakase(omakase.id)}
+            >
               <StoreDisplayList
                 id={omakase.id}
                 image_url={omakase.image_url}
