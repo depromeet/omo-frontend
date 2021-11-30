@@ -79,10 +79,7 @@ const Certification = () => {
       </CertificationMain>
 
       {isModalOpen && <CertificationModal name={omakase.name} />}
-      <SearchBottomActionSheet
-        isActionSheetActive={isActionSheetActive}
-        handleClickOnReselectLocation={handleClickOnReselectLocation}
-      />
+      <SearchBottomActionSheet handleClickOnReselectLocation={handleClickOnReselectLocation} />
     </CertificationPage>
   );
 };
