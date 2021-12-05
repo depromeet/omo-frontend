@@ -6,14 +6,15 @@ import * as S from './styles';
 
 interface HeaderProps {
   title?: string;
+  backHandler?: () => void;
 }
 
-const Header = ({ title }: HeaderProps) => {
+const Header = ({ title, backHandler }: HeaderProps) => {
   const router = useRouter();
 
   return (
     <S.Header className="container">
-      <S.PrevButton onClick={() => router.back()}>
+      <S.PrevButton onClick={backHandler ?? router.back}>
         <Prev />
       </S.PrevButton>
       {title && <S.Title>{title}</S.Title>}
