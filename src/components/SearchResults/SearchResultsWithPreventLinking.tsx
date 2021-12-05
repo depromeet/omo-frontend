@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useRecoilStateLoadable, useRecoilValue } from 'recoil';
 
 import useIntersection from '@/hooks/useIntersection';
@@ -9,7 +10,7 @@ import { StoreDisplayList } from '@components/StoreDisplay';
 import { OMAKASE_SIZE } from '@constants/omakase';
 import PreventLinkAction from '@lib/PreventLinkAction';
 import { Omakases, currentOmakaseList, omakaseKeywordState } from '@recoil/omakaseState';
-import { requestOmakases } from '@request';
+import { requestCheckOmakaseIsCertificated, requestOmakases } from '@request';
 
 import * as S from './styles';
 
@@ -18,10 +19,7 @@ type Props = {
 };
 
 const SearchResultsWithPreventLinking = ({ handleClickOnReselectLocation }: Props) => {
-  const {
-    push,
-    query: { id },
-  } = useRouter();
+  const { push } = useRouter();
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [intersectingSection, setIntersectingSection] = useState<HTMLDivElement>();
@@ -61,9 +59,31 @@ const SearchResultsWithPreventLinking = ({ handleClickOnReselectLocation }: Prop
     }
   };
 
-  const selectAnotherOmakase = (id: number) => {
-    push({ pathname: `/certification`, query: { id } });
-    handleClickOnReselectLocation();
+  const selectAnotherOmakase = async (id: number) => {
+    toast.clearWaitingQueue();
+
+    try {
+      await requestCheckOmakaseIsCertificated(id);
+      push({ pathname: `/certification`, query: { id } });
+      handleClickOnReselectLocation();
+    } catch (error) {
+      toast.error('이미 인증이 진행중 또는 완료된 오마카세 입니다.', {
+        position: 'bottom-center',
+        hideProgressBar: true,
+        pauseOnHover: false,
+        autoClose: 2500,
+        theme: 'colored',
+        icon: false,
+        closeButton: false,
+        style: {
+          margin: 'auto',
+          borderRadius: '10px',
+          marginBottom: '20px',
+          width: '90%',
+          fontSize: '14px',
+        },
+      });
+    }
   };
 
   useEffect(() => {
