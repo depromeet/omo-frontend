@@ -1,4 +1,6 @@
+import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useRecoilStateLoadable, useRecoilValue } from 'recoil';
 
 import useIntersection from '@/hooks/useIntersection';
@@ -8,17 +10,22 @@ import { StoreDisplayList } from '@components/StoreDisplay';
 import { OMAKASE_SIZE } from '@constants/omakase';
 import PreventLinkAction from '@lib/PreventLinkAction';
 import { Omakases, currentOmakaseList, omakaseKeywordState } from '@recoil/omakaseState';
-import { requestOmakases } from '@request';
+import { requestCheckOmakaseIsCertificated, requestOmakases } from '@request';
 
 import * as S from './styles';
 
-const SearchResultsWithPreventLinking = () => {
+type Props = {
+  handleClickOnReselectLocation: () => void;
+};
+
+const SearchResultsWithPreventLinking = ({ handleClickOnReselectLocation }: Props) => {
+  const { push } = useRouter();
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [intersectingSection, setIntersectingSection] = useState<HTMLDivElement>();
   const keyword = useRecoilValue(omakaseKeywordState);
   const [omakaseList, setOmakaseList] = useRecoilStateLoadable(
-    currentOmakaseList({ page, size: OMAKASE_SIZE }),
+    currentOmakaseList({ page: 0, size: OMAKASE_SIZE }),
   );
   const [stopApiCall, setStopApiCall] = useState(false);
   const entry = useIntersection(intersectingSection, { rootMargin: '10px' });
@@ -52,11 +59,53 @@ const SearchResultsWithPreventLinking = () => {
     }
   };
 
+  const selectAnotherOmakase = async (id: number) => {
+    toast.clearWaitingQueue();
+
+    try {
+      await requestCheckOmakaseIsCertificated(id);
+      push({ pathname: `/certification`, query: { id } });
+      handleClickOnReselectLocation();
+    } catch (error) {
+      toast.error('이미 인증이 진행중 또는 완료된 오마카세 입니다.', {
+        position: 'bottom-center',
+        hideProgressBar: true,
+        pauseOnHover: false,
+        autoClose: 2500,
+        theme: 'colored',
+        icon: false,
+        closeButton: false,
+        style: {
+          margin: 'auto',
+          borderRadius: '10px',
+          marginBottom: '20px',
+          width: '90%',
+          fontSize: '14px',
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     if (isIntersecting) {
       handleFetchMoreData();
     }
   }, [isIntersecting]);
+
+  useEffect(() => {
+    const searchWithKeyword = async () => {
+      const response = await requestOmakases({ page: 0, size: OMAKASE_SIZE, keyword });
+      const { omakases } = response.data;
+
+      if (omakases.length >= OMAKASE_SIZE) {
+        setStopApiCall(false);
+      }
+
+      setPage(0);
+      setOmakaseList(omakases);
+    };
+    searchWithKeyword();
+  }, [keyword]);
 
   if (omakaseList.state === 'loading') return <LoadingSpinner />;
 
@@ -65,7 +114,10 @@ const SearchResultsWithPreventLinking = () => {
       {omakaseList.contents.length > 0 ? (
         <>
           {omakaseList.contents.map((omakase: Omakases) => (
-            <PreventLinkAction key={omakase.id}>
+            <PreventLinkAction
+              key={omakase.id}
+              onClickHandler={() => selectAnotherOmakase(omakase.id)}
+            >
               <StoreDisplayList
                 id={omakase.id}
                 image_url={omakase.image_url}

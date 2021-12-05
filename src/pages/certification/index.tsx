@@ -18,7 +18,7 @@ import { Omakase, currentOmakaseQuery, currentOmakaseState } from '@recoil/omaka
 import { requestStamp } from '@request';
 
 const Certification = () => {
-  const { query } = useRouter();
+  const { push, query } = useRouter();
   const { id } = query;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActionSheetActive, setIsActionSheetActive] = useState(false);
@@ -29,6 +29,10 @@ const Certification = () => {
 
   const handleClickOnReselectLocation = () => {
     setIsActionSheetActive((prev) => !prev);
+  };
+
+  const handleGoBack = () => {
+    push(`/search/${id}`);
   };
 
   useEffect(() => {
@@ -59,7 +63,7 @@ const Certification = () => {
 
   return (
     <CertificationPage isActionSheetActive={isActionSheetActive}>
-      <Header title="인증확인" />
+      <Header title="인증확인" backHandler={handleGoBack} />
       <CertificationMain className="container">
         <LocationChecker
           image={omakase.image_url}
@@ -79,10 +83,7 @@ const Certification = () => {
       </CertificationMain>
 
       {isModalOpen && <CertificationModal name={omakase.name} />}
-      <SearchBottomActionSheet
-        isActionSheetActive={isActionSheetActive}
-        handleClickOnReselectLocation={handleClickOnReselectLocation}
-      />
+      <SearchBottomActionSheet handleClickOnReselectLocation={handleClickOnReselectLocation} />
     </CertificationPage>
   );
 };

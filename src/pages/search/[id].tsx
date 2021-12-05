@@ -21,6 +21,10 @@ const Detail = () => {
   const [likeCount, setLikeCount] = useState<number>(contents?.recommendation_count ?? 0);
   const refresh = useResetRecoilState(currentOmakaseQuery(Number(id)));
 
+  const handleGoBack = () => {
+    router.push('/search');
+  };
+
   useEffect(() => {
     return () => refresh();
   }, [refresh]);
@@ -48,7 +52,7 @@ const Detail = () => {
 
   return (
     <DetailPage>
-      <Header />
+      <Header backHandler={handleGoBack} />
       <ImageWrapper>
         <Image src={omakase.image_url} alt="가게 이미지" layout="fill" />
       </ImageWrapper>
