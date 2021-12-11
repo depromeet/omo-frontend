@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { IRankerState } from '@recoil/rankerState';
+
 import { Omakases } from '@recoil/omakaseState';
+import { IRankerState } from '@recoil/rankerState';
 
 interface IRequestStampBody {
   omakaseId: number;
@@ -72,3 +73,6 @@ export const requestChangeProfilePhoto = (image: File) => {
   return instance.patch(`/user/profile`, formData);
 };
 export const requestUserProfile = () => instance.get(`/user/profile`);
+
+export const requestCheckOmakaseIsCertificated = (id: number) =>
+  instance.get(`/omakase/check?id=${id}`);

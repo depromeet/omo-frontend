@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import CloseIcon from '@assets/close.svg';
@@ -9,12 +9,10 @@ import { omakaseKeywordState } from '@recoil/omakaseState';
 import * as S from './styles';
 
 type SearchBottomActionSheetProps = {
-  isActionSheetActive: boolean;
   handleClickOnReselectLocation: () => void;
 };
 
 const SearchBottomActionSheet = ({
-  isActionSheetActive,
   handleClickOnReselectLocation,
 }: SearchBottomActionSheetProps) => {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -32,19 +30,10 @@ const SearchBottomActionSheet = ({
   };
 
   const handleClickOnCloseBtn = () => {
+    setSearchKeyword('');
     setKeyword('');
     handleClickOnReselectLocation();
   };
-
-  const handleClickOnNewStoreDisplay = () => {
-    handleClickOnCloseBtn();
-  };
-
-  useEffect(() => {
-    if (isActionSheetActive) {
-      // api call
-    }
-  }, [isActionSheetActive]);
 
   return (
     <S.SearchBottomActionSheet>
@@ -59,11 +48,13 @@ const SearchBottomActionSheet = ({
           value={searchKeyword}
           onChange={handleChangeOnInput}
         />
-        <SearchIcon onClick={() => handleClickOnSearchIcon()} />
+        <SearchIcon onClick={handleClickOnSearchIcon} />
       </S.SearchInputBar>
 
       <S.SearchResults>
-        <SearchResultsWithPreventLinking />
+        <SearchResultsWithPreventLinking
+          handleClickOnReselectLocation={handleClickOnReselectLocation}
+        />
       </S.SearchResults>
     </S.SearchBottomActionSheet>
   );

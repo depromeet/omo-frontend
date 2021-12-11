@@ -6,6 +6,7 @@ export const NoData = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  margin-top: 100px;
 
   .guide-message-wrapper {
     margin-top: 66px;
