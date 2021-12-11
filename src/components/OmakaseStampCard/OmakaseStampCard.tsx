@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import Add from '@assets/add.svg';
 import { STAMP_BUTTON_VALUE, STAMP_TITLE_NO_STAMP, STAMP_TITLE_SUFFIX } from '@constants/home';
 
@@ -9,6 +10,7 @@ interface IOmakaseStampCard {
 }
 
 const OmakaseStampCard = ({ nickname, level }: IOmakaseStampCard) => {
+  const { push } = useRouter();
   const stampAmount = level && level >= 4 ? 20 : 10;
   const rankingAreaArray = new Array(stampAmount).fill(null);
 
@@ -31,7 +33,7 @@ const OmakaseStampCard = ({ nickname, level }: IOmakaseStampCard) => {
           <S.Stamp key={idx}>{getStampInnerText(idx)}</S.Stamp>
         ))}
       </S.StampArea>
-      <S.StampButton>{STAMP_BUTTON_VALUE}</S.StampButton>
+      <S.StampButton onClick={() => push('/search')}>{STAMP_BUTTON_VALUE}</S.StampButton>
     </S.OmakaseStampCardWrapper>
   );
 };
