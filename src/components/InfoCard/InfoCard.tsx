@@ -6,14 +6,15 @@ import * as S from './styles';
 
 interface IInfoCard {
   type: InfoCardType;
+  onClick: () => Promise<boolean>;
   value?: number;
 }
 
-const InfoCard = ({ type, value }: IInfoCard) => {
+const InfoCard = ({ type, onClick, value }: IInfoCard) => {
   const title = type === 'visited' ? `내가 다녀간\n오마카세` : `나의 오마카세\n랭킹`;
 
   return (
-    <S.InfoCardWrapper type={type}>
+    <S.InfoCardWrapper type={type} onClick={onClick}>
       {type === 'visited' ? <PatternOne /> : <PatternTwo />}
       <S.Title>{title}</S.Title>
       <S.ValueArea>
