@@ -1,14 +1,20 @@
+import { useRecoilStateLoadable, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import MyPageLayout from '@components/Layout/MyPageLayout';
 import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
 import { useFetchUserValue } from '@recoil/userState';
+import { IVisitedOmakaseState, useVisitedOmakaseRecoilValue } from '@recoil/visitedOmakaseState';
 import { dummys } from '@temp/VisitedStoreDummy';
 
 const MyPage = () => {
   const { contents: userValue } = useFetchUserValue();
+  const { contents, state } = useVisitedOmakaseRecoilValue();
 
+  if (state === 'loading') return '랭커가 다녀간 오마카세 목록 불러오는중..';
+  const visitedOmakaseValue = contents as IVisitedOmakaseState[];
+  console.log(visitedOmakaseValue);
   return (
     <MyPageLayout>
       <MyProfile userValue={userValue} />
@@ -28,7 +34,7 @@ const MyPage = () => {
               is_certificated={user.is_certificated}
             />
           ))}
-          {/* {userValue.map((user) => (
+          {/* {visitedOmakaseValue.map((user) => (
             <VisitedStore
               key={user.id}
               id={user.id}
