@@ -14,7 +14,7 @@ import getObjectFromQuery from '@utils/getObjectFormQuery';
 import setRefreshTokenOnCookie from '@utils/setRefreshTokenOnCookie';
 
 const Home = () => {
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const { contents: userState } = useFetchUserValue();
   const refetchUserValue = useRefetchUserValue();
   const [isActionSheetActive, setIsActionSheetActive] = useState(false);
@@ -68,10 +68,18 @@ const Home = () => {
           </LogoArea>
           <CatchPhraseArea>{'오늘은\n오마카세 먹는날!'}</CatchPhraseArea>
           <InfoCardArea>
-            <InfoCard type="visited" value={userState.stamp_count} />
-            <InfoCard type="ranking" value={userState.ranking} />
+            <InfoCard
+              type="visited"
+              value={userState.stamp_count}
+              onClick={() => push('/mypage')}
+            />
+            <InfoCard type="ranking" value={userState.ranking} onClick={() => push('/ranking')} />
           </InfoCardArea>
-          <OmakaseStampCard nickname={userState.nickname} level={userState.level} />
+          <OmakaseStampCard
+            nickname={userState.nickname}
+            level={userState.level}
+            stampCount={userState.stamp_count}
+          />
         </MyInfoSection>
         <RankingSection>
           <RankingSectionTitle>진짜들의 오마카세 엿보기 👀</RankingSectionTitle>

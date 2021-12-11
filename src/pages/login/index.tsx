@@ -43,10 +43,6 @@ const Login: NextPage = () => {
               <KakaoIcon />
               <div>Kakao</div>
             </div>
-            <div className="oauth-button apple">
-              <AppleIcon />
-              <div>Apple</div>
-            </div>
           </div>
         </SNSSection>
       </Content>
@@ -85,7 +81,7 @@ const SNSSection = styled.section`
   .oauth-button-wrapper {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
 
   .oauth-button {
