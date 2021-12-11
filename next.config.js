@@ -13,6 +13,6 @@ module.exports = {
   },
   reactStrictMode: true,
   images: {
-    domains: ['c2.poing.co.kr'],
+    domains: ['server.woowa.link'],
   },
 };
