@@ -62,7 +62,11 @@ const Home = () => {
             />
             <InfoCard type="ranking" value={userState.ranking} onClick={() => push('/ranking')} />
           </InfoCardArea>
-          <OmakaseStampCard nickname={userState.nickname} level={userState.level} />
+          <OmakaseStampCard
+            nickname={userState.nickname}
+            level={userState.level}
+            stampCount={userState.stamp_count}
+          />
         </MyInfoSection>
         <RankingSection>
           <RankingSectionTitle>{'진짜들의 오마카세 엿보기 👀'}</RankingSectionTitle>
