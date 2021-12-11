@@ -9,7 +9,7 @@ export interface IRankerState extends IUserReturnType {
   email: string;
 }
 
-const rankerValue = selector({
+export const rankerValue = selector({
   key: 'rankerValue',
   get: async () => {
     try {
