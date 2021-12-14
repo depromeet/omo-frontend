@@ -5,7 +5,7 @@ import * as S from './styles';
 
 export interface VisitedStoreProps {
   id: number;
-  image: string;
+  image?: string;
   name: string;
   date: string;
 }
@@ -16,7 +16,7 @@ const VisitedStore = ({ id, image, name, date }: VisitedStoreProps) => {
       <Link href={`/search/${id}`} passHref>
         <a>
           <S.StoreImageWrapper>
-            <Image src={image} alt="매장 이미지 미리보기" layout="fill" />
+            {image ? <Image src={image} alt="매장 이미지 미리보기" layout="fill" /> : null}
           </S.StoreImageWrapper>
           <S.StoreDescriptionWrapper>
             <h1 className="store-title">{name}</h1>

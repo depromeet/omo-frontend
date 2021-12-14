@@ -4,10 +4,18 @@ import MyPageLayout from '@components/Layout/MyPageLayout';
 import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
 import { useFetchUserValue } from '@recoil/userState';
-import { dummys } from '@temp/VisitedStoreDummy';
+import { IMyOmakase, useMyOmakaseRecoilValue } from '@recoil/myOmakaseState';
 
 const MyPage = () => {
   const { contents: userValue } = useFetchUserValue();
+
+  const {
+    contents: { omakases },
+  } = useMyOmakaseRecoilValue();
+
+  const replaceDate = (date: IMyOmakase['create_date']) => {
+    return date.split('.')[0].replace('T', ' ');
+  };
 
   return (
     <MyPageLayout>
@@ -17,15 +25,16 @@ const MyPage = () => {
           <span>{userValue.nickname}</span>님의 오마카세 리스트
         </div>
         <div className="store-list-layout">
-          {dummys.map((dummy) => (
-            <VisitedStore
-              key={dummy.id}
-              id={dummy.id}
-              image={dummy.image}
-              name={dummy.name}
-              date={dummy.date}
-            />
-          ))}
+          {omakases &&
+            omakases.map((omakase: IMyOmakase) => (
+              <VisitedStore
+                key={omakase.id}
+                id={omakase.id}
+                image={omakase.photo_url}
+                name={omakase.name}
+                date={replaceDate(omakase.create_date)}
+              />
+            ))}
         </div>
       </MyPagePage>
     </MyPageLayout>
