@@ -5,6 +5,7 @@ import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
 import { useFetchUserValue } from '@recoil/userState';
 import { IMyOmakase, useMyOmakaseRecoilValue } from '@recoil/myOmakaseState';
+import dayjs from 'dayjs';
 
 const MyPage = () => {
   const { contents: userValue } = useFetchUserValue();
@@ -14,7 +15,7 @@ const MyPage = () => {
   } = useMyOmakaseRecoilValue();
 
   const replaceDate = (date: IMyOmakase['create_date']) => {
-    return date.split('.')[0].replace('T', ' ');
+    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
   };
 
   return (
