@@ -16,7 +16,7 @@ const RankingCard = ({
   rankerInfoClickHandler,
 }: {
   ranker: IRankerState;
-  rankerInfoClickHandler: () => void;
+  rankerInfoClickHandler?: () => void;
 }) => {
   const { ranking, nickname, stamp_count, profile_url } = ranker;
   const isRanker = [1, 2, 3].includes(ranking);

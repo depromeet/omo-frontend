@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import HorizontalLogo from '@assets/horizontal-logo.svg';
@@ -7,7 +7,7 @@ import InfoCard from '@components/InfoCard';
 import Layout from '@components/Layout';
 import OmakaseStampCard from '@components/OmakaseStampCard';
 import RankingCard from '@components/Shared/RankingCard';
-import { IRankerState } from '@recoil/rankerState';
+import { IRankerState, useRefetchRankerList } from '@recoil/rankerState';
 import { useFetchUserValue, useRefetchUserValue } from '@recoil/userState';
 import { setAccessTokenOnHeader } from '@request';
 import getObjectFromQuery from '@utils/getObjectFormQuery';
@@ -17,11 +17,10 @@ import { useRankerListValue } from '@recoil/rankerState';
 const Home = () => {
   const { query, push } = useRouter();
   const { contents: userState } = useFetchUserValue();
+  const { contents: top3Rankers, state: rankerListState } = useRankerListValue(3);
   const refetchUserValue = useRefetchUserValue();
-  const [isActionSheetActive, setIsActionSheetActive] = useState(false);
-
-  const data = useRankerListValue(3);
-  console.log(data);
+  const refetchRankerList = useRefetchRankerList();
+  console.log(top3Rankers);
 
   useEffect(() => {
     if (!query.status) return;
@@ -33,8 +32,11 @@ const Home = () => {
     setAccessTokenOnHeader(access);
     setRefreshTokenOnCookie(refresh);
 
-    if (access) refetchUserValue(Date.now);
-  }, [query, refetchUserValue]);
+    if (access) {
+      refetchUserValue(Date.now);
+      refetchRankerList(Date.now);
+    }
+  }, [query, refetchUserValue, refetchRankerList]);
 
   return (
     <Layout title="홈" noHeader>
@@ -62,13 +64,11 @@ const Home = () => {
           <RankingSectionTitle>진짜들의 오마카세 엿보기 👀</RankingSectionTitle>
           <p>상위 랭킹 고수들의 오마카세 리스트를 참고해 보세요!</p>
           <RankingCardArea>
-            {/* {top3Rankers.map((props) => (
-              <RankingCard
-                key={props.ranking}
-                ranker={props}
-                rankerInfoClickHandler={handleBottomActionSheet}
-              />
-            ))} */}
+            {rankerListState === 'hasValue' &&
+              top3Rankers &&
+              top3Rankers.map((props: IRankerState) => (
+                <RankingCard key={props.ranking} ranker={props} />
+              ))}
           </RankingCardArea>
         </RankingSection>
       </HomePage>

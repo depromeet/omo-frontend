@@ -28,9 +28,7 @@ const Ranking = () => {
   const toggleModal = () => setIsOpenModal((prev) => !prev);
   const [selectedRanker, setSelectedRanker] = useState<IRankerState | null>(null);
   const ref = useRef<ActionSheetRef>();
-  const replaceDate = (date: IMyOmakase['create_date']) => {
-    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
-  };
+
   const {
     contents: { omakases },
   } = useVisitedOmakaseRecoilValue(selectedRanker?.email ?? '');
