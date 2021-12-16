@@ -66,7 +66,7 @@ const Certification = () => {
       <Header title="인증확인" backHandler={handleGoBack} />
       <CertificationMain className="container">
         <LocationChecker
-          image={omakase.image_url}
+          image={omakase.image_url || '/images/default-image-list.jpg'}
           address={omakase.address}
           name={omakase.name}
           handleClickOnReselectLocation={handleClickOnReselectLocation}

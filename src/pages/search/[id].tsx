@@ -54,7 +54,11 @@ const Detail = () => {
     <DetailPage>
       <Header backHandler={handleGoBack} />
       <ImageWrapper>
-        <Image src={omakase.image_url} alt="가게 이미지" layout="fill" />
+        <Image
+          src={omakase.image_url || '/images/default-image-wide.jpg'}
+          alt="가게 이미지"
+          layout="fill"
+        />
       </ImageWrapper>
       <StoreDescription store={omakase} />
 
