@@ -1,4 +1,5 @@
 import ActionSheet, { ActionSheetRef } from 'actionsheet-react';
+import dayjs from 'dayjs';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -14,18 +15,26 @@ import RankingCard from '@components/Shared/RankingCard';
 import VisitedStore from '@components/VisitedStore';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
-import { IRankerState, useRankerRecoilValue } from '@recoil/rankerState';
+import { IMyOmakase } from '@recoil/myOmakaseState';
+import { IRankerState, useRankerListValue } from '@recoil/rankerState';
 import { useFetchUserValue } from '@recoil/userState';
+import { useVisitedOmakaseRecoilValue } from '@recoil/visitedOmakaseState';
 import { dummys } from '@temp/VisitedStoreDummy';
 
 const Ranking = () => {
   const { contents: userValue } = useFetchUserValue();
-  const { contents, state } = useRankerRecoilValue();
+  const { contents, state } = useRankerListValue();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
   const [selectedRanker, setSelectedRanker] = useState<IRankerState | null>(null);
   const ref = useRef<ActionSheetRef>();
+  const replaceDate = (date: IMyOmakase['create_date']) => {
+    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+  };
+  const {
+    contents: { omakases },
+  } = useVisitedOmakaseRecoilValue(selectedRanker?.email ?? '');
 
   const handleOpen = (ranker: IRankerState) => {
     ref.current.open();
@@ -89,17 +98,15 @@ const Ranking = () => {
             </TitleWrapper>
             {selectedRanker !== null && <MyProfile userValue={selectedRanker} />}
             <div className="store-list-layout container">
-              {dummys.map((user) => (
-                <VisitedStore
-                  key={user.id}
-                  id={user.id}
-                  name={user.name}
-                  photo_url={user.photo_url}
-                  county={user.county}
-                  create_date={user.create_date}
-                  is_certificated={user.is_certificated}
-                />
-              ))}
+              {omakases &&
+                omakases.map((user: IMyOmakase) => (
+                  <VisitedStore
+                    key={user.id}
+                    id={user.id}
+                    image={user.photo_url}
+                    name={user.name}
+                  />
+                ))}
             </div>
           </RankerPage>
         </BottomActionSheetStyle>
