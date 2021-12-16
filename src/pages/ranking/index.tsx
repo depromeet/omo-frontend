@@ -9,12 +9,12 @@ import { RankingNotifyModal } from '@components/Shared/Modal';
 import RankingCard from '@components/Shared/RankingCard';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
-import { IRankerState, useRankerRecoilValue } from '@recoil/rankerState';
+import { IRankerState, useRankerListValue } from '@recoil/rankerState';
 import { useFetchUserValue } from '@recoil/userState';
 
 const Ranking = () => {
   const { contents: userValue } = useFetchUserValue();
-  const { contents, state } = useRankerRecoilValue();
+  const { contents, state } = useRankerListValue();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
