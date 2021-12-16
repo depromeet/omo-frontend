@@ -1,15 +1,11 @@
 import { selectorFamily, useRecoilValueLoadable } from 'recoil';
 
 import { requestRankers } from '@request';
+import { IUserReturnType } from '@request/index';
 
 const DEFAULT_RANKING_LIMIT = 10;
 
-export interface IRankerState {
-  ranking: number;
-  nickname: string;
-  stampCount: number;
-  profileUrl: string | null;
-  power: number;
+export interface IRankerState extends IUserReturnType {
   email: string;
 }
 

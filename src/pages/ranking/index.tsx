@@ -1,16 +1,24 @@
-import { useState } from 'react';
+import ActionSheet, { ActionSheetRef } from 'actionsheet-react';
+import dayjs from 'dayjs';
+import Link from 'next/link';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import CloseIcon from '@assets/close.svg';
 import Earth from '@assets/earth.svg';
 import Guidance from '@assets/guidance.svg';
 import BackgroundPattern from '@assets/pattern-one.svg';
 import Layout from '@components/Layout';
+import MyProfile from '@components/MyProfile';
 import { RankingNotifyModal } from '@components/Shared/Modal';
 import RankingCard from '@components/Shared/RankingCard';
+import VisitedStore from '@components/VisitedStore';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
+import { IMyOmakase } from '@recoil/myOmakaseState';
 import { IRankerState, useRankerListValue } from '@recoil/rankerState';
 import { useFetchUserValue } from '@recoil/userState';
+import { useVisitedOmakaseRecoilValue } from '@recoil/visitedOmakaseState';
 
 const Ranking = () => {
   const { contents: userValue } = useFetchUserValue();
@@ -18,9 +26,26 @@ const Ranking = () => {
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
-  const rankerValue = contents as IRankerState[];
+  const [selectedRanker, setSelectedRanker] = useState<IRankerState | null>(null);
+  const ref = useRef<ActionSheetRef>();
+  const replaceDate = (date: IMyOmakase['create_date']) => {
+    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+  };
+  const {
+    contents: { omakases },
+  } = useVisitedOmakaseRecoilValue(selectedRanker?.email ?? '');
+
+  const handleOpen = (ranker: IRankerState) => {
+    ref.current.open();
+    setSelectedRanker(ranker);
+  };
+
+  const handleClose = () => {
+    ref.current.close();
+  };
 
   if (state === 'loading') return '랭킹 불러오는중..';
+  const rankerValue = contents as IRankerState[];
 
   return (
     <Layout title="Ranking" noHeader>
@@ -38,15 +63,18 @@ const Ranking = () => {
         <h2>랭킹은 매일 24시에 갱신됩니다.</h2>
         <Guidance className="guidance" onClick={toggleModal} />
         {rankerValue.map((ranker) => (
-          <RankingCard ranker={ranker} key={ranker.ranking} />
+          <RankingCard
+            ranker={ranker}
+            rankerInfoClickHandler={() => handleOpen(ranker)}
+            key={ranker.ranking}
+          />
         ))}
       </RankingSection>
-
       <MyRankingSection>
         <RankingSectionArea>
           <h1>내 순위</h1>
           <RankBlock>
-            {userValue.info?.ranking ?? '-'}
+            {userValue.ranking ?? '-'}
             {RANK_SUFFIX}
           </RankBlock>
         </RankingSectionArea>
@@ -54,12 +82,34 @@ const Ranking = () => {
         <RankingSectionArea>
           <h1>도장 깬 횟수</h1>
           <h2>
-            {userValue.info?.stamp_count}
+            {userValue.stamp_count}
             {STAMP_AMOUNT_SUFFIX}
           </h2>
         </RankingSectionArea>
       </MyRankingSection>
       {isOpenModal && <RankingNotifyModal toggleModal={toggleModal} />}
+      <ActionSheet ref={ref}>
+        <BottomActionSheetStyle>
+          <RankerPage>
+            <TitleWrapper className="container">
+              <Title className="store-list-title">{selectedRanker?.nickname}님</Title>
+              <CloseIcon onClick={handleClose} />
+            </TitleWrapper>
+            {selectedRanker !== null && <MyProfile userValue={selectedRanker} />}
+            <div className="store-list-layout container">
+              {omakases &&
+                omakases.map((user: IMyOmakase) => (
+                  <VisitedStore
+                    key={user.id}
+                    id={user.id}
+                    image={user.photo_url}
+                    name={user.name}
+                  />
+                ))}
+            </div>
+          </RankerPage>
+        </BottomActionSheetStyle>
+      </ActionSheet>
     </Layout>
   );
 };
@@ -181,4 +231,38 @@ const Divider = styled.div.attrs({
   width: 1px;
   height: 32px;
   background-color: #e7e7e7;
+`;
+
+const BottomActionSheetStyle = styled.div`
+  height: 91.33vh;
+  display: flex;
+  flex-direction: column;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 18px 0 10px 0;
+`;
+
+const Title = styled.h1`
+  ${({ theme }) => theme.fonts.header3_5};
+
+  strong {
+    font-weight: bold;
+  }
+`;
+
+const RankerPage = styled.div`
+  .store-list-title {
+    ${({ theme }) => theme.fonts.subTitle1};
+    margin-bottom: 1.5rem;
+  }
+  .store-list-layout {
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px 15px;
+  }
 `;

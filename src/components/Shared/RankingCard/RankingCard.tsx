@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import MessageBubble from '@assets/message-bubble.svg';
 import RightButton from '@assets/ranking-card-right-button.svg';
@@ -10,9 +11,16 @@ import * as S from './styles';
 /**
  * @usage Home, Ranking Page
  */
-const RankingCard = ({ ranker }: { ranker: IRankerState }) => {
-  const { ranking, nickname, stampCount, profileUrl } = ranker;
+const RankingCard = ({
+  ranker,
+  rankerInfoClickHandler,
+}: {
+  ranker: IRankerState;
+  rankerInfoClickHandler: () => void;
+}) => {
+  const { ranking, nickname, stamp_count, profile_url } = ranker;
   const isRanker = [1, 2, 3].includes(ranking);
+  const imageURL = `${process.env.API_ENDPOINT}${profile_url}`;
 
   return (
     <S.RankingCardWrapper className="ranking-card" rank={ranking}>
@@ -35,7 +43,7 @@ const RankingCard = ({ ranker }: { ranker: IRankerState }) => {
               </span>
             </S.ProfileBubble>
             <Image
-              src={profileUrl || '/images/default-profile.png'}
+              src={imageURL || '/images/default-profile.png'}
               width={55}
               height={55}
               alt="default-profile"
@@ -48,7 +56,7 @@ const RankingCard = ({ ranker }: { ranker: IRankerState }) => {
           {nickname}
           {!isRanker && (
             <span>
-              ({stampCount}
+              ({stamp_count}
               {STAMP_AMOUNT_SUFFIX})
             </span>
           )}
@@ -56,13 +64,13 @@ const RankingCard = ({ ranker }: { ranker: IRankerState }) => {
         {isRanker && (
           <S.StampAmount>
             {STAMP_AMOUNT_PREFIX}
-            {stampCount}
+            {stamp_count}
             {STAMP_AMOUNT_SUFFIX}
           </S.StampAmount>
         )}
       </S.InfoArea>
       <S.RightButton>
-        <RightButton />
+        <RightButton onClick={rankerInfoClickHandler} />
       </S.RightButton>
     </S.RankingCardWrapper>
   );

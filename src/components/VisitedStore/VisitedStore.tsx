@@ -5,14 +5,13 @@ import * as S from './styles';
 
 export interface VisitedStoreProps {
   id: number;
-  image?: string;
   name: string;
-  date: string;
+  image?: string;
+  date?: string;
 }
 
-const VisitedStore = ({ id, image, name, date }: VisitedStoreProps) => {
+const VisitedStore = ({ id, name, image, date }: VisitedStoreProps) => {
   const defaultImagePath = '/images/default-image.jpg';
-
   return (
     <S.StoreDisplay>
       <Link href={`/search/${id}`} passHref>
@@ -22,7 +21,7 @@ const VisitedStore = ({ id, image, name, date }: VisitedStoreProps) => {
           </S.StoreImageWrapper>
           <S.StoreDescriptionWrapper>
             <h1 className="store-title">{name}</h1>
-            <pre className="store-desc">{date}</pre>
+            {date && <pre className="store-desc">{date}</pre>}
           </S.StoreDescriptionWrapper>
         </a>
       </Link>

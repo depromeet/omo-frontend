@@ -1,15 +1,15 @@
+import dayjs from 'dayjs';
+import { useRecoilStateLoadable, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import MyPageLayout from '@components/Layout/MyPageLayout';
 import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
-import { useFetchUserValue } from '@recoil/userState';
 import { IMyOmakase, useMyOmakaseRecoilValue } from '@recoil/myOmakaseState';
-import dayjs from 'dayjs';
+import { useFetchUserValue } from '@recoil/userState';
 
 const MyPage = () => {
   const { contents: userValue } = useFetchUserValue();
-
   const {
     contents: { omakases },
   } = useMyOmakaseRecoilValue();
