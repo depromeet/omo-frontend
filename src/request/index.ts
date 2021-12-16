@@ -2,12 +2,7 @@ import axios from 'axios';
 
 import { Omakases } from '@recoil/omakaseState';
 import { IRankerState } from '@recoil/rankerState';
-
-interface IRequestStampBody {
-  omakaseId: number;
-  receiptIssuaranceData: string;
-  receiptImage: File;
-}
+import { IMyOmakase } from '@recoil/myOmakaseState';
 
 export interface IUserReturnType {
   nickname: string;
@@ -59,7 +54,7 @@ export const requestRankers = (limit?: number) =>
   instance.get<IRankerState[]>(`/rankers?limit=${limit}`);
 export const requestMyInfo = () => instance.get<IUserReturnType>(`/user`);
 export const requestUserInfo = (email?: string) => instance.get(`/user/${email}`);
-export const requestMyOmakase = (email?: string) => instance.get(`/my-omakase/${email}`);
+export const requestMyOmakase = () => instance.get<IMyOmakase[]>(`/my-omakase`);
 export const requestChangeNickname = (nickname: string) => instance.patch(`/user`, { nickname });
 export const requestStamp = (formData: FormData) =>
   instance.post(`/stamp`, formData, {
