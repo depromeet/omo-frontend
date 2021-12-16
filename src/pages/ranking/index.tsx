@@ -35,11 +35,15 @@ const Ranking = () => {
   } = useVisitedOmakaseRecoilValue(selectedRanker?.email ?? '');
 
   const handleOpen = (ranker: IRankerState) => {
+    if (!ref) return;
+
     ref.current.open();
     setSelectedRanker(ranker);
   };
 
   const handleClose = () => {
+    if (!ref) return;
+
     ref.current.close();
   };
 
