@@ -1,5 +1,5 @@
 import { requestMyOmakase } from '@request';
-import { selector, useRecoilValueLoadable } from 'recoil';
+import { atom, selector, useRecoilValueLoadable, useResetRecoilState } from 'recoil';
 
 export interface IMyOmakase {
   create_date: 'string';
@@ -9,9 +9,15 @@ export interface IMyOmakase {
   photo_url: string;
 }
 
+const omakaseIdState = atom<number>({
+  key: 'omakaseIdState',
+  default: 0,
+});
+
 const myOmakaseValue = selector({
   key: 'rankerValue',
-  get: async () => {
+  get: async ({ get }) => {
+    get(omakaseIdState);
     try {
       const response = await requestMyOmakase();
       return response.data;
@@ -20,6 +26,12 @@ const myOmakaseValue = selector({
       throw new Error(error.message);
     }
   },
+  set: ({ set }, value) => {
+    if (value) {
+      set(omakaseIdState, (v) => v + 1);
+    }
+  },
 });
 
 export const useMyOmakaseRecoilValue = () => useRecoilValueLoadable(myOmakaseValue);
+export const useRefetchMyOmakases = () => useResetRecoilState(myOmakaseValue);

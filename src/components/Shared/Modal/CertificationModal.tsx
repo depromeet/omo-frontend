@@ -12,6 +12,7 @@ type CertificationModalProps = {
 
 const CertificationModal = ({ name }: CertificationModalProps) => {
   const { push } = useRouter();
+
   return (
     <S.ModalWrapper>
       <S.ModalBox>
