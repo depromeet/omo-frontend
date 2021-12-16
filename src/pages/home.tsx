@@ -12,6 +12,7 @@ import { useFetchUserValue, useRefetchUserValue } from '@recoil/userState';
 import { setAccessTokenOnHeader } from '@request';
 import getObjectFromQuery from '@utils/getObjectFormQuery';
 import setRefreshTokenOnCookie from '@utils/setRefreshTokenOnCookie';
+import { useRankerListValue } from '@recoil/rankerState';
 
 const Home = () => {
   const { query, push } = useRouter();
@@ -19,32 +20,8 @@ const Home = () => {
   const refetchUserValue = useRefetchUserValue();
   const [isActionSheetActive, setIsActionSheetActive] = useState(false);
 
-  // const top3Rankers: IRankerState[] = [
-  //   {
-  //     ranking: 1,
-  //     nickname: '오모마카세에대출',
-  //     stamp_count: 24,
-  //     profile_url: 'images/default-profile.png',
-  //     power: 1,
-  //     email: 'codud2006@naver.com',
-  //   },
-  //   {
-  //     ranking: 2,
-  //     nickname: '오모마카세',
-  //     stamp_count: 24,
-  //     profile_url: 'images/default-profile.png',
-  //     power: 1,
-  //     email: 'codud2006@naver.com',
-  //   },
-  //   {
-  //     ranking: 3,
-  //     nickname: '오마카새우',
-  //     stamp_count: 8,
-  //     profile_url: 'images/default-profile.png',
-  //     power: 1,
-  //     email: 'codud2006@naver.com',
-  //   },
-  // ];
+  const data = useRankerListValue(3);
+  console.log(data);
 
   useEffect(() => {
     if (!query.status) return;

@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 import CopyIcon from '@assets/copy.svg';
 import TelIcon from '@assets/telephone.svg';
 import { Omakase } from '@recoil/omakaseState';
 
 import * as S from './styles';
+import { copyText } from '@utils/copyText';
 
 interface StoreDescriptionProps {
   store: Omakase;
@@ -42,14 +44,15 @@ const StoreDescription = ({ store }: StoreDescriptionProps) => {
             <p className="sub-title">주소</p>
             <p className="contents">{store.address}</p>
           </div>
-          <CopyIcon />
+          <CopyIcon onClick={() => copyText(store.address)} />
         </S.DescriptionList>
         <S.DescriptionList>
           <div className="contents-wrapper">
             <p className="sub-title">전화번호</p>
             <p className="contents">{store.phone_number}</p>
           </div>
-          <TelIcon />
+          <CopyIcon onClick={() => copyText(store.phone_number)} />
+          {/* <TelIcon /> */}
         </S.DescriptionList>
         <S.DescriptionList>
           <div className="contents-wrapper">

@@ -5,16 +5,21 @@ import MyPageLayout from '@components/Layout/MyPageLayout';
 import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
 import { useFetchUserValue } from '@recoil/userState';
-import { IVisitedOmakaseState, useVisitedOmakaseRecoilValue } from '@recoil/visitedOmakaseState';
-import { dummys } from '@temp/VisitedStoreDummy';
+import { IMyOmakase, useMyOmakaseRecoilValue } from '@recoil/myOmakaseState';
+import dayjs from 'dayjs';
 
 const MyPage = () => {
   const { contents: userValue } = useFetchUserValue();
   const { contents, state } = useVisitedOmakaseRecoilValue();
 
-  if (state === 'loading') return '랭커가 다녀간 오마카세 목록 불러오는중..';
-  const visitedOmakaseValue = contents as IVisitedOmakaseState[];
-  console.log(visitedOmakaseValue);
+  const {
+    contents: { omakases },
+  } = useMyOmakaseRecoilValue();
+
+  const replaceDate = (date: IMyOmakase['create_date']) => {
+    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+  };
+
   return (
     <MyPageLayout>
       <MyProfile userValue={userValue} />
@@ -23,28 +28,16 @@ const MyPage = () => {
           <span>{userValue.nickname}</span>님의 오마카세 리스트
         </div>
         <div className="store-list-layout">
-          {dummys.map((user) => (
-            <VisitedStore
-              key={user.id}
-              id={user.id}
-              name={user.name}
-              photo_url={user.photo_url}
-              county={user.county}
-              create_date={user.create_date}
-              is_certificated={user.is_certificated}
-            />
-          ))}
-          {/* {visitedOmakaseValue.map((user) => (
-            <VisitedStore
-              key={user.id}
-              id={user.id}
-              name={user.name}
-              photo_url={user.photo_url}
-              county={user.county}
-              create_date={user.create_date}
-              is_certificated={user.is_certificated}
-            />
-          ))} */}
+          {omakases &&
+            omakases.map((omakase: IMyOmakase) => (
+              <VisitedStore
+                key={omakase.id}
+                id={omakase.id}
+                image={omakase.photo_url}
+                name={omakase.name}
+                date={replaceDate(omakase.create_date)}
+              />
+            ))}
         </div>
       </MyPagePage>
     </MyPageLayout>
