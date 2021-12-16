@@ -120,7 +120,7 @@ const SearchResultsWithPreventLinking = ({ handleClickOnReselectLocation }: Prop
             >
               <StoreDisplayList
                 id={omakase.id}
-                image_url={omakase.image_url}
+                image_url={omakase.image_url || '/images/default-image-list.jpg'}
                 level={omakase.level}
                 county={omakase.county}
                 name={omakase.name}

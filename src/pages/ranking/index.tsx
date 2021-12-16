@@ -16,6 +16,7 @@ import VisitedStore from '@components/VisitedStore';
 import { PIONEER_PHRASE } from '@constants/ranking';
 import { RANK_SUFFIX, STAMP_AMOUNT_SUFFIX } from '@constants/shared';
 import { IMyOmakase } from '@recoil/myOmakaseState';
+
 import { IRankerState, useRankerListValue } from '@recoil/rankerState';
 import { useFetchUserValue } from '@recoil/userState';
 import { useVisitedOmakaseRecoilValue } from '@recoil/visitedOmakaseState';
