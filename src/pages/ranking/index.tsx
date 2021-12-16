@@ -10,6 +10,7 @@ import Guidance from '@assets/guidance.svg';
 import BackgroundPattern from '@assets/pattern-one.svg';
 import Layout from '@components/Layout';
 import MyProfile from '@components/MyProfile';
+import { PageLoading } from '@components/Shared/Loading';
 import { RankingNotifyModal } from '@components/Shared/Modal';
 import RankingCard from '@components/Shared/RankingCard';
 import VisitedStore from '@components/VisitedStore';
@@ -42,7 +43,7 @@ const Ranking = () => {
     ref.current.close();
   };
 
-  if (state === 'loading') return '랭킹 불러오는중..';
+  if (state === 'loading') return <PageLoading />;
   const rankerValue = contents as IRankerState[];
 
   return (
