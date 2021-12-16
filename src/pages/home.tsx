@@ -6,32 +6,19 @@ import HorizontalLogo from '@assets/horizontal-logo.svg';
 import InfoCard from '@components/InfoCard';
 import Layout from '@components/Layout';
 import OmakaseStampCard from '@components/OmakaseStampCard';
-import RankingCard from '@components/Shared/RankingCard';
 import { useFetchUserValue, useRefetchUserValue } from '@recoil/userState';
 import { setAccessTokenOnHeader } from '@request';
 import getObjectFromQuery from '@utils/getObjectFormQuery';
 import setRefreshTokenOnCookie from '@utils/setRefreshTokenOnCookie';
+import { useRankerListValue } from '@recoil/rankerState';
 
 const Home = () => {
   const { query, push } = useRouter();
   const { contents: userState } = useFetchUserValue();
   const refetchUserValue = useRefetchUserValue();
 
-  // const top3Rankers = [
-  //   {
-  //     ranking: 1,
-  //     nickname: '오모마카세에대출',
-  //     stampCount: 24,
-  //     profileUrl: null,
-  //   },
-  //   { ranking: 2, nickname: '지니지니', stampCount: 14, profileUrl: null },
-  //   {
-  //     ranking: 3,
-  //     nickname: '오마카새우',
-  //     stampCount: 8,
-  //     profileUrl: null,
-  //   },
-  // ];
+  const data = useRankerListValue(3);
+  console.log(data);
 
   useEffect(() => {
     if (!query.status) return;

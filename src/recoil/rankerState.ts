@@ -1,8 +1,8 @@
-import { selector, useRecoilValueLoadable } from 'recoil';
+import { selectorFamily, useRecoilValueLoadable } from 'recoil';
 
 import { requestRankers } from '@request';
 
-const rankingLimit = 10;
+const DEFAULT_RANKING_LIMIT = 10;
 
 export interface IRankerState {
   ranking: number;
@@ -13,17 +13,20 @@ export interface IRankerState {
   email: string;
 }
 
-const rankerValue = selector({
+const rankerListQuery = selectorFamily({
   key: 'rankerValue',
-  get: async () => {
-    try {
-      const response = await requestRankers(rankingLimit);
-      return response.data;
-    } catch (error) {
-      if (!(error instanceof Error)) return;
-      throw new Error(error.message);
-    }
-  },
+  get:
+    (rankingLimit: number = DEFAULT_RANKING_LIMIT) =>
+    async () => {
+      try {
+        const response = await requestRankers(rankingLimit);
+        return response.data;
+      } catch (error) {
+        if (!(error instanceof Error)) return;
+        throw new Error(error.message);
+      }
+    },
 });
 
-export const useRankerRecoilValue = () => useRecoilValueLoadable(rankerValue);
+export const useRankerListValue = (limit: number = DEFAULT_RANKING_LIMIT) =>
+  useRecoilValueLoadable(rankerListQuery(limit));
