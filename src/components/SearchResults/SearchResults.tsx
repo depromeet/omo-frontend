@@ -90,7 +90,7 @@ const SearchResults = () => {
               <StoreDisplayWide
                 key={omakase.id}
                 id={omakase.id}
-                image_url={omakase.image_url}
+                image_url={omakase.image_url || '/images/default-image-wide.jpg'}
                 level={omakase.level}
                 county={omakase.county}
                 name={omakase.name}
@@ -100,7 +100,7 @@ const SearchResults = () => {
               <StoreDisplayList
                 key={omakase.id}
                 id={omakase.id}
-                image_url={omakase.image_url}
+                image_url={omakase.image_url || '/images/default-image-list.jpg'}
                 level={omakase.level}
                 county={omakase.county}
                 name={omakase.name}

@@ -16,7 +16,11 @@ const StoreDisplay = ({ id, image_url, level, county, name, address }: Omakases)
               <span>#{county}</span>
             </S.SubTitles>
 
-            <Image src={image_url} alt="매장 이미지 미리보기" layout="fill" />
+            <Image
+              src={image_url || '/images/default-image-wide.jpg'}
+              alt="매장 이미지 미리보기"
+              layout="fill"
+            />
 
             <S.StoreDescriptionWrapper>
               <h1 className="store-title">{name}</h1>
