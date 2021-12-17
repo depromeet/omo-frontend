@@ -13,7 +13,7 @@ import { setAccessTokenOnHeader } from '@request';
 import getObjectFromQuery from '@utils/getObjectFormQuery';
 import setRefreshTokenOnCookie from '@utils/setRefreshTokenOnCookie';
 import { useRankerListValue } from '@recoil/rankerState';
-import { useMyOmakaseRecoilValue, useRefetchMyOmakases } from '@recoil/myOmakaseState';
+import { useMyOmakaseRecoilValue } from '@recoil/myOmakaseState';
 
 const Home = () => {
   const { query, push } = useRouter();
