@@ -1,17 +1,18 @@
 import { useRouter } from 'next/router';
 import Add from '@assets/add.svg';
-import ApprovedStamp from '@assets/stamp-approved.svg';
 import { STAMP_BUTTON_VALUE, STAMP_TITLE_NO_STAMP, STAMP_TITLE_SUFFIX } from '@constants/home';
 
 import * as S from './styles';
+import { IMyOmakase } from '@recoil/myOmakaseState';
 
 interface IOmakaseStampCard {
   nickname?: string;
   level?: number;
   stampCount: number;
+  myOmakases?: IMyOmakase[];
 }
 
-const OmakaseStampCard = ({ nickname, level, stampCount }: IOmakaseStampCard) => {
+const OmakaseStampCard = ({ nickname, level, stampCount, myOmakases }: IOmakaseStampCard) => {
   const { push } = useRouter();
   const stampAmount = level && level >= 4 ? 20 : 10;
   const rankingAreaArray = new Array(stampAmount).fill(null);
@@ -32,7 +33,9 @@ const OmakaseStampCard = ({ nickname, level, stampCount }: IOmakaseStampCard) =>
       <S.Division />
       <S.StampArea>
         {rankingAreaArray.map((_, idx) => {
-          if (stampCount >= idx + 1) return <ApprovedStamp key={idx} />;
+          // eslint-disable-next-line @next/next/no-img-element
+          if (stampCount >= idx + 1) return <img src={myOmakases[idx].photo_url} alt="photo" />;
+
           return <S.Stamp key={idx}>{getStampInnerText(idx)}</S.Stamp>;
         })}
       </S.StampArea>
