@@ -19,12 +19,12 @@ const Home = () => {
   const { query, push } = useRouter();
   const { contents: userState } = useFetchUserValue();
   const { contents: top3Rankers, state: rankerListState } = useRankerListValue(3);
-  const refetchUserValue = useRefetchUserValue();
-  const refetchRankerList = useRefetchRankerList();
-  const refetchMyOmakases = useRefetchMyOmakases();
   const {
     contents: { myOmakases },
   } = useMyOmakaseRecoilValue();
+  const refetchUserValue = useRefetchUserValue();
+  const refetchRankerList = useRefetchRankerList();
+  const refetchMyOmakases = useRefetchMyOmakases();
 
   useEffect(() => {
     if (!query.status) return;
@@ -37,9 +37,9 @@ const Home = () => {
     setRefreshTokenOnCookie(refresh);
 
     if (access) {
-      refetchMyOmakases();
       refetchUserValue(Date.now);
       refetchRankerList(Date.now);
+      refetchMyOmakases();
     }
   }, [query, refetchUserValue, refetchRankerList]);
 
