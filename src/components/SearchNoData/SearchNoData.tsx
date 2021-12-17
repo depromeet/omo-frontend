@@ -1,9 +1,4 @@
 import Image from 'next/image';
-import { useState } from 'react';
-
-import Button from '@components/Shared/Button';
-import { SuggestModal } from '@components/Shared/Modal';
-import { HashTag } from '@components/StoreDescription/styles';
 
 import * as S from './styles';
 

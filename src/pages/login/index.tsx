@@ -1,10 +1,8 @@
 import type { NextPage } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 
-import AppleIcon from '@assets/apple.svg';
 import KakaoIcon from '@assets/kakao.svg';
 import Logo from '@assets/logo.svg';
 import NaverIcon from '@assets/naver.svg';

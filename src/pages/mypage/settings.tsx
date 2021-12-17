@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { requestError } from '@@types/shared';
 import Header from '@components/Header';
 import { NETWORK_ERROR, UNKNOWN_ERROR } from '@constants/error';
-import { requestLogout } from '@request';
 import { showAlertModal } from '@utils/modal';
 
 const Settings = () => {

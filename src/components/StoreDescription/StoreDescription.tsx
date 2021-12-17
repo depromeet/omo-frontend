@@ -1,8 +1,6 @@
 import Image from 'next/image';
-import { toast } from 'react-toastify';
 
 import CopyIcon from '@assets/copy.svg';
-import TelIcon from '@assets/telephone.svg';
 import { Omakase } from '@recoil/omakaseState';
 
 import * as S from './styles';

@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import MessageBubble from '@assets/message-bubble.svg';
 import RightButton from '@assets/ranking-card-right-button.svg';

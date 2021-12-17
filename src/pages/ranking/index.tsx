@@ -1,6 +1,4 @@
 import ActionSheet, { ActionSheetRef } from 'actionsheet-react';
-import dayjs from 'dayjs';
-import Link from 'next/link';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 
