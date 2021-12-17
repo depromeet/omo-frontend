@@ -19,6 +19,9 @@ export const ProfileArea = styled.div<{ rank: number }>`
   justify-content: center;
   align-items: center;
 
+  width: 60px;
+  height: 60px;
+
   position: absolute;
   top: 50%;
   left: 20px;
