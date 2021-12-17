@@ -31,11 +31,10 @@ const OmakaseStampCard = ({ nickname, level, stampCount }: IOmakaseStampCard) =>
       </S.TitleArea>
       <S.Division />
       <S.StampArea>
-        {rankingAreaArray.map((_, idx) => (
-          <S.Stamp key={idx}>
-            {stampCount >= idx + 1 ? <ApprovedStamp /> : getStampInnerText(idx)}
-          </S.Stamp>
-        ))}
+        {rankingAreaArray.map((_, idx) => {
+          if (stampCount >= idx + 1) return <ApprovedStamp key={idx} />;
+          return <S.Stamp key={idx}>{getStampInnerText(idx)}</S.Stamp>;
+        })}
       </S.StampArea>
       <S.StampButton onClick={() => push('/search')}>{STAMP_BUTTON_VALUE}</S.StampButton>
     </S.OmakaseStampCardWrapper>
