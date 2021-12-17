@@ -19,7 +19,7 @@ const ChangePhoto = () => {
   const refreshUserInfo = useRefetchUserValue();
 
   useEffect(() => {
-    const imageURL = `${process.env.API_ENDPOINT?.slice(0, -1)}${userValue.profile_url}`;
+    const imageURL = `${process.env.API_ENDPOINT}${userValue.profile_url}`;
 
     convertURLtoFile(imageURL).then((file) => setThumbnail(file));
   }, [userValue.profile_url]);
