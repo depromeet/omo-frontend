@@ -20,7 +20,6 @@ const Home = () => {
   const { contents: top3Rankers, state: rankerListState } = useRankerListValue(3);
   const refetchUserValue = useRefetchUserValue();
   const refetchRankerList = useRefetchRankerList();
-  console.log(top3Rankers);
 
   useEffect(() => {
     if (!query.status) return;

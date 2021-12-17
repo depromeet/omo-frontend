@@ -7,6 +7,7 @@ import { RANK_SUFFIX, STAMP_AMOUNT_PREFIX, STAMP_AMOUNT_SUFFIX } from '@constant
 import { IRankerState } from '@recoil/rankerState';
 
 import * as S from './styles';
+import { useRouter } from 'next/router';
 
 /**
  * @usage Home, Ranking Page
@@ -21,6 +22,7 @@ const RankingCard = ({
   const { ranking, nickname, stamp_count, profile_url } = ranker;
   const isRanker = [1, 2, 3].includes(ranking);
   const imageURL = `${process.env.API_ENDPOINT}${profile_url}`;
+  const { push } = useRouter();
 
   return (
     <S.RankingCardWrapper className="ranking-card" rank={ranking}>
@@ -70,7 +72,7 @@ const RankingCard = ({
         )}
       </S.InfoArea>
       <S.RightButton>
-        <RightButton onClick={rankerInfoClickHandler} />
+        <RightButton onClick={rankerInfoClickHandler ?? (() => push('/ranking'))} />
       </S.RightButton>
     </S.RankingCardWrapper>
   );
