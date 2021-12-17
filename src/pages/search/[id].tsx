@@ -12,6 +12,7 @@ import { PageLoading } from '@components/Shared/Loading';
 import StoreDescription from '@components/StoreDescription';
 import { Omakase, currentOmakaseQuery } from '@recoil/omakaseState';
 import { requestLike } from '@request';
+import { DEFAULT_IMAGE_WIDE_URL } from '@constants/omakase';
 
 const Detail = () => {
   const router = useRouter();
@@ -55,7 +56,11 @@ const Detail = () => {
       <Header backHandler={handleGoBack} />
       <ImageWrapper>
         <Image
-          src={omakase.image_url || '/images/default-image-wide.jpg'}
+          src={
+            omakase.image_url
+              ? `${process.env.API_ENDPOINT}${omakase.image_url}`
+              : DEFAULT_IMAGE_WIDE_URL
+          }
           alt="가게 이미지"
           layout="fill"
         />
