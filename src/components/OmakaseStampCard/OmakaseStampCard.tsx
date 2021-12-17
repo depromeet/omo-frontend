@@ -34,8 +34,10 @@ const OmakaseStampCard = ({ nickname, level, stampCount, myOmakases }: IOmakaseS
       <S.StampArea>
         {rankingAreaArray.map((_, idx) => {
           if (stampCount >= idx + 1 && myOmakases[idx]) {
-            // eslint-disable-next-line @next/next/no-img-element
-            return <img src={myOmakases[idx].photo_url} alt="photo" />;
+            return (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={`${process.env.API_ENDPOINT}${myOmakases[idx].photo_url}`} alt="photo" />
+            );
           }
 
           return <S.Stamp key={idx}>{getStampInnerText(idx)}</S.Stamp>;
