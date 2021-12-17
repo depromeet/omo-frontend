@@ -6,6 +6,7 @@ import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
 import { IMyOmakase, useMyOmakaseRecoilValue, useRefetchMyOmakases } from '@recoil/myOmakaseState';
 import { useFetchUserValue } from '@recoil/userState';
+import { DEFAULT_IMAGE_URL } from '@constants/omakase';
 
 const MyPage = () => {
   useRefetchMyOmakases();
@@ -32,7 +33,11 @@ const MyPage = () => {
               <VisitedStore
                 key={omakase.id}
                 id={omakase.id}
-                image={omakase.photo_url}
+                image={
+                  omakase.photo_url
+                    ? `${process.env.API_ENDPOINT}${omakase.photo_url}`
+                    : DEFAULT_IMAGE_URL
+                }
                 name={omakase.name}
                 date={replaceDate(omakase.create_date)}
               />
