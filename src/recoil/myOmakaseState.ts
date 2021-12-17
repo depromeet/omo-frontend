@@ -1,4 +1,4 @@
-import { isTokenOnHeader, requestMyOmakase } from '@request';
+import { requestMyOmakase } from '@request';
 import { atom, selector, useRecoilValueLoadable, useResetRecoilState } from 'recoil';
 
 export interface IMyOmakase {
@@ -18,7 +18,6 @@ const myOmakaseValue = selector({
   key: 'rankerValue',
   get: async ({ get }) => {
     get(omakaseIdState);
-    if (!isTokenOnHeader) return;
 
     try {
       const response = await requestMyOmakase();
