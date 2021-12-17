@@ -36,7 +36,11 @@ const OmakaseStampCard = ({ nickname, level, stampCount, myOmakases }: IOmakaseS
           if (stampCount >= idx + 1 && myOmakases[idx]) {
             return (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={`${process.env.API_ENDPOINT}${myOmakases[idx].photo_url}`} alt="photo" />
+              <img
+                src={`${process.env.API_ENDPOINT}${myOmakases[idx].photo_url}`}
+                alt="photo"
+                style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+              />
             );
           }
 
