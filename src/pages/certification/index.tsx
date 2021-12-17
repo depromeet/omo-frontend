@@ -17,6 +17,7 @@ import { CertificationModal } from '@components/Shared/Modal';
 import { selectedReceipt } from '@recoil/certificationState';
 import { Omakase, currentOmakaseQuery, currentOmakaseState } from '@recoil/omakaseState';
 import { requestStamp } from '@request';
+import { DEFAULT_IMAGE_LIST_URL } from '@constants/omakase';
 
 const Certification = () => {
   const { push, query } = useRouter();
@@ -67,7 +68,11 @@ const Certification = () => {
       <Header title="인증확인" backHandler={handleGoBack} />
       <CertificationMain className="container">
         <LocationChecker
-          image={omakase.image_url || '/images/default-image-list.jpg'}
+          image={
+            omakase.image_url
+              ? `${process.env.API_ENDPOINT}${omakase.image_url}`
+              : DEFAULT_IMAGE_LIST_URL
+          }
           address={omakase.address}
           name={omakase.name}
           handleClickOnReselectLocation={handleClickOnReselectLocation}

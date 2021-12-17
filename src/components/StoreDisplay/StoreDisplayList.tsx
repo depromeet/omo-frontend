@@ -7,8 +7,6 @@ import * as S from './styles';
 import { DEFAULT_IMAGE_URL } from '@constants/omakase';
 
 const StoreDisplay = ({ id, image_url, level, county, name, address }: Omakases) => {
-  image_url = image_url ? `${process.env.API_ENDPOINT}${image_url}` : DEFAULT_IMAGE_URL;
-
   return (
     <S.StoreDisplay>
       <Link href={`/search/${id}`} passHref>

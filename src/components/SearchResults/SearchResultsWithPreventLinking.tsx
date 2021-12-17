@@ -7,7 +7,7 @@ import useIntersection from '@/hooks/useIntersection';
 import SearchNoData from '@components/SearchNoData';
 import { LoadingSpinner } from '@components/Shared/Loading';
 import { StoreDisplayList } from '@components/StoreDisplay';
-import { OMAKASE_SIZE } from '@constants/omakase';
+import { DEFAULT_IMAGE_LIST_URL, OMAKASE_SIZE } from '@constants/omakase';
 import PreventLinkAction from '@lib/PreventLinkAction';
 import { Omakases, currentOmakaseList, omakaseKeywordState } from '@recoil/omakaseState';
 import { requestCheckOmakaseIsCertificated, requestOmakases } from '@request';
@@ -120,7 +120,11 @@ const SearchResultsWithPreventLinking = ({ handleClickOnReselectLocation }: Prop
             >
               <StoreDisplayList
                 id={omakase.id}
-                image_url={omakase.image_url || '/images/default-image-list.jpg'}
+                image_url={
+                  omakase.image_url
+                    ? `${process.env.API_ENDPOINT}${omakase.image_url}`
+                    : DEFAULT_IMAGE_LIST_URL
+                }
                 level={omakase.level}
                 county={omakase.county}
                 name={omakase.name}
