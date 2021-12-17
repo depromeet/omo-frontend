@@ -20,7 +20,7 @@ const Home = () => {
   const { contents: userState } = useFetchUserValue();
   const { contents: top3Rankers, state: rankerListState } = useRankerListValue(3);
   const {
-    contents: { myOmakases },
+    contents: { omakases },
   } = useMyOmakaseRecoilValue();
   const refetchUserValue = useRefetchUserValue();
   const refetchRankerList = useRefetchRankerList();
@@ -63,7 +63,7 @@ const Home = () => {
             nickname={userState.nickname}
             level={userState.level}
             stampCount={userState.stamp_count}
-            myOmakases={myOmakases ?? []}
+            myOmakases={omakases ?? []}
           />
         </MyInfoSection>
         <RankingSection>
