@@ -33,11 +33,7 @@ const MyPage = () => {
               <VisitedStore
                 key={omakase.id}
                 id={omakase.id}
-                image={
-                  omakase.photo_url
-                    ? `${process.env.API_ENDPOINT}${omakase.photo_url}`
-                    : DEFAULT_IMAGE_URL
-                }
+                image={omakase.photo_url}
                 name={omakase.name}
                 date={replaceDate(omakase.create_date)}
               />
