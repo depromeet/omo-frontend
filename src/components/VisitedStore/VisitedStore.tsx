@@ -1,3 +1,4 @@
+import { DEFAULT_IMAGE_URL } from '@constants/omakase';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -16,7 +17,11 @@ const VisitedStore = ({ id, name, image, date }: VisitedStoreProps) => {
       <Link href={`/search/${id}`} passHref>
         <a>
           <S.StoreImageWrapper>
-            <Image src={image} alt="매장 이미지 미리보기" layout="fill" />
+            <Image
+              src={image ? `${process.env.API_ENDPOINT}${image}` : DEFAULT_IMAGE_URL}
+              alt="매장 이미지 미리보기"
+              layout="fill"
+            />
           </S.StoreImageWrapper>
           <S.StoreDescriptionWrapper>
             <h1 className="store-title">{name}</h1>
