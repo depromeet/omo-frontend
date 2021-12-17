@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { RANKING_CARD_BG_COLOR, RANKING_CARD_THUMBNAIL_COLOR } from '@constants/shared';
+import { RANKING_CARD_BG_COLOR } from '@constants/shared';
 
 export const RankingCardWrapper = styled.div<{ rank: number }>`
   position: relative;
@@ -18,14 +18,11 @@ export const ProfileArea = styled.div<{ rank: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
+
   position: absolute;
-  width: 60px;
-  height: 60px;
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
-  border-radius: 50%;
-  background-color: ${({ rank }) => RANKING_CARD_THUMBNAIL_COLOR[rank]};
 `;
 
 export const RankIndicator = styled.div`
