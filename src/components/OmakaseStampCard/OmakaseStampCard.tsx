@@ -9,7 +9,7 @@ interface IOmakaseStampCard {
   nickname?: string;
   level?: number;
   stampCount: number;
-  myOmakases?: IMyOmakase[];
+  myOmakases: IMyOmakase[];
 }
 
 const OmakaseStampCard = ({ nickname, level, stampCount, myOmakases }: IOmakaseStampCard) => {

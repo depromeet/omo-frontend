@@ -13,6 +13,7 @@ import { setAccessTokenOnHeader } from '@request';
 import getObjectFromQuery from '@utils/getObjectFormQuery';
 import setRefreshTokenOnCookie from '@utils/setRefreshTokenOnCookie';
 import { useRankerListValue } from '@recoil/rankerState';
+import { useMyOmakaseRecoilValue, useRefetchMyOmakases } from '@recoil/myOmakaseState';
 
 const Home = () => {
   const { query, push } = useRouter();
@@ -20,6 +21,10 @@ const Home = () => {
   const { contents: top3Rankers, state: rankerListState } = useRankerListValue(3);
   const refetchUserValue = useRefetchUserValue();
   const refetchRankerList = useRefetchRankerList();
+  const refetchMyOmakases = useRefetchMyOmakases();
+  const {
+    contents: { myOmakases },
+  } = useMyOmakaseRecoilValue();
 
   useEffect(() => {
     if (!query.status) return;
@@ -32,6 +37,7 @@ const Home = () => {
     setRefreshTokenOnCookie(refresh);
 
     if (access) {
+      refetchMyOmakases();
       refetchUserValue(Date.now);
       refetchRankerList(Date.now);
     }
@@ -57,6 +63,7 @@ const Home = () => {
             nickname={userState.nickname}
             level={userState.level}
             stampCount={userState.stamp_count}
+            myOmakases={myOmakases ?? []}
           />
         </MyInfoSection>
         <RankingSection>
