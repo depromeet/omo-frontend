@@ -6,7 +6,6 @@ import MyProfile from '@components/MyProfile';
 import VisitedStore from '@components/VisitedStore';
 import { IMyOmakase, useMyOmakaseRecoilValue, useRefetchMyOmakases } from '@recoil/myOmakaseState';
 import { useFetchUserValue } from '@recoil/userState';
-import { DEFAULT_IMAGE_URL } from '@constants/omakase';
 
 const MyPage = () => {
   useRefetchMyOmakases();

@@ -43,12 +43,7 @@ const RankingCard = ({
                 {RANK_SUFFIX}
               </span>
             </S.ProfileBubble>
-            <Image
-              src={imageURL || '/images/default-profile.png'}
-              width={55}
-              height={55}
-              alt="default-profile"
-            />
+            <S.ProfileImage src={imageURL || '/images/default-profile.png'} />
           </>
         )}
       </S.ProfileArea>

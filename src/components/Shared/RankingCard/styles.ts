@@ -25,6 +25,16 @@ export const ProfileArea = styled.div<{ rank: number }>`
   transform: translateY(-50%);
 `;
 
+export const ProfileImage = styled.img.attrs({
+  alt: 'profile',
+})`
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+  object-position: center center;
+`;
+
 export const RankIndicator = styled.div`
   width: 52px;
   height: 32px;
