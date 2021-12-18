@@ -57,7 +57,7 @@ export const Stamp = styled.div<{ backgroundImage?: string }>`
   background-color: #eff0f6;
   color: #b0b0bb;
 
-  background-image: ${({ backgroundImage }) => (backgroundImage ? url(backgroundImage) : '')};
+  background-image: ${({ backgroundImage }) => (backgroundImage ? `url(${backgroundImage})` : '')};
   background-size: cover;
   background-position: center;
 
