@@ -48,15 +48,18 @@ export const StampArea = styled.div`
   gap: 17px 11px;
 `;
 
-export const Stamp = styled.div`
+export const Stamp = styled.div<{ backgroundImage?: string }>`
   position: relative;
   width: 100%;
   height: 0;
   padding-bottom: 100%;
   border-radius: 50%;
   background-color: #eff0f6;
-
   color: #b0b0bb;
+
+  background-image: ${({ backgroundImage }) => (backgroundImage ? url(backgroundImage) : '')};
+  background-size: cover;
+  background-position: center;
 
   span {
     ${({ theme }) => theme.fonts.contentsBold};
@@ -65,6 +68,7 @@ export const Stamp = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
   div {
     position: absolute;
     width: 24px;
