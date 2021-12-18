@@ -32,20 +32,22 @@ const OmakaseStampCard = ({ nickname, level, stampCount, myOmakases }: IOmakaseS
       </S.TitleArea>
       <S.Division />
       <S.StampArea>
-        {rankingAreaArray.map((_, idx) => {
-          if (stampCount >= idx + 1 && myOmakases[idx]) {
-            return (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={`${process.env.API_ENDPOINT}${myOmakases[idx].photo_url}`}
-                alt="photo"
-                style={{ width: '100%', height: '100%', borderRadius: '50%' }}
-              />
-            );
-          }
+        <S.Stamp>
+          {rankingAreaArray.map((_, idx) => {
+            if (stampCount >= idx + 1 && myOmakases[idx]) {
+              return (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={`${process.env.API_ENDPOINT}${myOmakases[idx].photo_url}`}
+                  alt="photo"
+                  style={{ borderRadius: '50%' }}
+                />
+              );
+            }
 
-          return <S.Stamp key={idx}>{getStampInnerText(idx)}</S.Stamp>;
-        })}
+            return getStampInnerText(idx);
+          })}
+        </S.Stamp>
       </S.StampArea>
       <S.StampButton onClick={() => push('/search')}>{STAMP_BUTTON_VALUE}</S.StampButton>
     </S.OmakaseStampCardWrapper>
